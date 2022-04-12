@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.setup
+=======================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: setup

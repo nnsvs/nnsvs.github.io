@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.acoustic_models &mdash; nnsvs 0.0.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nnsvs.postfilters" href="postfilters.html" />
+    <link rel="prev" title="nnsvs.model" href="model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> nnsvs
+          </a>
+              <div class="version">
+                0.0.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NNSVS_vs_Sinsy.html">NNSVS vs. Sinsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_server.html">Demo server (experimental)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Notes for developers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.acoustic_models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#resf0conv1dresnet">ResF0Conv1dResnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resskipf0ffconvlstm">ResSkipF0FFConvLSTM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resf0variancepredictor">ResF0VariancePredictor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>nnsvs.acoustic_models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/acoustic_models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-nnsvs.acoustic_models">
+<span id="nnsvs-acoustic-models"></span><h1>nnsvs.acoustic_models<a class="headerlink" href="#module-nnsvs.acoustic_models" title="Permalink to this headline"></a></h1>
+<section id="resf0conv1dresnet">
+<h2>ResF0Conv1dResnet<a class="headerlink" href="#resf0conv1dresnet" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResF0Conv1dResnet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResF0Conv1dResnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/acoustic_models.html#ResF0Conv1dResnet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResF0Conv1dResnet" title="Permalink to this definition"></a></dt>
+<dd><p>Conv1d + Resnet + Residual F0 prediction</p>
+<p>Residual F0 prediction is inspired by  <span id="id1">Hono <em>et al.</em> [<a class="reference internal" href="papers.html#id30" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – input dimension</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – hidden dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of layers</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of gaussians in MDN</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use dimension-wise MDN or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="resskipf0ffconvlstm">
+<h2>ResSkipF0FFConvLSTM<a class="headerlink" href="#resskipf0ffconvlstm" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResSkipF0FFConvLSTM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResSkipF0FFConvLSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">199</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/acoustic_models.html#ResSkipF0FFConvLSTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResSkipF0FFConvLSTM" title="Permalink to this definition"></a></dt>
+<dd><p>FFN + Conv1d + LSTM + residual/skip connections</p>
+<p>A model proposed in <span id="id2">Hono <em>et al.</em> [<a class="reference internal" href="papers.html#id30" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – input dimension</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – hidden dimension of feed-forward layer</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – hidden dimension of convolutional layer</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – hidden dimension of LSTM layer</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – output dimension</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>num_ls</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of layers of LSTM</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use bidirectional LSTM or not</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – minimum of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – maximum of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – index of lf0 in output features</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>skip_inputs</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use skip connection for the input features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of gaussians in MDN</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use MDN with dim-wise or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="resf0variancepredictor">
+<h2>ResF0VariancePredictor<a class="headerlink" href="#resf0variancepredictor" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResF0VariancePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResF0VariancePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/acoustic_models.html#ResF0VariancePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResF0VariancePredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Variance predictor in <span id="id3">Ren <em>et al.</em> [<a class="reference internal" href="papers.html#id52" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span> with residual F0 prediction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the input dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the hidden dimension</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the kernel size</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the index of the input LF0</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the minimum value of the input LF0</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the maximum value of the input LF0</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the index of the output LF0</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the mean value of the output LF0</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the scale value of the output LF0</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use dim-wise or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="model.html" class="btn btn-neutral float-left" title="nnsvs.model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="postfilters.html" class="btn btn-neutral float-right" title="nnsvs.postfilters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.setup\_cyclegan
+=================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: setup_cyclegan

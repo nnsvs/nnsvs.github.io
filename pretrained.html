@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.pretrained &mdash; nnsvs 0.0.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nnsvs.pretrained.create_svs_engine" href="generated/nnsvs.pretrained.create_svs_engine.html" />
+    <link rel="prev" title="Notes for developers" href="devdocs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> nnsvs
+          </a>
+              <div class="version">
+                0.0.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NNSVS_vs_Sinsy.html">NNSVS vs. Sinsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_server.html">Demo server (experimental)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Notes for developers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.pretrained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-nnsvs.pretrained">Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.pretrained.create_svs_engine.html">nnsvs.pretrained.create_svs_engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.pretrained.get_available_model_ids.html">nnsvs.pretrained.get_available_model_ids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.pretrained.retrieve_pretrained_model.html">nnsvs.pretrained.retrieve_pretrained_model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>nnsvs.pretrained</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pretrained.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="nnsvs-pretrained">
+<h1>nnsvs.pretrained<a class="headerlink" href="#nnsvs-pretrained" title="Permalink to this headline"></a></h1>
+<section id="module-nnsvs.pretrained">
+<span id="helpers"></span><h2>Helpers<a class="headerlink" href="#module-nnsvs.pretrained" title="Permalink to this headline"></a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.pretrained.create_svs_engine.html#nnsvs.pretrained.create_svs_engine" title="nnsvs.pretrained.create_svs_engine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_svs_engine</span></code></a></p></td>
+<td><p>Create SVS engine from pretrained models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/nnsvs.pretrained.get_available_model_ids.html#nnsvs.pretrained.get_available_model_ids" title="nnsvs.pretrained.get_available_model_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_available_model_ids</span></code></a></p></td>
+<td><p>Get available pretrained model names.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.pretrained.retrieve_pretrained_model.html#nnsvs.pretrained.retrieve_pretrained_model" title="nnsvs.pretrained.retrieve_pretrained_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retrieve_pretrained_model</span></code></a></p></td>
+<td><p>Retrieve pretrained model from local cache or download from GitHub.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="devdocs.html" class="btn btn-neutral float-left" title="Notes for developers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generated/nnsvs.pretrained.create_svs_engine.html" class="btn btn-neutral float-right" title="nnsvs.pretrained.create_svs_engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

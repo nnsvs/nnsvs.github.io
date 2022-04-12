@@ -1,0 +1,6 @@
+﻿nnsvs.pitch.cent\_to\_hz\_based\_c4
+===================================
+
+.. currentmodule:: nnsvs.pitch
+
+.. autofunction:: cent_to_hz_based_c4

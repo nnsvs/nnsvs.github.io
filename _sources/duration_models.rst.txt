@@ -1,0 +1,16 @@
+nnsvs.duration_models
+======================
+
+.. automodule:: nnsvs.duration_models
+
+RelDurMDN
+----------
+
+.. autoclass:: RelDurMDN
+    :members:
+
+RelDurVariancePredictor
+------------------------
+
+.. autoclass:: RelDurVariancePredictor
+    :members:

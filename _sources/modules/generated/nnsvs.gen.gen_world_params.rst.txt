@@ -1,0 +1,6 @@
+﻿nnsvs.gen.gen\_world\_params
+============================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: gen_world_params

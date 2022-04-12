@@ -1,0 +1,6 @@
+﻿nnsvs.gen.get\_windows
+======================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: get_windows

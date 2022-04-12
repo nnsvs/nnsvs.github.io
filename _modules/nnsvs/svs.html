@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.svs &mdash; nnsvs 0.0.3 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> nnsvs
+          </a>
+              <div class="version">
+                0.0.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/NNSVS_vs_Sinsy.html">NNSVS vs. Sinsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo_server.html">Demo server (experimental)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Notes for developers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>nnsvs.svs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.svs</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pysptk</span>
+<span class="kn">import</span> <span class="nn">pyworld</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">hydra.utils</span> <span class="kn">import</span> <span class="n">instantiate</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.io</span> <span class="kn">import</span> <span class="n">hts</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.postfilters</span> <span class="kn">import</span> <span class="n">merlin_post_filter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.dsp</span> <span class="kn">import</span> <span class="n">bandpass_filter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.gen</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">gen_spsvs_static_features</span><span class="p">,</span>
+    <span class="n">gen_world_params</span><span class="p">,</span>
+    <span class="n">postprocess_duration</span><span class="p">,</span>
+    <span class="n">predict_acoustic</span><span class="p">,</span>
+    <span class="n">predict_duration</span><span class="p">,</span>
+    <span class="n">predict_timelag</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">nnsvs.multistream</span> <span class="kn">import</span> <span class="n">get_static_stream_sizes</span>
+<span class="kn">from</span> <span class="nn">nnsvs.pitch</span> <span class="kn">import</span> <span class="n">lowpass_filter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.postfilters</span> <span class="kn">import</span> <span class="n">variance_scaling</span>
+<span class="kn">from</span> <span class="nn">nnsvs.util</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">OmegaConf</span>
+<span class="kn">from</span> <span class="nn">parallel_wavegan.utils</span> <span class="kn">import</span> <span class="n">load_model</span>
+
+
+<div class="viewcode-block" id="SPSVS"><a class="viewcode-back" href="../../svs.html#nnsvs.svs.SPSVS">[docs]</a><span class="k">class</span> <span class="nc">SPSVS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Statistical parametric singing voice synthesis</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This class is designed to be language-independent. Therefore,</span>
+<span class="sd">        frontend functionality such as converting musicXML to HTS labels</span>
+<span class="sd">        is not included.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_dir (str): directory of the model</span>
+<span class="sd">        device (str): cpu or cuda</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_dir</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">model_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+
+        <span class="c1"># search for config.yaml</span>
+        <span class="k">assert</span> <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;config.yaml&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+
+        <span class="c1"># qst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numeric_dict</span> <span class="o">=</span> <span class="n">hts</span><span class="o">.</span><span class="n">load_question_set</span><span class="p">(</span>
+            <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;qst.hed&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pitch_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pitch_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Time-lag model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;timelag_model.yaml&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_model</span> <span class="o">=</span> <span class="n">instantiate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">netG</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;timelag_model.pth&quot;</span><span class="p">,</span>
+            <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;state_dict&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_in_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_timelag_scaler_min.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_timelag_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_out_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_timelag_scaler_mean.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_timelag_scaler_var.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_timelag_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timelag_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="c1"># Duration model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;duration_model.yaml&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_model</span> <span class="o">=</span> <span class="n">instantiate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_config</span><span class="o">.</span><span class="n">netG</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;duration_model.pth&quot;</span><span class="p">,</span>
+            <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;state_dict&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_in_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_duration_scaler_min.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_duration_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_out_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_duration_scaler_mean.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_duration_scaler_var.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_duration_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="c1"># Acoustic model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;acoustic_model.yaml&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_model</span> <span class="o">=</span> <span class="n">instantiate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">netG</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;acoustic_model.pth&quot;</span><span class="p">,</span>
+            <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;state_dict&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_in_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_acoustic_scaler_min.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_acoustic_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_out_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_acoustic_scaler_mean.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_acoustic_scaler_var.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_acoustic_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="c1"># Post-filter</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;postfilter_model.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;postfilter_model.yaml&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span> <span class="o">=</span> <span class="n">instantiate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postfilter_config</span><span class="o">.</span><span class="n">netG</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;postfilter_model.pth&quot;</span><span class="p">,</span>
+                <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;state_dict&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_out_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_postfilter_scaler_mean.npy&quot;</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_postfilter_scaler_var.npy&quot;</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;out_postfilter_scaler_scale.npy&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Vocoder model</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;vocoder_model.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;vocoder_model.yaml&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span>
+                <span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;vocoder_model.pth&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vocoder_config</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span><span class="o">.</span><span class="n">remove_weight_norm</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder_in_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_mean.npy&quot;</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_var.npy&quot;</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_scale.npy&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">timelag_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_container</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">netG</span><span class="p">),</span>
+            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">duration_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_container</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_config</span><span class="o">.</span><span class="n">netG</span><span class="p">),</span>
+            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">acoustic_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_container</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">netG</span><span class="p">),</span>
+            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="nb">repr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Statistical parametric SVS (sampling rate: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="si">}</span><span class="s2">)</span>
+<span class="s2">Time-lag model: </span><span class="si">{</span><span class="n">timelag_str</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">Duration model: </span><span class="si">{</span><span class="n">duration_str</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">Acoustic model: </span><span class="si">{</span><span class="n">acoustic_str</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">postfilter_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_container</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postfilter_config</span><span class="o">.</span><span class="n">netG</span><span class="p">),</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">repr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Post-filter model: </span><span class="si">{</span><span class="n">postfilter_str</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">repr</span> <span class="o">+=</span> <span class="s2">&quot;Post-filter model: None</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vocoder_params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;generator_type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocoder_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">&quot;generator_type&quot;</span><span class="p">,</span> <span class="s2">&quot;ParallelWaveGANGenerator&quot;</span>  <span class="c1"># type: ignore</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;generator_params&quot;</span><span class="p">:</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_container</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">vocoder_config</span><span class="o">.</span><span class="n">generator_params</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+            <span class="n">vocoder_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="n">vocoder_params</span><span class="p">,</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">repr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Vocoder model: </span><span class="si">{</span><span class="n">vocoder_str</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">repr</span> <span class="o">+=</span> <span class="s2">&quot;Vocoder model: WORLD</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="nb">repr</span>
+
+<div class="viewcode-block" id="SPSVS.set_device"><a class="viewcode-back" href="../../svs.html#nnsvs.svs.SPSVS.set_device">[docs]</a>    <span class="k">def</span> <span class="nf">set_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set device for the TTS models</span>
+<span class="sd">        Args:</span>
+<span class="sd">            device (str): cpu or cuda.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SPSVS.svs"><a class="viewcode-back" href="../../svs.html#nnsvs.svs.SPSVS.svs">[docs]</a>    <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">svs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">labels</span><span class="p">,</span>
+        <span class="n">vocoder_type</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+        <span class="n">post_filter_type</span><span class="o">=</span><span class="s2">&quot;merlin&quot;</span><span class="p">,</span>
+        <span class="n">trajectory_smoothing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">trajectory_smoothing_cutoff</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">vuv_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">vibrato_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">return_states</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">force_fix_vuv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">post_filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Synthesize waveform given HTS-style labels</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            labels (nnmnkwii.io.HTSLabelFile): HTS-style labels</span>
+<span class="sd">            vocoder_type (str): Vocoder type. world or pwg</span>
+<span class="sd">            post_filter_type (str): Post-filter type. merlin or nnsvs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (synthesized waveform, sampling rate)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vocoder_type</span> <span class="o">=</span> <span class="n">vocoder_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">vocoder_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;pwg&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown vocoder type: </span><span class="si">{</span><span class="n">vocoder_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">post_filter_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;merlin&quot;</span><span class="p">,</span> <span class="s2">&quot;nnsvs&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown post-filter type: </span><span class="si">{</span><span class="n">post_filter_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;pwg&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sd">&quot;&quot;&quot;Pre-trained vocodr model is not found.</span>
+<span class="sd">WORLD is only supported for waveform generation&quot;&quot;&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">post_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;post_filter is deprecated. Use post_filter_type instead.&quot;</span><span class="p">)</span>
+            <span class="n">post_filter_type</span> <span class="o">=</span> <span class="s2">&quot;merlin&quot;</span> <span class="k">if</span> <span class="n">post_filter</span> <span class="k">else</span> <span class="s2">&quot;none&quot;</span>
+
+        <span class="c1"># Time-lag</span>
+        <span class="n">lag</span> <span class="o">=</span> <span class="n">predict_timelag</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timelag_model</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timelag_config</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timelag_in_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timelag_out_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numeric_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pitch_indices</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_f0_conditioning</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">timelag</span><span class="o">.</span><span class="n">allowed_range</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">timelag</span><span class="o">.</span><span class="n">allowed_range_rest</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">timelag</span><span class="o">.</span><span class="n">force_clip_input_features</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Duration predictions</span>
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">predict_duration</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration_model</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration_config</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration_in_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration_out_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numeric_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pitch_indices</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_f0_conditioning</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">force_clip_input_features</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Normalize phoneme durations</span>
+        <span class="n">duration_modified_labels</span> <span class="o">=</span> <span class="n">postprocess_duration</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">durations</span><span class="p">,</span> <span class="n">lag</span><span class="p">)</span>
+
+        <span class="c1"># Predict acoustic features</span>
+        <span class="n">acoustic_features</span> <span class="o">=</span> <span class="n">predict_acoustic</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">duration_modified_labels</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_model</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_in_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_out_scaler</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numeric_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">acoustic</span><span class="o">.</span><span class="n">subphone_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pitch_indices</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_f0_conditioning</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">acoustic</span><span class="o">.</span><span class="n">force_clip_input_features</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Learned post-filter using nnsvs</span>
+        <span class="k">if</span> <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;nnsvs&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Apply GV post-filtering as the pre-processing step</span>
+            <span class="n">static_stream_sizes</span> <span class="o">=</span> <span class="n">get_static_stream_sizes</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">mgc_end_dim</span> <span class="o">=</span> <span class="n">static_stream_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="p">:</span><span class="n">mgc_end_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">variance_scaling</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[:</span><span class="n">mgc_end_dim</span><span class="p">],</span>
+                <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="p">:</span><span class="n">mgc_end_dim</span><span class="p">],</span>
+                <span class="n">offset</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># bap</span>
+            <span class="n">bap_start_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">static_stream_sizes</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">bap_end_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">static_stream_sizes</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">variance_scaling</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">],</span>
+                <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">],</span>
+                <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Apply learned post-filter</span>
+            <span class="n">in_feats</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">acoustic_features</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">in_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">in_feats</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="n">out_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">in_feats</span><span class="p">,</span> <span class="p">[</span><span class="n">in_feats</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">acoustic_features</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">out_feats</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Generate WORLD parameters</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">gen_spsvs_static_features</span><span class="p">(</span>
+            <span class="n">duration_modified_labels</span><span class="p">,</span>
+            <span class="n">acoustic_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numeric_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">acoustic</span><span class="o">.</span><span class="n">subphone_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pitch_idx</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">frame_period</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">acoustic</span><span class="o">.</span><span class="n">relative_f0</span><span class="p">,</span>
+            <span class="n">vibrato_scale</span><span class="o">=</span><span class="n">vibrato_scale</span><span class="p">,</span>
+            <span class="n">vuv_threshold</span><span class="o">=</span><span class="n">vuv_threshold</span><span class="p">,</span>
+            <span class="n">force_fix_vuv</span><span class="o">=</span><span class="n">force_fix_vuv</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># NOTE: spectral enhancement based on the Merlin&#39;s post-filter implementation</span>
+        <span class="k">if</span> <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;merlin&quot;</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">mcepalpha</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="n">merlin_post_filter</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+
+        <span class="c1"># Remove high-frequency components of mgc/bap</span>
+        <span class="c1"># NOTE: It seems to be effective to suppress artifacts of GAN-based post-filtering</span>
+        <span class="k">if</span> <span class="n">trajectory_smoothing</span><span class="p">:</span>
+            <span class="n">modfs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">0.005</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mgc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">mgc</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+                    <span class="n">mgc</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff</span>
+                <span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">bap</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+                    <span class="n">bap</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Waveform generation by (1) WORLD or (2) neural vocoder</span>
+        <span class="k">if</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+            <span class="n">f0</span><span class="p">,</span> <span class="n">spectrogram</span><span class="p">,</span> <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">gen_world_params</span><span class="p">(</span>
+                <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">vuv_threshold</span><span class="o">=</span><span class="n">vuv_threshold</span>
+            <span class="p">)</span>
+
+            <span class="n">wav</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">synthesize</span><span class="p">(</span>
+                <span class="n">f0</span><span class="p">,</span>
+                <span class="n">spectrogram</span><span class="p">,</span>
+                <span class="n">aperiodicity</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">frame_period</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;pwg&quot;</span><span class="p">:</span>
+            <span class="c1"># NOTE: So far vocoder models are trained on binary V/UV features</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="p">(</span><span class="n">vuv</span> <span class="o">&gt;</span> <span class="n">vuv_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">voc_inp</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">vocoder_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">float</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">voc_inp</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">wav</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">wav</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">return_states</span><span class="p">:</span>
+            <span class="n">states</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;mgc&quot;</span><span class="p">:</span> <span class="n">mgc</span><span class="p">,</span>
+                <span class="s2">&quot;lf0&quot;</span><span class="p">:</span> <span class="n">lf0</span><span class="p">,</span>
+                <span class="s2">&quot;vuv&quot;</span><span class="p">:</span> <span class="n">vuv</span><span class="p">,</span>
+                <span class="s2">&quot;bap&quot;</span><span class="p">:</span> <span class="n">bap</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+                <span class="n">states</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;f0&quot;</span><span class="p">:</span> <span class="n">f0</span><span class="p">,</span>
+                        <span class="s2">&quot;spectrogram&quot;</span><span class="p">:</span> <span class="n">spectrogram</span><span class="p">,</span>
+                        <span class="s2">&quot;aperiodicity&quot;</span><span class="p">:</span> <span class="n">aperiodicity</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">wav</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">states</span>
+
+        <span class="k">return</span> <span class="n">wav</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span></div>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wav</span><span class="p">):</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">bandpass_filter</span><span class="p">(</span><span class="n">wav</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">wav</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="c1"># data is likely already in [-32768, 32767]</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="n">wav</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">wav</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="p">(</span><span class="n">wav</span> <span class="o">*</span> <span class="mf">32767.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wav</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

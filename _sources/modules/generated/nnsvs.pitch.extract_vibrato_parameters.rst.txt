@@ -1,0 +1,6 @@
+﻿nnsvs.pitch.extract\_vibrato\_parameters
+========================================
+
+.. currentmodule:: nnsvs.pitch
+
+.. autofunction:: extract_vibrato_parameters

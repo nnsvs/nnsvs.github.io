@@ -1,0 +1,6 @@
+﻿nnsvs.gen.correct\_vuv\_by\_phone
+=================================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: correct_vuv_by_phone

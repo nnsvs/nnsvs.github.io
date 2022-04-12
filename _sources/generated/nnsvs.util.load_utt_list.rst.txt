@@ -1,0 +1,6 @@
+﻿nnsvs.util.load\_utt\_list
+==========================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: load_utt_list

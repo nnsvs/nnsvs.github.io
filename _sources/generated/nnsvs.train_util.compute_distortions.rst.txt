@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.compute\_distortions
+======================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: compute_distortions

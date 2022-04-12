@@ -1,0 +1,6 @@
+﻿nnsvs.pretrained.retrieve\_pretrained\_model
+============================================
+
+.. currentmodule:: nnsvs.pretrained
+
+.. autofunction:: retrieve_pretrained_model

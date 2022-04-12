@@ -1,0 +1,6 @@
+﻿nnsvs.gen.predict\_acoustic
+===========================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: predict_acoustic

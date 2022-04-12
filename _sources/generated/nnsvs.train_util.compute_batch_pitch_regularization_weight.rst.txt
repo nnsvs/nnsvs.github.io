@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.compute\_batch\_pitch\_regularization\_weight
+===============================================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: compute_batch_pitch_regularization_weight

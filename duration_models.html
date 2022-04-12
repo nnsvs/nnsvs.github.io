@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.duration_models &mdash; nnsvs 0.0.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> nnsvs
+          </a>
+              <div class="version">
+                0.0.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NNSVS_vs_Sinsy.html">NNSVS vs. Sinsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_server.html">Demo server (experimental)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Notes for developers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>nnsvs.duration_models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/duration_models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-nnsvs.duration_models">
+<span id="nnsvs-duration-models"></span><h1>nnsvs.duration_models<a class="headerlink" href="#module-nnsvs.duration_models" title="Permalink to this headline"></a></h1>
+<section id="reldurmdn">
+<h2>RelDurMDN<a class="headerlink" href="#reldurmdn" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurMDN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.duration_models.</span></span><span class="sig-name descname"><span class="pre">RelDurMDN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dur_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dur_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurMDN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurMDN" title="Permalink to this definition"></a></dt>
+<dd><p>Relative duration prediction model based on MDN</p>
+<p>Instead of predicting phoneme durations directly, the model
+predicts relative phoneme durations per note.
+This model is inpired by <span id="id1">Zhang <em>et al.</em> [<a class="reference internal" href="papers.html#id42" title="Yongmao Zhang, Jian Cong, Heyang Xue, Lei Xie, Pengcheng Zhu, and Mengxiao Bi. Visinger: variational inference with adversarial learning for end-to-end singing voice synthesis. In ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 7237–7241. IEEE, 2022.">ZCX+22</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the type of weight initialization</p></li>
+<li><p><strong>in_note_dur_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the index of the input note duration</p></li>
+<li><p><strong>in_note_dur_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the minimum of the input note duration</p></li>
+<li><p><strong>in_note_dur_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the maximum of the input note duration</p></li>
+<li><p><strong>out_dur_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the mean of the output note duration</p></li>
+<li><p><strong>out_dur_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the scale of the output note duration</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurMDN.prediction_type">
+<span class="sig-name descname"><span class="pre">prediction_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurMDN.prediction_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurMDN.prediction_type" title="Permalink to this definition"></a></dt>
+<dd><p>Prediction type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>prediction type. Determisitic or probabilistic</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>PredictionType</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurMDN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurMDN.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurMDN.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Forward step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – the input tensor</p></li>
+<li><p><strong>lengths</strong> (<em>torch.Tensor</em>) – the lengths of the input tensor</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em>) – the optional target tensor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the output tensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurMDN.inference">
+<span class="sig-name descname"><span class="pre">inference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurMDN.inference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurMDN.inference" title="Permalink to this definition"></a></dt>
+<dd><p>Inference step</p>
+<p>Find the most likely mean and variance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – the input tensor</p></li>
+<li><p><strong>lengths</strong> (<em>torch.Tensor</em>) – the lengths of the input tensor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>mean and variance of the output features</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="reldurvariancepredictor">
+<h2>RelDurVariancePredictor<a class="headerlink" href="#reldurvariancepredictor" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurVariancePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.duration_models.</span></span><span class="sig-name descname"><span class="pre">RelDurVariancePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_note_dur_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dur_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dur_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurVariancePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurVariancePredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Relative duration prediction model based on the VariancePredictor and MDN.</p>
+<p>References: <span id="id2">Ren <em>et al.</em> [<a class="reference internal" href="papers.html#id52" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span>, <span id="id3">Zhang <em>et al.</em> [<a class="reference internal" href="papers.html#id42" title="Yongmao Zhang, Jian Cong, Heyang Xue, Lei Xie, Pengcheng Zhu, and Mengxiao Bi. Visinger: variational inference with adversarial learning for end-to-end singing voice synthesis. In ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 7237–7241. IEEE, 2022.">ZCX+22</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the kernel size of the convolutional layer</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the type of weight initialization</p></li>
+<li><p><strong>in_note_dur_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the index of the input note duration</p></li>
+<li><p><strong>in_note_dur_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the minimum of the input note duration</p></li>
+<li><p><strong>in_note_dur_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the maximum of the input note duration</p></li>
+<li><p><strong>out_dur_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the mean of the output note duration</p></li>
+<li><p><strong>out_dur_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the scale of the output note duration</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurVariancePredictor.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurVariancePredictor.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurVariancePredictor.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Forward step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – the input tensor</p></li>
+<li><p><strong>lengths</strong> (<em>torch.Tensor</em>) – the lengths of the input tensor</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em>) – the optional target tensor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the output tensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.duration_models.RelDurVariancePredictor.inference">
+<span class="sig-name descname"><span class="pre">inference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nnsvs/duration_models.html#RelDurVariancePredictor.inference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.duration_models.RelDurVariancePredictor.inference" title="Permalink to this definition"></a></dt>
+<dd><p>Inference step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – input features</p></li>
+<li><p><strong>lengths</strong> (<em>torch.Tensor</em>) – lengths of input features</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(mu, sigma) if use_mdn, (output, ) otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

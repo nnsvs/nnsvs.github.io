@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.note\_segments
+================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: note_segments

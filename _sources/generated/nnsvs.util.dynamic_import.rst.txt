@@ -1,0 +1,6 @@
+﻿nnsvs.util.dynamic\_import
+==========================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: dynamic_import

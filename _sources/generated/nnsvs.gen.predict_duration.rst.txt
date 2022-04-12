@@ -1,0 +1,6 @@
+﻿nnsvs.gen.predict\_duration
+===========================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: predict_duration

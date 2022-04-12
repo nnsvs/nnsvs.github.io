@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.collate\_fn\_random\_segments
+===============================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: collate_fn_random_segments

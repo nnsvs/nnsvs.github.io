@@ -1,0 +1,6 @@
+﻿nnsvs.gen.gen\_spsvs\_static\_features
+======================================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: gen_spsvs_static_features
