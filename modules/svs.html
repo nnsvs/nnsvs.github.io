@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.svs &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nnsvs.dsp" href="dsp.html" />
+    <link rel="prev" title="nnsvs.pretrained.retrieve_pretrained_model" href="generated/nnsvs.pretrained.retrieve_pretrained_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.svs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basesvs">BaseSVS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.svs.BaseSVS"><code class="docutils literal notranslate"><span class="pre">BaseSVS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.BaseSVS.svs"><code class="docutils literal notranslate"><span class="pre">BaseSVS.svs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#spsvs">SPSVS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.svs.SPSVS"><code class="docutils literal notranslate"><span class="pre">SPSVS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.set_device"><code class="docutils literal notranslate"><span class="pre">SPSVS.set_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.predict_timelag"><code class="docutils literal notranslate"><span class="pre">SPSVS.predict_timelag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.predict_duration"><code class="docutils literal notranslate"><span class="pre">SPSVS.predict_duration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.postprocess_duration"><code class="docutils literal notranslate"><span class="pre">SPSVS.postprocess_duration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.predict_timing"><code class="docutils literal notranslate"><span class="pre">SPSVS.predict_timing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.predict_acoustic"><code class="docutils literal notranslate"><span class="pre">SPSVS.predict_acoustic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.postprocess_acoustic"><code class="docutils literal notranslate"><span class="pre">SPSVS.postprocess_acoustic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.predict_waveform"><code class="docutils literal notranslate"><span class="pre">SPSVS.predict_waveform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.postprocess_waveform"><code class="docutils literal notranslate"><span class="pre">SPSVS.postprocess_waveform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.SPSVS.svs"><code class="docutils literal notranslate"><span class="pre">SPSVS.svs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#neutrino">NEUTRINO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.svs.NEUTRINO"><code class="docutils literal notranslate"><span class="pre">NEUTRINO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.musicxml2label"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.musicxml2label()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.get_num_phrases"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.get_num_phrases()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.get_phraselist"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.get_phraselist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.predict_acoustic"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.predict_acoustic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.predict_waveform"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.predict_waveform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.svs.NEUTRINO.svs"><code class="docutils literal notranslate"><span class="pre">NEUTRINO.svs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">nnsvs.svs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/svs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnsvs.svs">
+<span id="nnsvs-svs"></span><h1>nnsvs.svs<a class="headerlink" href="#module-nnsvs.svs" title="Link to this heading"></a></h1>
+<section id="basesvs">
+<h2>BaseSVS<a class="headerlink" href="#basesvs" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.svs.BaseSVS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.svs.</span></span><span class="sig-name descname"><span class="pre">BaseSVS</span></span><a class="reference internal" href="../_modules/nnsvs/svs.html#BaseSVS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.BaseSVS" title="Link to this definition"></a></dt>
+<dd><p>Base class for singing voice synthesis (SVS) inference</p>
+<p>All SVS engines should inherit from this class.</p>
+<p>The input of the SVS engine uses the HTS-style full-context labels.
+The output should be a tuple of raw waveform and sampling rate.
+To allow language-independent SVS, this base class does not define
+the interface for the frontend functionality such as
+converting musicXML/UST to HTS labels. The frontend processing
+should be done externally (e.g., using pysinsy or utaupy) or can
+be implemented with an optional method.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.BaseSVS.svs">
+<span class="sig-name descname"><span class="pre">svs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#BaseSVS.svs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.BaseSVS.svs" title="Link to this definition"></a></dt>
+<dd><p>Run SVS inference and returns the synthesized waveform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(waveform, sampling rate)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="spsvs">
+<h2>SPSVS<a class="headerlink" href="#spsvs" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.svs.</span></span><span class="sig-name descname"><span class="pre">SPSVS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS" title="Link to this definition"></a></dt>
+<dd><p>Statistical parametric singing voice synthesis (SPSVS)</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">svs</span></code> method for the simplest inference, or use the
+separated methods (e.g.,``predict_acoustic`` and <code class="docutils literal notranslate"><span class="pre">predict_waveform</span></code>)
+to control each components of the parametric SVS system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_dir</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – directory of the model</p></li>
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – cpu or cuda</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – verbosity level</p></li>
+</ul>
+</dd>
+</dl>
+<p>Examples:</p>
+<p>Synthesize wavefrom from a musicxml file</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pysinsy</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.io</span> <span class="kn">import</span> <span class="n">hts</span>
+<span class="kn">from</span> <span class="nn">nnsvs.pretrained</span> <span class="kn">import</span> <span class="n">retrieve_pretrained_model</span>
+<span class="kn">from</span> <span class="nn">nnsvs.svs</span> <span class="kn">import</span> <span class="n">SPSVS</span>
+<span class="kn">from</span> <span class="nn">nnsvs.util</span> <span class="kn">import</span> <span class="n">example_xml_file</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Instantiate the SVS engine</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">retrieve_pretrained_model</span><span class="p">(</span><span class="s2">&quot;r9y9/yoko_latest&quot;</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">SPSVS</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+
+<span class="c1"># Extract HTS labels from a MusicXML file</span>
+<span class="n">contexts</span> <span class="o">=</span> <span class="n">pysinsy</span><span class="o">.</span><span class="n">extract_fullcontext</span><span class="p">(</span><span class="n">example_xml_file</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;get_over&quot;</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">hts</span><span class="o">.</span><span class="n">HTSLabelFile</span><span class="o">.</span><span class="n">create_from_contexts</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
+
+<span class="c1"># Run inference</span>
+<span class="n">wav</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">svs</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="c1"># Plot the result</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">waveshow</span><span class="p">(</span><span class="n">wav</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../_images/svs-1.png" class="plot-directive" src="../_images/svs-1.png" />
+</figure>
+<p>With WORLD vocoder:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wav</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">svs</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">vocoder_type</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With a uSFGAN or SiFiGAN vocoder:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wav</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">svs</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">vocoder_type</span><span class="o">=</span><span class="s2">&quot;usfgan&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.set_device">
+<span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.set_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.set_device" title="Link to this definition"></a></dt>
+<dd><p>Set device for the SVS model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – cpu or cuda.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.predict_timelag">
+<span class="sig-name descname"><span class="pre">predict_timelag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.predict_timelag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.predict_timelag" title="Link to this definition"></a></dt>
+<dd><p>Predict time-ag from HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted time-lag.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.predict_duration">
+<span class="sig-name descname"><span class="pre">predict_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.predict_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.predict_duration" title="Link to this definition"></a></dt>
+<dd><p>Predict durations from HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted durations.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.postprocess_duration">
+<span class="sig-name descname"><span class="pre">postprocess_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_durations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.postprocess_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.postprocess_duration" title="Link to this definition"></a></dt>
+<dd><p>Post-process durations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p></li>
+<li><p><strong>pred_durations</strong> (<em>ndarray</em>) – Predicted durations.</p></li>
+<li><p><strong>lag</strong> (<em>ndarray</em>) – Predicted time-lag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>duration modified HTS labels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nnmnkwii.io.hts.HTSLabelFile</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.predict_timing">
+<span class="sig-name descname"><span class="pre">predict_timing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.predict_timing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.predict_timing" title="Link to this definition"></a></dt>
+<dd><p>Predict timing from HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>duration modified HTS labels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nnmnkwii.io.hts.HTSLabelFile</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.predict_acoustic">
+<span class="sig-name descname"><span class="pre">predict_acoustic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration_modified_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0_shift_in_cent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.predict_acoustic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.predict_acoustic" title="Link to this definition"></a></dt>
+<dd><p>Predict acoustic features from HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>duration_modified_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p></li>
+<li><p><strong>f0_shift_in_cent</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – F0 shift in cent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted acoustic features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.postprocess_acoustic">
+<span class="sig-name descname"><span class="pre">postprocess_acoustic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration_modified_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acoustic_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_filter_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff_f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_fix_vuv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_silence_to_rest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f0_shift_in_cent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.postprocess_acoustic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.postprocess_acoustic" title="Link to this definition"></a></dt>
+<dd><p>Post-process acoustic features</p>
+<p>The function converts acoustic features in single ndarray to tuple of
+multi-stream acoustic features.</p>
+<p>e.g., array -&gt; (mgc, lf0, vuv, bap)</p>
+<p>If post_filter_type=``nnsvs`` is specified, learned post-filter is applied.
+However, it is recommended to use <code class="docutils literal notranslate"><span class="pre">gv</span></code> in general.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>duration_modified_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels.</p></li>
+<li><p><strong>acoustic_features</strong> (<em>ndarray</em>) – Predicted acoustic features.</p></li>
+<li><p><strong>post_filter_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Post-filter type.
+One of <code class="docutils literal notranslate"><span class="pre">gv</span></code>, <code class="docutils literal notranslate"><span class="pre">merlin</span></code> or <code class="docutils literal notranslate"><span class="pre">nnsvs</span></code>. Recommended to use <code class="docutils literal notranslate"><span class="pre">gv</span></code>
+for general purpose.</p></li>
+<li><p><strong>trajectory_smoothing</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to apply trajectory smoothing.</p></li>
+<li><p><strong>trajectory_smoothing_cutoff</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Cutoff frequency for trajectory smoothing
+of spectral features.</p></li>
+<li><p><strong>trajectory_smoothing_cutoff_f0</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Cutoff frequency for trajectory
+smoothing of f0.</p></li>
+<li><p><strong>vuv_threshold</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – V/UV threshold.</p></li>
+<li><p><strong>force_fix_vuv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Force fix V/UV.</p></li>
+<li><p><strong>fill_silence_to_rest</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Fill silence to rest frames.</p></li>
+<li><p><strong>f0_shift_in_cent</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – F0 shift in cent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Post-processed multi-stream acoustic features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.predict_waveform">
+<span class="sig-name descname"><span class="pre">predict_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multistream_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vocoder_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'world'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.predict_waveform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.predict_waveform" title="Link to this definition"></a></dt>
+<dd><p>Predict waveform from acoustic features</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>multistream_features</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – Multi-stream acoustic features.</p></li>
+<li><p><strong>vocoder_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Vocoder type. One of <code class="docutils literal notranslate"><span class="pre">world</span></code>, <code class="docutils literal notranslate"><span class="pre">pwg</span></code> or <code class="docutils literal notranslate"><span class="pre">usfgan</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">auto</span></code> is specified, the vocoder is automatically selected.</p></li>
+<li><p><strong>vuv_threshold</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – V/UV threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted waveform.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.postprocess_waveform">
+<span class="sig-name descname"><span class="pre">postprocess_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wav</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.int16'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loudness_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_loudness=-20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.postprocess_waveform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.postprocess_waveform" title="Link to this definition"></a></dt>
+<dd><p>Post-process waveform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wav</strong> (<em>ndarray</em>) – Waveform.</p></li>
+<li><p><strong>dtype</strong> (<em>dtype</em>) – Data type of waveform.</p></li>
+<li><p><strong>peak_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to apply peak normalization.</p></li>
+<li><p><strong>loudness_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to apply loudness normalization.</p></li>
+<li><p><strong>target_loudness</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Target loudness in dB.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Post-processed waveform.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.SPSVS.svs">
+<span class="sig-name descname"><span class="pre">svs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vocoder_type='world'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_filter_type='gv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff_f0=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_threshold=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_shift=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_fix_vuv=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_silence_to_rest=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.int16'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loudness_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_loudness=-20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmented_synthesis=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#SPSVS.svs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.SPSVS.svs" title="Link to this definition"></a></dt>
+<dd><p>Synthesize waveform from HTS labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels</p></li>
+<li><p><strong>vocoder_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Vocoder type. One of <code class="docutils literal notranslate"><span class="pre">world</span></code>, <code class="docutils literal notranslate"><span class="pre">pwg</span></code> or <code class="docutils literal notranslate"><span class="pre">usfgan</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">auto</span></code> is specified, the vocoder is automatically selected.</p></li>
+<li><p><strong>post_filter_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Post-filter type. <code class="docutils literal notranslate"><span class="pre">merlin</span></code>, <code class="docutils literal notranslate"><span class="pre">gv</span></code> or <code class="docutils literal notranslate"><span class="pre">nnsvs</span></code>
+is supported.</p></li>
+<li><p><strong>trajectory_smoothing</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to smooth acoustic feature trajectory.</p></li>
+<li><p><strong>trajectory_smoothing_cutoff</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Cutoff frequency for trajectory smoothing.</p></li>
+<li><p><strong>trajectory_smoothing_cutoff_f0</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Cutoff frequency for trajectory
+smoothing of f0.</p></li>
+<li><p><strong>vuv_threshold</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Threshold for VUV.</p></li>
+<li><p><strong>style_shift</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – style shift parameter</p></li>
+<li><p><strong>force_fix_vuv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to correct VUV.</p></li>
+<li><p><strong>fill_silence_to_rest</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Fill silence to rest frames.</p></li>
+<li><p><strong>dtype</strong> (<em>np.dtype</em>) – Data type of the output waveform.</p></li>
+<li><p><strong>peak_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to normalize the waveform by peak value.</p></li>
+<li><p><strong>loudness_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to normalize the waveform by loudness.</p></li>
+<li><p><strong>target_loudness</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Target loudness in dB.</p></li>
+<li><p><strong>segmneted_synthesis</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to use segmented synthesis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="neutrino">
+<h2>NEUTRINO<a class="headerlink" href="#neutrino" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.svs.</span></span><span class="sig-name descname"><span class="pre">NEUTRINO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO" title="Link to this definition"></a></dt>
+<dd><p>NEUTRINO-like interface for singing voice synthesis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_dir</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – model directory</p></li>
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – device name</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – verbose level</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.musicxml2label">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">musicxml2label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.musicxml2label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.musicxml2label" title="Link to this definition"></a></dt>
+<dd><p>Convert musicXML to full and mono HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_file</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – musicXML file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.get_num_phrases">
+<span class="sig-name descname"><span class="pre">get_num_phrases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.get_num_phrases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.get_num_phrases" title="Link to this definition"></a></dt>
+<dd><p>Get number of phrases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS label</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of phrases</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.get_phraselist">
+<span class="sig-name descname"><span class="pre">get_phraselist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timing_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.get_phraselist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.get_phraselist" title="Link to this definition"></a></dt>
+<dd><p>Get phraselit from full and timing HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – full HTS label</p></li>
+<li><p><strong>timing_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – timing HTS label</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>phraselist</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.predict_acoustic">
+<span class="sig-name descname"><span class="pre">predict_acoustic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timing_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phrase_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_smoothing_cutoff_f0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_fix_vuv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_silence_to_rest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.predict_acoustic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.predict_acoustic" title="Link to this definition"></a></dt>
+<dd><p>Main inference of timing and acoustic predictions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – full HTS label</p></li>
+<li><p><strong>timing_labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – timing HTS label</p></li>
+<li><p><strong>style_shift</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – style shift parameter</p></li>
+<li><p><strong>phrase_num</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – phrase number to use for inference</p></li>
+<li><p><strong>trajectory_smoothing</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to apply trajectory smoothing</p></li>
+<li><p><strong>trajectory_smoothing_cutoff</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – cutoff frequency for trajectory smoothing</p></li>
+<li><p><strong>trajectory_smoothing_cutoff_f0</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – cutoff frequency for trajectory
+smoothing for f0</p></li>
+<li><p><strong>vuv_threshold</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – V/UV threshold</p></li>
+<li><p><strong>force_fix_vuv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to force fix V/UV</p></li>
+<li><p><strong>fill_silence_to_rest</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Fill silence to rest frames.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(f0, mgc, bap)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.predict_waveform">
+<span class="sig-name descname"><span class="pre">predict_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mgc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vocoder_type='world'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_threshold=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.int16'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loudness_norm=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_loudness=-20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.predict_waveform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.predict_waveform" title="Link to this definition"></a></dt>
+<dd><p>Generate waveform from acoustic features</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f0</strong> (<em>ndarray</em>) – f0</p></li>
+<li><p><strong>mgc</strong> (<em>ndarray</em>) – mel-cepstrum</p></li>
+<li><p><strong>bap</strong> (<em>ndarray</em>) – band-aperiodicity</p></li>
+<li><p><strong>vocoder_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – vocoder type</p></li>
+<li><p><strong>vuv_threshold</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – V/UV threshold</p></li>
+<li><p><strong>dtype</strong> (<em>np.dtype</em>) – Data type of the output waveform.</p></li>
+<li><p><strong>peak_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to normalize the waveform by peak value.</p></li>
+<li><p><strong>loudness_norm</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to normalize the waveform by loudness.</p></li>
+<li><p><strong>target_loudness</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Target loudness in dB.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>waveform</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnsvs.svs.NEUTRINO.svs">
+<span class="sig-name descname"><span class="pre">svs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/svs.html#NEUTRINO.svs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.svs.NEUTRINO.svs" title="Link to this definition"></a></dt>
+<dd><p>Synthesize wavefrom from HTS labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>nnmnkwii.io.hts.HTSLabelFile</em>) – HTS labels</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(waveform, sample_rate)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="generated/nnsvs.pretrained.retrieve_pretrained_model.html" class="btn btn-neutral float-left" title="nnsvs.pretrained.retrieve_pretrained_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dsp.html" class="btn btn-neutral float-right" title="nnsvs.dsp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

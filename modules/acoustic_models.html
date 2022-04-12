@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.acoustic_models &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nnsvs.postfilters" href="postfilters.html" />
+    <link rel="prev" title="nnsvs.model" href="model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.acoustic_models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sinsy-based-models">Sinsy-based models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resskipf0ffconvlstm">ResSkipF0FFConvLSTM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.ResSkipF0FFConvLSTM"><code class="docutils literal notranslate"><span class="pre">ResSkipF0FFConvLSTM</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tacotron-based-models">Tacotron-based models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nonattentivedecoder">NonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.NonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">NonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mdnnonattentivedecoder">MDNNonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.MDNNonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">MDNNonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bilstmnonattentivedecoder">BiLSTMNonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.BiLSTMNonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">BiLSTMNonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bilstmmdnnonattentivedecoder">BiLSTMMDNNonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.BiLSTMMDNNonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">BiLSTMMDNNonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tacotron-based-f0-models">Tacotron-based F0 models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resf0nonattentivedecoder">ResF0NonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.ResF0NonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">ResF0NonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mdnresf0nonattentivedecoder">MDNResF0NonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.MDNResF0NonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">MDNResF0NonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bilstmresf0nonattentivedecoder">BiLSTMResF0NonAttentiveDecoder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.BiLSTMResF0NonAttentiveDecoder"><code class="docutils literal notranslate"><span class="pre">BiLSTMResF0NonAttentiveDecoder</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multi-stream-models">Multi-stream models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multistreamseparatef0parametricmodel">MultistreamSeparateF0ParametricModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.MultistreamSeparateF0ParametricModel"><code class="docutils literal notranslate"><span class="pre">MultistreamSeparateF0ParametricModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#npssmultistreamparametricmodel">NPSSMultistreamParametricModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.NPSSMultistreamParametricModel"><code class="docutils literal notranslate"><span class="pre">NPSSMultistreamParametricModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#npssmdnmultistreamparametricmodel">NPSSMDNMultistreamParametricModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.NPSSMDNMultistreamParametricModel"><code class="docutils literal notranslate"><span class="pre">NPSSMDNMultistreamParametricModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#multistreamseparatef0melmodel">MultistreamSeparateF0MelModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.MultistreamSeparateF0MelModel"><code class="docutils literal notranslate"><span class="pre">MultistreamSeparateF0MelModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mdnmultistreamseparatef0melmodel">MDNMultistreamSeparateF0MelModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.MDNMultistreamSeparateF0MelModel"><code class="docutils literal notranslate"><span class="pre">MDNMultistreamSeparateF0MelModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-single-stream-models">Other single-stream models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resf0conv1dresnet">ResF0Conv1dResnet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.ResF0Conv1dResnet"><code class="docutils literal notranslate"><span class="pre">ResF0Conv1dResnet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resf0variancepredictor">ResF0VariancePredictor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnsvs.acoustic_models.ResF0VariancePredictor"><code class="docutils literal notranslate"><span class="pre">ResF0VariancePredictor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">nnsvs.acoustic_models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/acoustic_models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnsvs.acoustic_models">
+<span id="nnsvs-acoustic-models"></span><h1>nnsvs.acoustic_models<a class="headerlink" href="#module-nnsvs.acoustic_models" title="Link to this heading"></a></h1>
+<section id="sinsy-based-models">
+<h2>Sinsy-based models<a class="headerlink" href="#sinsy-based-models" title="Link to this heading"></a></h2>
+<section id="resskipf0ffconvlstm">
+<h3>ResSkipF0FFConvLSTM<a class="headerlink" href="#resskipf0ffconvlstm" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResSkipF0FFConvLSTM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResSkipF0FFConvLSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">199</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/sinsy.html#ResSkipF0FFConvLSTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResSkipF0FFConvLSTM" title="Link to this definition"></a></dt>
+<dd><p>FFN + Conv1d + LSTM + residual/skip connections</p>
+<p>A model proposed in <span id="id1">Hono <em>et al.</em> [<a class="reference internal" href="../papers.html#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – input dimension</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – hidden dimension of feed-forward layer</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – hidden dimension of convolutional layer</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – hidden dimension of LSTM layer</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – output dimension</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>num_ls</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of layers of LSTM</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional LSTM or not</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>skip_inputs</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use skip connection for the input features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of gaussians in MDN</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN with dim-wise or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="tacotron-based-models">
+<h2>Tacotron-based models<a class="headerlink" href="#tacotron-based-models" title="Link to this heading"></a></h2>
+<p>Duration-informed Tacotron (<span id="id2">Okamoto <em>et al.</em> [<a class="reference internal" href="../papers.html#id60" title="Takuma Okamoto, Tomoki Toda, Yoshinori Shiga, and Hisashi Kawai. Tacotron-based acoustic model using phoneme alignment for practical neural text-to-speech systems. In 2019 IEEE Automatic Speech Recognition and Understanding Workshop (ASRU), 214–221. IEEE, 2019.">OTSK19</a>]</span>) based models.</p>
+<section id="nonattentivedecoder">
+<h3>NonAttentiveDecoder<a class="headerlink" href="#nonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.NonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">NonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_noise_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron.html#NonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.NonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>Non-attentive autoregresive model based on the duration-informed Tacotron</p>
+<p>Duration-informed Tacotron <span id="id3">Okamoto <em>et al.</em> [<a class="reference internal" href="../papers.html#id60" title="Takuma Okamoto, Tomoki Toda, Yoshinori Shiga, and Hisashi Kawai. Tacotron-based acoustic model using phoneme alignment for practical neural text-to-speech systems. In 2019 IEEE Automatic Speech Recognition and Understanding Workshop (ASRU), 214–221. IEEE, 2019.">OTSK19</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>if the target features of the decoder is normalized to N(0, 1), consider
+setting the initial value carefully so that it roughly matches the value of
+silence. e.g., -4 to -10.
+<code class="docutils literal notranslate"><span class="pre">initial_value=0</span></code> works okay for large databases but I found that -4 or
+lower worked better for smaller databases such as nit-song070.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers.</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM.</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of prenet layers.</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of prenet.</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of prenet.</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Zoneout rate.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, downsampling is performed by convolution.</p></li>
+<li><p><strong>postnet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet layers.</p></li>
+<li><p><strong>postnet_channels</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet channels.</p></li>
+<li><p><strong>postnet_kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Kernel size of postnet.</p></li>
+<li><p><strong>postnet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of postnet.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Initialization type.</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, dropout is applied in evaluation.</p></li>
+<li><p><strong>initial_value</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – initial value for the autoregressive decoder.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mdnnonattentivedecoder">
+<h3>MDNNonAttentiveDecoder<a class="headerlink" href="#mdnnonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.MDNNonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">MDNNonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_noise_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/tacotron/decoder.html#MDNNonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.MDNNonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>Non-atteive decoder with MDN</p>
+<p>Each decoder step outputs the parameters of MDN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – input dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – output dimension</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of LSTM layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – hidden dimension</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of prenet layers</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – prenet hidden dimension</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – prenet dropout rate</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – zoneout rate</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – reduction factor</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use conv1d to downsample the input</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of Gaussians</p></li>
+<li><p><strong>sampling_mode</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – sampling mode</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use dropout in evaluation</p></li>
+<li><p><strong>initial_value</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – initial value for the autoregressive decoder.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="bilstmnonattentivedecoder">
+<h3>BiLSTMNonAttentiveDecoder<a class="headerlink" href="#bilstmnonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.BiLSTMNonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">BiLSTMNonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postnet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_noise_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron.html#BiLSTMNonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.BiLSTMNonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>BiLSTM-based encoder + NonAttentiveDecoder</p>
+<p>The encoder is based on the arthitecture of the Sinsy acoustic model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of feed-forward layers in the encoder.</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of convolution layers in the encoder.</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM layers in the encoder.</p></li>
+<li><p><strong>num_lstm_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers in the encoder.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers.</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM.</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of prenet layers.</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of prenet.</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of prenet.</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Zoneout rate.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, downsampling is performed by convolution.</p></li>
+<li><p><strong>postnet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet layers.</p></li>
+<li><p><strong>postnet_channels</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet channels.</p></li>
+<li><p><strong>postnet_kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Kernel size of postnet.</p></li>
+<li><p><strong>postnet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of postnet.</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Start index of phoneme features.</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – End index of phoneme features.</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Embedding dimension.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Initialization type.</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, dropout is applied in evaluation.</p></li>
+<li><p><strong>initial_value</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – initial value for the autoregressive decoder.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="bilstmmdnnonattentivedecoder">
+<h3>BiLSTMMDNNonAttentiveDecoder<a class="headerlink" href="#bilstmmdnnonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.BiLSTMMDNNonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">BiLSTMMDNNonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_noise_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron.html#BiLSTMMDNNonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.BiLSTMMDNNonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>BiLSTM-based encoder + NonAttentiveDecoder (MDN version)</p>
+<p>The encoder is based on the arthitecture of the Sinsy acoustic model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of feed-forward layers in the encoder.</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of convolution layers in the encoder.</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM layers in the encoder.</p></li>
+<li><p><strong>num_lstm_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers in the encoder.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers.</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM.</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of prenet layers.</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of prenet.</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of prenet.</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Zoneout rate.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, downsampling is performed by convolution.</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of Gaussians.</p></li>
+<li><p><strong>sampling_mode</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Sampling mode.</p></li>
+<li><p><strong>postnet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet layers.</p></li>
+<li><p><strong>postnet_channels</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of postnet channels.</p></li>
+<li><p><strong>postnet_kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Kernel size of postnet.</p></li>
+<li><p><strong>postnet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Dropout rate of postnet.</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Start index of phoneme features.</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – End index of phoneme features.</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Embedding dimension.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Initialization type.</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, dropout is applied in evaluation.</p></li>
+<li><p><strong>initial_value</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – initial value for the autoregressive decoder.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="tacotron-based-f0-models">
+<h2>Tacotron-based F0 models<a class="headerlink" href="#tacotron-based-f0-models" title="Link to this heading"></a></h2>
+<section id="resf0nonattentivedecoder">
+<h3>ResF0NonAttentiveDecoder<a class="headerlink" href="#resf0nonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResF0NonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResF0NonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled_tanh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron_f0.html#ResF0NonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResF0NonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>Duration-informed Tacotron with residual F0 prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of encoder hidden layer</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of output</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of LSTM layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of hidden layer</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of pre-net layers</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of pre-net hidden layer</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate of pre-net</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – zoneout rate</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – reduction factor</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, downsample by convolution</p></li>
+<li><p><strong>scaled_tanh</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use scaled tanh for residual F0 prediction</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use dropout in evaluation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mdnresf0nonattentivedecoder">
+<h3>MDNResF0NonAttentiveDecoder<a class="headerlink" href="#mdnresf0nonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.MDNResF0NonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">MDNResF0NonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled_tanh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron_f0.html#MDNResF0NonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.MDNResF0NonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>Duration-informed Tacotron with residual F0 prediction (MDN-version)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of encoder hidden layer</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of output</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of LSTM layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of hidden layer</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of pre-net layers</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of pre-net hidden layer</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate of pre-net</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – zoneout rate</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – reduction factor</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, downsample by convolution</p></li>
+<li><p><strong>scaled_tanh</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use scaled tanh for residual F0 prediction</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of Gaussian</p></li>
+<li><p><strong>sampling_mode</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – sampling mode</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>eval_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use dropout in evaluation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="bilstmresf0nonattentivedecoder">
+<h3>BiLSTMResF0NonAttentiveDecoder<a class="headerlink" href="#bilstmresf0nonattentivedecoder" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.BiLSTMResF0NonAttentiveDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">BiLSTMResF0NonAttentiveDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prenet_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoneout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled_tanh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/tacotron_f0.html#BiLSTMResF0NonAttentiveDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.BiLSTMResF0NonAttentiveDecoder" title="Link to this definition"></a></dt>
+<dd><p>BiLSTM-based encoder + duration-informed Tacotron with residual F0 prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of encoder hidden layer</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of feed-forward layers in the encoder.</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of convolution layers in the encoder.</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Hidden dimension of LSTM layers in the encoder.</p></li>
+<li><p><strong>num_lstm_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of LSTM layers in the encoder.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of output</p></li>
+<li><p><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of LSTM layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of hidden layer</p></li>
+<li><p><strong>prenet_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of pre-net layers</p></li>
+<li><p><strong>prenet_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – dimension of pre-net hidden layer</p></li>
+<li><p><strong>prenet_dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate of pre-net</p></li>
+<li><p><strong>zoneout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – zoneout rate</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – reduction factor</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, downsample by convolution</p></li>
+<li><p><strong>scaled_tanh</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use scaled tanh for residual F0 prediction</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if True, use mixture density network for F0 prediction</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of gaussians in MDN</p></li>
+<li><p><strong>sampling_mode</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – sampling mode in inference. “mean” or “random”</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Start index of phoneme features.</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – End index of phoneme features.</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Embedding dimension.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="multi-stream-models">
+<h2>Multi-stream models<a class="headerlink" href="#multi-stream-models" title="Link to this heading"></a></h2>
+<section id="multistreamseparatef0parametricmodel">
+<h3>MultistreamSeparateF0ParametricModel<a class="headerlink" href="#multistreamseparatef0parametricmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.MultistreamSeparateF0ParametricModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">MultistreamSeparateF0ParametricModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mgc_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bap_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vib_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vib_flags_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_rest_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_teacher_forcing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/multistream.html#MultistreamSeparateF0ParametricModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.MultistreamSeparateF0ParametricModel" title="Link to this definition"></a></dt>
+<dd><p>Multi-stream model with a separate F0 prediction model</p>
+<p>acoustic features: [MGC, LF0, VUV, BAP]</p>
+<p>vib_model and vib_flags_model are optional and will be likely to be removed.</p>
+<p>Conditional dependency:
+p(MGC, LF0, VUV, BAP <a href="#id4"><span class="problematic" id="id5">|</span></a>C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, C)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of stream sizes.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>encoder</strong> (<em>nn.Module</em>) – A shared encoder.</p></li>
+<li><p><strong>mgc_model</strong> (<em>nn.Module</em>) – MGC prediction model.</p></li>
+<li><p><strong>lf0_model</strong> (<em>nn.Module</em>) – log-F0 prediction model.</p></li>
+<li><p><strong>vuv_model</strong> (<em>nn.Module</em>) – V/UV prediction model.</p></li>
+<li><p><strong>bap_model</strong> (<em>nn.Module</em>) – BAP prediction model.</p></li>
+<li><p><strong>in_rest_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the rest symbol in the input features.</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>lf0_teacher_forcing</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to use teacher forcing for F0 prediction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="npssmultistreamparametricmodel">
+<h3>NPSSMultistreamParametricModel<a class="headerlink" href="#npssmultistreamparametricmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.NPSSMultistreamParametricModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">NPSSMultistreamParametricModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mgc_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bap_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_rest_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">51</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npss_style_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_bap_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_bap0_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_lf0_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_mgc_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/multistream.html#NPSSMultistreamParametricModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.NPSSMultistreamParametricModel" title="Link to this definition"></a></dt>
+<dd><p>NPSS-like cascaded multi-stream model with no mixture density networks.</p>
+<p>NPSS: <span id="id6">Blaauw and Bonada [<a class="reference internal" href="../papers.html#id41" title="Merlijn Blaauw and Jordi Bonada. A neural parametric singing synthesizer modeling timbre and expression from natural songs. Applied Sciences, 7(12):1313, 2017.">BB17</a>]</span></p>
+<p>Different from the original NPSS, we don’t use spectral parameters
+for the inputs of aperiodicity and V/UV prediction models.
+This is because
+(1) D4C does not use spectral parameters as input for aperiodicity estimation.
+(2) V/UV detection is done from aperiodicity at 0-3 kHz in WORLD.
+In addition, f0 and VUV models dont use MDNs.</p>
+<p>Empirically, we found the above configuration works better than the original one.</p>
+<p>Conditional dependency:
+p(MGC, LF0, VUV, BAP <a href="#id7"><span class="problematic" id="id8">|</span></a>C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, BAP, C)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of stream sizes.</p></li>
+<li><p><strong>lf0_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting log-F0.</p></li>
+<li><p><strong>mgc_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting MGC.</p></li>
+<li><p><strong>bap_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting BAP.</p></li>
+<li><p><strong>vuv_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting V/UV.</p></li>
+<li><p><strong>in_rest_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the rest symbol in the input features.</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>vuv_model_bap_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use  BAP features for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_bap0_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use only 0-th coef. of BAP
+for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_lf0_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use log-F0 features for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_mgc_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use MGC features for V/UV prediction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="npssmdnmultistreamparametricmodel">
+<h3>NPSSMDNMultistreamParametricModel<a class="headerlink" href="#npssmdnmultistreamparametricmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.NPSSMDNMultistreamParametricModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">NPSSMDNMultistreamParametricModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mgc_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bap_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_rest_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">51</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_bap_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_bap0_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_lf0_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_mgc_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/multistream.html#NPSSMDNMultistreamParametricModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.NPSSMDNMultistreamParametricModel" title="Link to this definition"></a></dt>
+<dd><p>NPSS-like cascaded multi-stream parametric model with mixture density networks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class was originally designed to be used with MDNs. However, the internal
+design was changed to make it work with non-MDN and diffusion models. For example,
+you can use non-MDN models for MGC prediction.</p>
+</div>
+<p>NPSS: <span id="id9">Blaauw and Bonada [<a class="reference internal" href="../papers.html#id41" title="Merlijn Blaauw and Jordi Bonada. A neural parametric singing synthesizer modeling timbre and expression from natural songs. Applied Sciences, 7(12):1313, 2017.">BB17</a>]</span></p>
+<p>acoustic features: [MGC, LF0, VUV, BAP]</p>
+<p>Conditional dependency:
+p(MGC, LF0, VUV, BAP <a href="#id10"><span class="problematic" id="id11">|</span></a>C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, BAP, C)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of stream sizes.</p></li>
+<li><p><strong>lf0_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting log-F0.</p></li>
+<li><p><strong>mgc_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting MGC.</p></li>
+<li><p><strong>bap_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting BAP.</p></li>
+<li><p><strong>vuv_model</strong> (<a class="reference internal" href="base.html#nnsvs.base.BaseModel" title="nnsvs.base.BaseModel"><em>BaseModel</em></a>) – Model for predicting V/UV.</p></li>
+<li><p><strong>in_rest_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the rest symbol in the input features.</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>vuv_model_bap_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use  BAP features for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_bap0_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use only 0-th coef. of BAP
+for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_lf0_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use log-F0 features for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_mgc_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use MGC features for V/UV prediction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="multistreamseparatef0melmodel">
+<h3>MultistreamSeparateF0MelModel<a class="headerlink" href="#multistreamseparatef0melmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.MultistreamSeparateF0MelModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">MultistreamSeparateF0MelModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mel_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_rest_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/multistream.html#MultistreamSeparateF0MelModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.MultistreamSeparateF0MelModel" title="Link to this definition"></a></dt>
+<dd><p>Multi-stream model with a separate F0 prediction model (mel-version)</p>
+<p>Conditional dependency:
+p(MEL, LF0, VUV|C) = p(LF0|C) p(MEL|LF0, C) p(VUV|LF0, C)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of stream sizes.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>encoder</strong> (<em>nn.Module</em>) – A shared encoder.</p></li>
+<li><p><strong>mel_model</strong> (<em>nn.Module</em>) – MEL prediction model.</p></li>
+<li><p><strong>lf0_model</strong> (<em>nn.Module</em>) – log-F0 prediction model.</p></li>
+<li><p><strong>vuv_model</strong> (<em>nn.Module</em>) – V/UV prediction model.</p></li>
+<li><p><strong>in_rest_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the rest symbol in the input features.</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mdnmultistreamseparatef0melmodel">
+<h3>MDNMultistreamSeparateF0MelModel<a class="headerlink" href="#mdnmultistreamseparatef0melmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.MDNMultistreamSeparateF0MelModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">MDNMultistreamSeparateF0MelModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mel_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf0_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_rest_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">51</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_lf0_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vuv_model_mel_conditioning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models/multistream.html#MDNMultistreamSeparateF0MelModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.MDNMultistreamSeparateF0MelModel" title="Link to this definition"></a></dt>
+<dd><p>Multi-stream model with a separate F0 model (mel-version) and mDN</p>
+<p>V/UV prediction is performed given a mel-spectrogram.</p>
+<p>Conditional dependency:
+p(MEL, LF0, VUV|C) = p(LF0|C) p(MEL|LF0, C) p(VUV|LF0, MEL, C)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class was originally designed to be used with MDNs. However, the internal
+design was changed to make it work with non-MDN and diffusion models. For example,
+you can use non-MDN models for mel prediction.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Input dimension.</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Output dimension.</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of stream sizes.</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Reduction factor.</p></li>
+<li><p><strong>encoder</strong> (<em>nn.Module</em>) – A shared encoder.</p></li>
+<li><p><strong>mel_model</strong> (<em>nn.Module</em>) – MEL prediction model.</p></li>
+<li><p><strong>lf0_model</strong> (<em>nn.Module</em>) – log-F0 prediction model.</p></li>
+<li><p><strong>vuv_model</strong> (<em>nn.Module</em>) – V/UV prediction model.</p></li>
+<li><p><strong>in_rest_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Index of the rest symbol in the input features.</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>vuv_model_lf0_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use log-F0 features for V/UV prediction.</p></li>
+<li><p><strong>vuv_model_mel_conditioning</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use mel features for V/UV prediction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="other-single-stream-models">
+<h2>Other single-stream models<a class="headerlink" href="#other-single-stream-models" title="Link to this heading"></a></h2>
+<section id="resf0conv1dresnet">
+<h3>ResF0Conv1dResnet<a class="headerlink" href="#resf0conv1dresnet" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResF0Conv1dResnet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResF0Conv1dResnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models.html#ResF0Conv1dResnet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResF0Conv1dResnet" title="Link to this definition"></a></dt>
+<dd><p>Conv1d + Resnet + Residual F0 prediction</p>
+<p>Residual F0 prediction is inspired by  <span id="id12">Hono <em>et al.</em> [<a class="reference internal" href="../papers.html#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – input dimension</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – hidden dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of layers</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in input features</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – minimum value of lf0 in the training data of input features</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – maximum value of lf0 in the training data of input features</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – index of lf0 in output features. Typically 180.</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – mean of lf0 in the training data of output features</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – scale of lf0 in the training data of output features</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of gaussians in MDN</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dimension-wise MDN or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="resf0variancepredictor">
+<h3>ResF0VariancePredictor<a class="headerlink" href="#resf0variancepredictor" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.acoustic_models.ResF0VariancePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.acoustic_models.</span></span><span class="sig-name descname"><span class="pre">ResF0VariancePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.3936276</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_lf0_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.491111</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.953093881972361</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_lf0_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23435173188961034</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/acoustic_models.html#ResF0VariancePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.acoustic_models.ResF0VariancePredictor" title="Link to this definition"></a></dt>
+<dd><p>Variance predictor in <span id="id13">Ren <em>et al.</em> [<a class="reference internal" href="../papers.html#id59" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span> with residual F0 prediction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the input dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the hidden dimension</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the kernel size</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>in_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the index of the input LF0</p></li>
+<li><p><strong>in_lf0_min</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the minimum value of the input LF0</p></li>
+<li><p><strong>in_lf0_max</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the maximum value of the input LF0</p></li>
+<li><p><strong>out_lf0_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the index of the output LF0</p></li>
+<li><p><strong>out_lf0_mean</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the mean value of the output LF0</p></li>
+<li><p><strong>out_lf0_scale</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the scale value of the output LF0</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dim-wise or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="model.html" class="btn btn-neutral float-left" title="nnsvs.model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="postfilters.html" class="btn btn-neutral float-right" title="nnsvs.postfilters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

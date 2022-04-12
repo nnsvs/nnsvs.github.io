@@ -1,0 +1,6 @@
+﻿nnsvs.pitch.nonzero\_segments
+=============================
+
+.. currentmodule:: nnsvs.pitch
+
+.. autofunction:: nonzero_segments

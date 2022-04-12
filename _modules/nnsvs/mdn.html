@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.mdn &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.mdn</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.mdn</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+
+<div class="viewcode-block" id="MDNLayer">
+<a class="viewcode-back" href="../../modules/mdn.html#nnsvs.mdn.MDNLayer">[docs]</a>
+<span class="k">class</span> <span class="nc">MDNLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixture Density Network layer</span>
+
+<span class="sd">    The input maps to the parameters of a Mixture of Gaussians (MoG) probability</span>
+<span class="sd">    distribution, where each Gaussian has out_dim dimensions and diagonal covariance.</span>
+<span class="sd">    If dim_wise is True, features for each dimension are modeld by independent 1-D GMMs</span>
+<span class="sd">    instead of modeling jointly. This would workaround training difficulty</span>
+<span class="sd">    especially for high dimensional data.</span>
+
+<span class="sd">    Implementation references:</span>
+<span class="sd">    1. Mixture Density Networks by Mike Dusenberry</span>
+<span class="sd">    https://mikedusenberry.com/mixture-density-networks</span>
+<span class="sd">    2. PRML book</span>
+<span class="sd">    https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/</span>
+<span class="sd">    3. sagelywizard/pytorch-mdn</span>
+<span class="sd">    https://github.com/sagelywizard/pytorch-mdn</span>
+<span class="sd">    4. sksq96/pytorch-mdn</span>
+<span class="sd">    https://github.com/sksq96/pytorch-mdn</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        in_dim (int): the number of dimensions in the input</span>
+<span class="sd">        out_dim (int): the number of dimensions in the output</span>
+<span class="sd">        num_gaussians (int): the number of mixture component</span>
+<span class="sd">        dim_wise (bool): whether to model data for each dimension separately</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MDNLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_gaussians</span> <span class="o">=</span> <span class="n">num_gaussians</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim_wise</span> <span class="o">=</span> <span class="n">dim_wise</span>
+
+        <span class="n">odim_log_pi</span> <span class="o">=</span> <span class="n">out_dim</span> <span class="o">*</span> <span class="n">num_gaussians</span> <span class="k">if</span> <span class="n">dim_wise</span> <span class="k">else</span> <span class="n">num_gaussians</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_pi</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">odim_log_pi</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_sigma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span> <span class="o">*</span> <span class="n">num_gaussians</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span> <span class="o">*</span> <span class="n">num_gaussians</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MDNLayer.forward">
+<a class="viewcode-back" href="../../modules/mdn.html#nnsvs.mdn.MDNLayer.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minibatch</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward for MDN</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            minibatch (torch.Tensor): tensor of shape (B, T, D_in)</span>
+<span class="sd">                B is the batch size and T is data lengths of this batch,</span>
+<span class="sd">                and D_in is in_dim.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Tensor of shape (B, T, G) or (B, T, G, D_out)</span>
+<span class="sd">                Log of mixture weights. G is num_gaussians and D_out is out_dim.</span>
+<span class="sd">            torch.Tensor: Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">                the log of standard deviation of each Gaussians.</span>
+<span class="sd">            torch.Tensor: Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">                mean of each Gaussians</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">minibatch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_wise</span><span class="p">:</span>
+            <span class="c1"># (B, T, G, D_out)</span>
+            <span class="n">log_pi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_pi</span><span class="p">(</span><span class="n">minibatch</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="n">B</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_gaussians</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+            <span class="p">)</span>
+            <span class="n">log_pi</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># (B, T, G)</span>
+            <span class="n">log_pi</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_pi</span><span class="p">(</span><span class="n">minibatch</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">log_sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_sigma</span><span class="p">(</span><span class="n">minibatch</span><span class="p">)</span>
+        <span class="n">log_sigma</span> <span class="o">=</span> <span class="n">log_sigma</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_gaussians</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span><span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">(</span><span class="n">minibatch</span><span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_gaussians</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="mdn_loss">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.mdn.mdn_loss.html#nnsvs.mdn.mdn_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">mdn_loss</span><span class="p">(</span>
+    <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">log_pi_min</span><span class="o">=-</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">log_sigma_min</span><span class="o">=-</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the error, given the MoG parameters and the target.</span>
+<span class="sd">    The loss is the negative log likelihood of the data given the MoG</span>
+<span class="sd">    parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log_pi (torch.Tensor): Tensor of shape (B, T, G) or (B, T, G, D_out)</span>
+<span class="sd">            The log of multinomial distribution of the Gaussians. B is the batch size,</span>
+<span class="sd">            T is data length of this batch, and G is num_gaussians of class MDNLayer.</span>
+<span class="sd">        log_sigma (torch.Tensor): Tensor of shape (B, T, G ,D_out)</span>
+<span class="sd">            The log standard deviation of the Gaussians. D_out is out_dim of class</span>
+<span class="sd">            MDNLayer.</span>
+<span class="sd">        mu (torch.Tensor): Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">            The means of the Gaussians.</span>
+<span class="sd">        target (torch.Tensor): Tensor of shape (B, T, D_out)</span>
+<span class="sd">            The target variables.</span>
+<span class="sd">        log_pi_min (float): Minimum value of log_pi (for numerical stability)</span>
+<span class="sd">        log_sigma_min (float): Minimum value of log_sigma (for numerical stability)</span>
+<span class="sd">        reduce: If True, the losses are averaged for each batch.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        loss (B) or (B, T): Negative Log Likelihood of Mixture Density Networks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dim_wise</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_pi</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+
+    <span class="c1"># Clip log_sigma and log_pi with log_clamp_min for numerical stability</span>
+    <span class="n">log_sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">log_sigma</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">log_sigma_min</span><span class="p">)</span>
+    <span class="n">log_pi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">log_pi_min</span><span class="p">)</span>
+
+    <span class="c1"># Expand the dim of target as (B, T, D_out) -&gt; (B, T, 1, D_out) -&gt; (B, T,G, D_out)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">expand_as</span><span class="p">(</span><span class="n">log_sigma</span><span class="p">)</span>
+
+    <span class="c1"># Center target variables and clamp them within +/- 5SD for numerical stability.</span>
+    <span class="n">centered_target</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">mu</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_sigma</span><span class="p">)</span>
+    <span class="n">edge</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">scale</span>
+    <span class="n">centered_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">centered_target</span> <span class="o">&gt;</span> <span class="n">edge</span><span class="p">,</span> <span class="n">edge</span><span class="p">,</span> <span class="n">centered_target</span><span class="p">)</span>
+    <span class="n">centered_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">centered_target</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">edge</span><span class="p">,</span> <span class="o">-</span><span class="n">edge</span><span class="p">,</span> <span class="n">centered_target</span><span class="p">)</span>
+
+    <span class="c1"># Create gaussians with mean=0 and variance=torch.exp(log_sigma)^2</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+    <span class="n">log_prob</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">centered_target</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dim_wise</span><span class="p">:</span>
+        <span class="c1"># (B, T, D_out. D_out)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">log_prob</span> <span class="o">+</span> <span class="n">log_pi</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Here we assume that the covariance matrix of multivariate Gaussian</span>
+        <span class="c1"># distribution is diagonal to handle the mean and the variance in each</span>
+        <span class="c1"># dimension separately.</span>
+        <span class="c1"># Reference:</span>
+        <span class="c1"># https://markusthill.github.io/gaussian-distribution-with-a-diagonal-covariance-matrix/</span>
+        <span class="c1"># log pi(x)N(y|mu(x),sigma(x)) = log pi(x) + log N(y|mu(x),sigma(x))</span>
+        <span class="c1"># log N(y_1,y_2,...,y_{D_out}|mu(x),sigma(x))</span>
+        <span class="c1">#  = log N(y_1|mu(x),sigma(x))...N(y_{D_out}|mu(x),sigma(x))</span>
+        <span class="c1">#  = \sum_{i=1}^{D_out} log N(y_i|mu(x),sigma(x))</span>
+        <span class="c1"># (B, T, G, D_out) -&gt; (B, T, G)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">log_prob</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">log_pi</span>
+
+    <span class="c1"># Calculate negative log likelihood.</span>
+    <span class="c1"># Use torch.log_sum_exp instead of the combination of torch.sum and torch.log</span>
+    <span class="c1"># (Reference: https://github.com/r9y9/nnsvs/pull/20#discussion_r495514563)</span>
+    <span class="c1"># if dim_wise is True: (B, T, G, D_out) -&gt; (B, T, D_out)</span>
+    <span class="c1"># else (B, T, G) -&gt; (B, T)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">logsumexp</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">reduce</span><span class="p">:</span>
+        <span class="c1"># (B, T) -&gt; (B)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># not averaged (for applying mask later)</span>
+        <span class="c1"># (B, T)</span>
+        <span class="k">return</span> <span class="n">loss</span>
+    <span class="k">return</span></div>
+
+
+
+<span class="c1"># from r9y9/wavenet_vocoder/wavenet_vocoder/mixture.py</span>
+<span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">fill_with</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="c1"># we perform one hot encore with respect to the last axis</span>
+    <span class="n">one_hot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="p">,))</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">:</span>
+        <span class="n">one_hot</span> <span class="o">=</span> <span class="n">one_hot</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+    <span class="n">one_hot</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()),</span> <span class="n">tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">fill_with</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">one_hot</span>
+
+
+<div class="viewcode-block" id="mdn_get_most_probable_sigma_and_mu">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.mdn.mdn_get_most_probable_sigma_and_mu.html#nnsvs.mdn.mdn_get_most_probable_sigma_and_mu">[docs]</a>
+<span class="k">def</span> <span class="nf">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the mean and standard deviation of the Gaussian component</span>
+<span class="sd">    whose weight coefficient is the largest as the most probable predictions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log_pi (torch.Tensor): Tensor of shape (B, T, G) or (B, T, G, D_out)</span>
+<span class="sd">            The log of multinomial distribution of the Gaussians.</span>
+<span class="sd">            B is the batch size, T is data length of this batch,</span>
+<span class="sd">            G is num_gaussians of class MDNLayer.</span>
+<span class="sd">        log_sigma (torch.Tensor): Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">            The standard deviation of the Gaussians. D_out is out_dim of class</span>
+<span class="sd">            MDNLayer.</span>
+<span class="sd">        mu (torch.Tensor): Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">            The means of the Gaussians. D_out is out_dim of class MDNLayer.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: tuple of torch.Tensor</span>
+<span class="sd">            torch.Tensor of shape (B, T, D_out). The standardd deviations</span>
+<span class="sd">            of the most probable Gaussian component.</span>
+<span class="sd">            torch.Tensor of shape (B, T, D_out). Means of the Gaussians.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dim_wise</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_pi</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">num_gaussians</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mu</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># Get the indexes of the largest log_pi</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">max_component</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># (B, T) or (B, T, C_out)</span>
+
+    <span class="c1"># Convert max_component to one_hot manner</span>
+    <span class="c1"># if dim_wise: (B, T, D_out) -&gt; (B, T, D_out, G)</span>
+    <span class="c1"># else: (B, T) -&gt; (B, T, G)</span>
+    <span class="n">one_hot</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">max_component</span><span class="p">,</span> <span class="n">num_gaussians</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dim_wise</span><span class="p">:</span>
+        <span class="c1"># (B, T, G, D_out)</span>
+        <span class="n">one_hot</span> <span class="o">=</span> <span class="n">one_hot</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">one_hot</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">mu</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Expand the dim of one_hot as  (B, T, G) -&gt; (B, T, G, d_out)</span>
+        <span class="n">one_hot</span> <span class="o">=</span> <span class="n">one_hot</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">expand_as</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+
+    <span class="c1"># Multiply one_hot and sum to get mean(mu) and standard deviation(sigma)</span>
+    <span class="c1"># of the Gaussians whose weight coefficient(log_pi) is the largest.</span>
+    <span class="c1">#  (B, T, G, d_out) -&gt; (B, T, d_out)</span>
+    <span class="n">max_mu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mu</span> <span class="o">*</span> <span class="n">one_hot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">max_sigma</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">log_sigma</span> <span class="o">*</span> <span class="n">one_hot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">max_sigma</span><span class="p">,</span> <span class="n">max_mu</span></div>
+
+
+
+<div class="viewcode-block" id="mdn_get_sample">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.mdn.mdn_get_sample.html#nnsvs.mdn.mdn_get_sample">[docs]</a>
+<span class="k">def</span> <span class="nf">mdn_get_sample</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sample from mixture of the Gaussian component whose weight coefficient is</span>
+<span class="sd">    the largest as the most probable predictions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log_pi (torch.Tensor): Tensor of shape (B, T, G) or (B, T, G, D_out)</span>
+<span class="sd">            The log of multinomial distribution of the Gaussians.</span>
+<span class="sd">            B is the batch size, T is data length of this batch,</span>
+<span class="sd">            G is num_gaussians of class MDNLayer.</span>
+<span class="sd">        log_sigma (torch.Tensor): Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">            The log of standard deviation of the Gaussians.</span>
+<span class="sd">            D_out is out_dim of class MDNLayer.</span>
+<span class="sd">        mu (torch.Tensor): Tensor of shape (B, T, G, D_out)</span>
+<span class="sd">            The means of the Gaussians. D_out is out_dim of class MDNLayer.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: Tensor of shape (B, T, D_out)</span>
+<span class="sd">            Sample from the mixture of the Gaussian component.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_sigma</span><span class="p">,</span> <span class="n">max_mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+
+    <span class="c1"># Create gaussians with mean=max_mu and variance=max_log_sigma^2</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">max_mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">max_sigma</span><span class="p">)</span>
+
+    <span class="c1"># Sample from normal distribution</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">sample</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

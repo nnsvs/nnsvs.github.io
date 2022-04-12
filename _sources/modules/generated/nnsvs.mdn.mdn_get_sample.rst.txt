@@ -1,0 +1,6 @@
+﻿nnsvs.mdn.mdn\_get\_sample
+==========================
+
+.. currentmodule:: nnsvs.mdn
+
+.. autofunction:: mdn_get_sample

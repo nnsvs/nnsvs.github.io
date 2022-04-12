@@ -1,0 +1,6 @@
+﻿nnsvs.mdn.mdn\_get\_most\_probable\_sigma\_and\_mu
+==================================================
+
+.. currentmodule:: nnsvs.mdn
+
+.. autofunction:: mdn_get_most_probable_sigma_and_mu

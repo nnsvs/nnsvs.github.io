@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.model &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nnsvs.acoustic_models" href="acoustic_models.html" />
+    <link rel="prev" title="nnsvs.base" href="base.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ffn">FFN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.FFN"><code class="docutils literal notranslate"><span class="pre">FFN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lstmrnn">LSTMRNN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.LSTMRNN"><code class="docutils literal notranslate"><span class="pre">LSTMRNN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lstmrnnsar">LSTMRNNSAR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.LSTMRNNSAR"><code class="docutils literal notranslate"><span class="pre">LSTMRNNSAR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conv1dresnet">Conv1dResnet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.Conv1dResnet"><code class="docutils literal notranslate"><span class="pre">Conv1dResnet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conv1dresnetmdn">Conv1dResnetMDN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.Conv1dResnetMDN"><code class="docutils literal notranslate"><span class="pre">Conv1dResnetMDN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conv1dresnetsar">Conv1dResnetSAR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.Conv1dResnetSAR"><code class="docutils literal notranslate"><span class="pre">Conv1dResnetSAR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mdn">MDN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.MDN"><code class="docutils literal notranslate"><span class="pre">MDN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mdnv2">MDNv2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.MDNv2"><code class="docutils literal notranslate"><span class="pre">MDNv2</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rmdn">RMDN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.RMDN"><code class="docutils literal notranslate"><span class="pre">RMDN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ffconvlstm">FFConvLSTM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.FFConvLSTM"><code class="docutils literal notranslate"><span class="pre">FFConvLSTM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lstmencoder">LSTMEncoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.LSTMEncoder"><code class="docutils literal notranslate"><span class="pre">LSTMEncoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#variancepredictor">VariancePredictor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.VariancePredictor"><code class="docutils literal notranslate"><span class="pre">VariancePredictor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transformerencoder">TransformerEncoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.model.TransformerEncoder"><code class="docutils literal notranslate"><span class="pre">TransformerEncoder</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">nnsvs.model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnsvs.model">
+<span id="nnsvs-model"></span><h1>nnsvs.model<a class="headerlink" href="#module-nnsvs.model" title="Link to this heading"></a></h1>
+<p>Generic models that can be used for time-lag/duration/acoustic models.</p>
+<section id="ffn">
+<h2>FFN<a class="headerlink" href="#ffn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.FFN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">FFN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_sigmoid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#FFN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.FFN" title="Link to this definition"></a></dt>
+<dd><p>Feed-forward network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+<li><p><strong>last_sigmoid</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to apply sigmoid on the output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="lstmrnn">
+<h2>LSTMRNN<a class="headerlink" href="#lstmrnn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.LSTMRNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">LSTMRNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#LSTMRNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.LSTMRNN" title="Link to this definition"></a></dt>
+<dd><p>LSTM-based recurrent neural network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional LSTM</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="lstmrnnsar">
+<h2>LSTMRNNSAR<a class="headerlink" href="#lstmrnnsar" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.LSTMRNNSAR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">LSTMRNNSAR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#LSTMRNNSAR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.LSTMRNNSAR" title="Link to this definition"></a></dt>
+<dd><p>LSTM-RNN with shallow AR structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional LSTM</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Stream sizes</p></li>
+<li><p><strong>ar_orders</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Filter dimensions for each stream.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conv1dresnet">
+<h2>Conv1dResnet<a class="headerlink" href="#conv1dresnet" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.Conv1dResnet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">Conv1dResnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#Conv1dResnet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.Conv1dResnet" title="Link to this definition"></a></dt>
+<dd><p>Conv1d + Resnet</p>
+<p>The model is inspired by the MelGAN’s model architecture (<span id="id1">Kumar <em>et al.</em> [<a class="reference internal" href="../papers.html#id58" title="Kundan Kumar, Rithesh Kumar, Thibault de Boissiere, Lucas Gestin, Wei Zhen Teoh, Jose Sotelo, Alexandre de Brébisson, Yoshua Bengio, and Aaron C Courville. Melgan: generative adversarial networks for conditional waveform synthesis. Advances in neural information processing systems, 2019.">KKdB+19</a>]</span>).
+MDN layer is added if use_mdn is True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians in MDN</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dim-wise or not</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the start index of phoneme identity in a hed file</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the end index of phoneme identity in a hed file</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the phoneme embedding</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conv1dresnetmdn">
+<h2>Conv1dResnetMDN<a class="headerlink" href="#conv1dresnetmdn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.Conv1dResnetMDN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">Conv1dResnetMDN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#Conv1dResnetMDN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.Conv1dResnetMDN" title="Link to this definition"></a></dt>
+<dd><p>Conv1dResnet with MDN output layer</p>
+</dd></dl>
+
+</section>
+<section id="conv1dresnetsar">
+<h2>Conv1dResnetSAR<a class="headerlink" href="#conv1dresnetsar" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.Conv1dResnetSAR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">Conv1dResnetSAR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#Conv1dResnetSAR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.Conv1dResnetSAR" title="Link to this definition"></a></dt>
+<dd><p>Conv1dResnet with shallow AR structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>stream_sizes</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Stream sizes</p></li>
+<li><p><strong>ar_orders</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Filter dimensions for each stream.</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mdn">
+<h2>MDN<a class="headerlink" href="#mdn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.MDN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">MDN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#MDN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.MDN" title="Link to this definition"></a></dt>
+<dd><p>Mixture density networks (MDN) with FFN</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is recommended to use MDNv2 instead, unless you want to
+fine-turn from a old checkpoint of MDN.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mdnv2">
+<h2>MDNv2<a class="headerlink" href="#mdnv2" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.MDNv2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">MDNv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#MDNv2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.MDNv2" title="Link to this definition"></a></dt>
+<dd><p>Mixture density networks (MDN) with FFN</p>
+<p>MDN (v1) + Dropout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rmdn">
+<h2>RMDN<a class="headerlink" href="#rmdn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.RMDN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">RMDN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#RMDN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.RMDN" title="Link to this definition"></a></dt>
+<dd><p>RNN-based mixture density networks (MDN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional LSTM</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="ffconvlstm">
+<h2>FFConvLSTM<a class="headerlink" href="#ffconvlstm" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.FFConvLSTM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">FFConvLSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">67</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lstm_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#FFConvLSTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.FFConvLSTM" title="Link to this definition"></a></dt>
+<dd><p>FFN + Conv1d + LSTM</p>
+<p>A model proposed in <span id="id2">Hono <em>et al.</em> [<a class="reference internal" href="../papers.html#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span> without residual F0 prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the input</p></li>
+<li><p><strong>ff_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state of the FFN</p></li>
+<li><p><strong>conv_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state of the conv1d</p></li>
+<li><p><strong>lstm_hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the hidden state of the LSTM</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the output</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – dropout rate</p></li>
+<li><p><strong>num_lstm_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers of the LSTM</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional LSTM</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the type of weight initialization</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dimension-wise or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the start index of phoneme identity in a hed file</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the end index of phoneme identity in a hed file</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the phoneme embedding</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="lstmencoder">
+<h2>LSTMEncoder<a class="headerlink" href="#lstmencoder" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.LSTMEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">LSTMEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#LSTMEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.LSTMEncoder" title="Link to this definition"></a></dt>
+<dd><p>LSTM encoder</p>
+<p>A simple LSTM-based encoder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the input dimension</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the hidden dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use bidirectional or not</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the initialization type</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the start index of phonetic context in a hed file</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the end index of phonetic context in a hed file</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the embedding dimension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="variancepredictor">
+<h2>VariancePredictor<a class="headerlink" href="#variancepredictor" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.VariancePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">VariancePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mdn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gaussians</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_wise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#VariancePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.VariancePredictor" title="Link to this definition"></a></dt>
+<dd><p>Variance predictor in <span id="id3">Ren <em>et al.</em> [<a class="reference internal" href="../papers.html#id59" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span>.</p>
+<p>The model is composed of stacks of Conv1d + ReLU + LayerNorm layers.
+The model can be used for duration or pitch prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the input dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the output dimension</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the hidden dimension</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the kernel size</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the initialization type</p></li>
+<li><p><strong>use_mdn</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use MDN or not</p></li>
+<li><p><strong>num_gaussians</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of gaussians</p></li>
+<li><p><strong>dim_wise</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use dim-wise or not</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the start index of phoneme identity in a hed file</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the end index of phoneme identity in a hed file</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension of the phoneme embedding</p></li>
+<li><p><strong>mask_indices</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – the input feature indices to be masked.
+e.g., specify pitch_idx to mask pitch features.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="transformerencoder">
+<h2>TransformerEncoder<a class="headerlink" href="#transformerencoder" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.model.TransformerEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.model.</span></span><span class="sig-name descname"><span class="pre">TransformerEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample_by_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_start_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_ph_end_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/model.html#TransformerEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.model.TransformerEncoder" title="Link to this definition"></a></dt>
+<dd><p>Transformer encoder</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>So far this is not well tested. Maybe be removed in the future.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the input dimension</p></li>
+<li><p><strong>out_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the output dimension</p></li>
+<li><p><strong>hidden_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the hidden dimension</p></li>
+<li><p><strong>attention_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the attention dimension</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of heads</p></li>
+<li><p><strong>num_layers</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the number of layers</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the kernel size</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the dropout rate</p></li>
+<li><p><strong>reduction_factor</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the reduction factor</p></li>
+<li><p><strong>init_type</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the initialization type</p></li>
+<li><p><strong>downsample_by_conv</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to use convolutional downsampling or not</p></li>
+<li><p><strong>in_ph_start_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the start index of phonetic context in a hed file</p></li>
+<li><p><strong>in_ph_end_idx</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the end index of phonetic context in a hed file</p></li>
+<li><p><strong>embed_dim</strong> (<a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the embedding dimension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="base.html" class="btn btn-neutral float-left" title="nnsvs.base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="acoustic_models.html" class="btn btn-neutral float-right" title="nnsvs.acoustic_models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

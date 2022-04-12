@@ -1,0 +1,6 @@
+﻿nnsvs.multistream.get\_windows
+==============================
+
+.. currentmodule:: nnsvs.multistream
+
+.. autofunction:: get_windows

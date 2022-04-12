@@ -1,0 +1,6 @@
+﻿nnsvs.multistream.split\_streams
+================================
+
+.. currentmodule:: nnsvs.multistream
+
+.. autofunction:: split_streams

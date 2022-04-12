@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.util &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nnsvs.util.example_xml_file" href="generated/nnsvs.util.example_xml_file.html" />
+    <link rel="prev" title="nnsvs.multistream.get_static_features" href="generated/nnsvs.multistream.get_static_features.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnsvs.util</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-files">Example files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.example_xml_file.html">nnsvs.util.example_xml_file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#initialization">Initialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.init_weights.html">nnsvs.util.init_weights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.init_seed.html">nnsvs.util.init_seed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multi-stream-helper">Multi-stream helper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.get_world_stream_info.html">nnsvs.util.get_world_stream_info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mask">Mask</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.make_pad_mask.html">nnsvs.util.make_pad_mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.make_non_pad_mask.html">nnsvs.util.make_non_pad_mask</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#padding">Padding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.pad_2d.html">nnsvs.util.pad_2d</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#path">Path</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.load_utt_list.html">nnsvs.util.load_utt_list</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scalers">Scalers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.util.PyTorchStandardScaler"><code class="docutils literal notranslate"><span class="pre">PyTorchStandardScaler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.util.StandardScaler"><code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnsvs.util.MinMaxScaler"><code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#misc">Misc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/nnsvs.util.dynamic_import.html">nnsvs.util.dynamic_import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">nnsvs.util</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/util.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nnsvs-util">
+<h1>nnsvs.util<a class="headerlink" href="#nnsvs-util" title="Link to this heading"></a></h1>
+<p>General utility</p>
+<section id="example-files">
+<span id="module-nnsvs.util"></span><h2>Example files<a class="headerlink" href="#example-files" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.example_xml_file.html#nnsvs.util.example_xml_file" title="nnsvs.util.example_xml_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">example_xml_file</span></code></a></p></td>
+<td><p>Get the path to an included xml file.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.init_weights.html#nnsvs.util.init_weights" title="nnsvs.util.init_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_weights</span></code></a></p></td>
+<td><p>Initialize network weights.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/nnsvs.util.init_seed.html#nnsvs.util.init_seed" title="nnsvs.util.init_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_seed</span></code></a></p></td>
+<td><p>Initialize random seed.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="multi-stream-helper">
+<h2>Multi-stream helper<a class="headerlink" href="#multi-stream-helper" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.get_world_stream_info.html#nnsvs.util.get_world_stream_info" title="nnsvs.util.get_world_stream_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_world_stream_info</span></code></a></p></td>
+<td><p>Get stream sizes for WORLD-based acoustic features</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mask">
+<h2>Mask<a class="headerlink" href="#mask" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.make_pad_mask.html#nnsvs.util.make_pad_mask" title="nnsvs.util.make_pad_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pad_mask</span></code></a></p></td>
+<td><p>Make mask tensor containing indices of padded part.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/nnsvs.util.make_non_pad_mask.html#nnsvs.util.make_non_pad_mask" title="nnsvs.util.make_non_pad_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_non_pad_mask</span></code></a></p></td>
+<td><p>Make mask tensor containing indices of non-padded part.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="padding">
+<h2>Padding<a class="headerlink" href="#padding" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.pad_2d.html#nnsvs.util.pad_2d" title="nnsvs.util.pad_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad_2d</span></code></a></p></td>
+<td><p>Pad a 2d-tensor.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="path">
+<h2>Path<a class="headerlink" href="#path" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.load_utt_list.html#nnsvs.util.load_utt_list" title="nnsvs.util.load_utt_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_utt_list</span></code></a></p></td>
+<td><p>Load a list of utterances.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scalers">
+<h2>Scalers<a class="headerlink" href="#scalers" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.util.PyTorchStandardScaler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.util.</span></span><span class="sig-name descname"><span class="pre">PyTorchStandardScaler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/util.html#PyTorchStandardScaler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.util.PyTorchStandardScaler" title="Link to this definition"></a></dt>
+<dd><p>PyTorch module for standardization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong> (<em>torch.Tensor</em>) – mean</p></li>
+<li><p><strong>scale</strong> (<em>torch.Tensor</em>) – scale</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.util.StandardScaler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.util.</span></span><span class="sig-name descname"><span class="pre">StandardScaler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/util.html#StandardScaler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.util.StandardScaler" title="Link to this definition"></a></dt>
+<dd><p>sklearn.preprocess.StandardScaler like class with only
+transform functionality</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong> (<em>np.ndarray</em>) – mean</p></li>
+<li><p><strong>var</strong> (<em>np.ndarray</em>) – variance</p></li>
+<li><p><strong>scale</strong> (<em>np.ndarray</em>) – scale</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnsvs.util.MinMaxScaler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnsvs.util.</span></span><span class="sig-name descname"><span class="pre">MinMaxScaler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nnsvs/util.html#MinMaxScaler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnsvs.util.MinMaxScaler" title="Link to this definition"></a></dt>
+<dd><p>sklearn.preprocess.MinMaxScaler like class with only
+transform functionality</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min</strong> (<em>np.ndarray</em>) – minimum</p></li>
+<li><p><strong>scale</strong> (<em>np.ndarray</em>) – scale</p></li>
+<li><p><strong>data_min</strong> (<em>np.ndarray</em>) – minimum of input data</p></li>
+<li><p><strong>data_max</strong> (<em>np.ndarray</em>) – maximum of input data</p></li>
+<li><p><strong>feature_range</strong> (<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – (min, max)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="misc">
+<h2>Misc<a class="headerlink" href="#misc" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/nnsvs.util.dynamic_import.html#nnsvs.util.dynamic_import" title="nnsvs.util.dynamic_import"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dynamic_import</span></code></a></p></td>
+<td><p>Dynamic import</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="generated/nnsvs.multistream.get_static_features.html" class="btn btn-neutral float-left" title="nnsvs.multistream.get_static_features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generated/nnsvs.util.example_xml_file.html" class="btn btn-neutral float-right" title="nnsvs.util.example_xml_file" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

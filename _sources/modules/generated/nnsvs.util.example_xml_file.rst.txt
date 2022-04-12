@@ -1,0 +1,6 @@
+﻿nnsvs.util.example\_xml\_file
+=============================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: example_xml_file

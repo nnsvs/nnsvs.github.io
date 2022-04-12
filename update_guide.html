@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update guide &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hyperparameter optimization with Optuna" href="optuna.html" />
+    <link rel="prev" title="Tips" href="tips.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Update guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-3-to-v0-1-0">v0.0.3 to v0.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hed">Hed</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train-py-data-config">train.py: data config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train-acoustic-py-data-config">train_acoustic.py: data config</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-2-to-v0-0-3">v0.0.2 to v0.0.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Hed</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-yaml">config.yaml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-sh">Run.sh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train-py-train-config">train.py: train config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">train.py: data config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train-resf0-py-train-config">train_resf0.py: train config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train-resf0-py-data-config">train_resf0.py: data config</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Update guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/update_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="update-guide">
+<h1>Update guide<a class="headerlink" href="#update-guide" title="Link to this heading"></a></h1>
+<p>This page summarizes guides when you use the updated version of NNSVS.</p>
+<section id="v0-0-3-to-v0-1-0">
+<h2>v0.0.3 to v0.1.0<a class="headerlink" href="#v0-0-3-to-v0-1-0" title="Link to this heading"></a></h2>
+<p>There are many undocumented new features and changes related to <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/150">#150</a>.
+Please check the Namine Ritsu’s recipes and relevant source code for the details.
+&#64;r9y9 may add docmentation later but it is not guraranteed.</p>
+<section id="breaking-changes">
+<h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>train_resf0.py is renamed to train_acoustic.py. Please use train_acoustic.py for training acoustic models.</p></li>
+</ul>
+</section>
+<section id="hed">
+<h3>Hed<a class="headerlink" href="#hed" title="Link to this heading"></a></h3>
+<p>NNSVS now uses the rest note information in the preprocessing and synthesis stages.
+In addition, NNSVS assumes that the rest note (or equivalent phoneme) context is on the first feature in your hed file. For example, the first feature of a JP hed file should look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QS</span> <span class="s2">&quot;C-Phone_Muon&quot;</span>     <span class="p">{</span><span class="o">*-</span><span class="n">sil</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">pau</span><span class="o">+*</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Please do make sure to have the rest note context on the top of the hed file.</p>
+<section id="models">
+<h4>Models<a class="headerlink" href="#models" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Diffusion-based acoustic models are now supported. Consider using it if quality matters than speed. <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/175">#175</a></p></li>
+<li><p>We’ve found that multi-stream models generally worked better than single-stream models. Please consider using multi-stream models. See also <a class="reference internal" href="modules/acoustic_models.html"><span class="doc">nnsvs.acoustic_models</span></a> and <a class="reference internal" href="how_to_choose_model.html"><span class="doc">How to choose model</span></a>.</p></li>
+</ul>
+</section>
+<section id="train-py-data-config">
+<h4>train.py: data config<a class="headerlink" href="#train-py-data-config" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">batch_max_frames</span></code> if specified, the batch size will be automatically adjusted to fit the specified number of frames. To allow efficient use of GPU memory, please do set this value.</p></li>
+</ul>
+</section>
+<section id="train-acoustic-py-data-config">
+<h4>train_acoustic.py: data config<a class="headerlink" href="#train-acoustic-py-data-config" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">batch_max_frames</span></code> if specified, the batch size will be automatically adjusted to fit the specified number of frames. To allow efficient use of GPU memory, please do set this value.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="v0-0-2-to-v0-0-3">
+<h2>v0.0.2 to v0.0.3<a class="headerlink" href="#v0-0-2-to-v0-0-3" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Hed<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>If your hed file does not contain QS features that specify voiced/unvoiced phonemes, consider adding them to tell NNSVS to generate stable V/UV sounds. For example, add the followings for a JP hed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QS</span> <span class="s2">&quot;C-VUV_Voiced&quot;</span> <span class="p">{</span><span class="o">*-</span><span class="n">a</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">i</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">u</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">e</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">o</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">v</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">b</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">by</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">m</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">my</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">w</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">z</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">j</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">d</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">dy</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">n</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ny</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">N</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">r</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ry</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">g</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">gy</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">y</span><span class="o">+*</span><span class="p">}</span>
+<span class="n">QS</span> <span class="s2">&quot;C-VUV_Unvoiced&quot;</span>  <span class="p">{</span><span class="o">*-</span><span class="n">A</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">I</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">U</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">E</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">O</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">f</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">p</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">py</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">s</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">sh</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ts</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ch</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">t</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ty</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">k</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ky</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">h</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">hy</span><span class="o">+*</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Then NNSVS will check the flags to correct V/UV at synthesis time by default.</p>
+<p>If your hed file contains the following QS features,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QS</span> <span class="s2">&quot;C-Phone_Yuuseion&quot;</span> <span class="p">{</span><span class="o">*-</span><span class="n">a</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">i</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">u</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">e</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">o</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">v</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">b</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">by</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">m</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">my</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">w</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">z</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">j</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">d</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">dy</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">n</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ny</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">N</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">r</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ry</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">g</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">gy</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">y</span><span class="o">+*</span><span class="p">}</span>
+<span class="n">QS</span> <span class="s2">&quot;C-Phone_Museion&quot;</span>  <span class="p">{</span><span class="o">*-</span><span class="n">A</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">I</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">U</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">E</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">O</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">f</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">p</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">py</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">s</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">sh</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ts</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ch</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">t</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ty</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">k</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">ky</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">h</span><span class="o">+*</span><span class="p">,</span><span class="o">*-</span><span class="n">hy</span><span class="o">+*</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>please rename them to <code class="docutils literal notranslate"><span class="pre">C-VUV_Voiced</span></code> and <code class="docutils literal notranslate"><span class="pre">C-VUV_Unvoiced</span></code>.</p>
+<section id="id2">
+<h4>Models<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">MDNv2</span></code> (MDN + dropout) instead of <code class="docutils literal notranslate"><span class="pre">MDN</span></code>.</p></li>
+<li><p>New parameter: All models now accept new argument <code class="docutils literal notranslate"><span class="pre">init_type</span></code> that specifies the initialization method for model parameters. Setting <code class="docutils literal notranslate"><span class="pre">init_type</span></code> to <code class="docutils literal notranslate"><span class="pre">kaiming_normal</span></code> or <code class="docutils literal notranslate"><span class="pre">xavier_normal</span></code> may improve convergence a bit for deep networks. Defaults to <code class="docutils literal notranslate"><span class="pre">none</span></code>. The implementation was taken by <a class="reference external" href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">junyanz/pytorch-CycleGAN-and-pix2pix</a>.</p></li>
+<li><p>Deprecated: <code class="docutils literal notranslate"><span class="pre">FeedForwardNet</span></code> is renamed to <code class="docutils literal notranslate"><span class="pre">FFN</span></code>.</p></li>
+<li><p>Deprecated: <code class="docutils literal notranslate"><span class="pre">ResF0Conv1dResnetMDN</span></code> is deprecated. You can use <code class="docutils literal notranslate"><span class="pre">ResF0Conv1dMDN</span></code> with <code class="docutils literal notranslate"><span class="pre">use_mdn=True</span></code>.</p></li>
+</ul>
+</section>
+<section id="config-yaml">
+<h4>config.yaml<a class="headerlink" href="#config-yaml" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">trajectory_smoothing</span></code> specifies if we apply trajectory smoothing proposed in <span id="id3">Takamichi <em>et al.</em> [<a class="reference internal" href="papers.html#id57" title="Shinnosuke Takamichi, Kazuhiro Kobayashi, Kou Tanaka, Tomoki Toda, and Satoshi Nakamura. The naist text-to-speech system for the blizzard challenge 2015. In Proc. Blizzard Challenge workshop, volume 2. Berlin, Germany, 2015.">TKT+15</a>]</span>. Default is false. It is likely to have little effects unless if you use (very experimental) learned post-filters.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">trajectory_smoothing_cutoff</span></code> specifies the cuttoff frequency for the trajectory smoothing. Default is 50 Hz. <a class="reference external" href="https://www.slideshare.net/ShinnosukeTakamichi/apsipa2017-trajectory-smoothing-for-vocoderfree-speech-synthesis">This slide</a> is useful to know the effects of the cutoff frequency.</p></li>
+<li><p>Changed: <code class="docutils literal notranslate"><span class="pre">sample_rate</span></code> became mandatory parameter while it was optional.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">*_sweeper_args</span></code> and <code class="docutils literal notranslate"><span class="pre">*_sweeper_n_trials</span></code> specifies configurations for hyperparameter optimization. See <a class="reference internal" href="optuna.html"><span class="doc">Hyperparameter optimization with Optuna</span></a> for details.</p></li>
+</ul>
+<p>Consider adding the following to enable vocoder training:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: conf/parallel_wavegan/${vocoder_model}.yaml must exist.</span>
+<span class="n">vocoder_model</span><span class="p">:</span>
+<span class="c1"># Pretrained checkpoint path for the vocoder model</span>
+<span class="c1"># NOTE: if you want to try fine-tuning, please specify the path here</span>
+<span class="n">pretrained_vocoder_checkpoint</span><span class="p">:</span>
+<span class="c1"># absolute/relative path to the checkpoint</span>
+<span class="c1"># NOTE: the checkpoint is used for synthesis and packing</span>
+<span class="c1"># This doesn&#39;t have any effect on training</span>
+<span class="n">vocoder_eval_checkpoint</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="run-sh">
+<h4>Run.sh<a class="headerlink" href="#run-sh" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Consider adding model packing stage 99. See <a class="reference internal" href="recipes.html"><span class="doc">Getting started with recipes</span></a> for details.</p></li>
+<li><p>Consider adding post-filter related steps. See <a class="reference internal" href="train_postfilters.html"><span class="doc">How to train post-filters</span></a> for details.</p></li>
+<li><p>Consider adding vocoder related steps. See <a class="reference internal" href="train_vocoders.html"><span class="doc">How to train neural vocoders with ParallelWaveGAN</span></a> for details.</p></li>
+</ul>
+</section>
+<section id="train-py-train-config">
+<h4>train.py: train config<a class="headerlink" href="#train-py-train-config" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">use_amp</span></code> specifies if we use mixed precision training or not. Default is false. If you have GPUs/CUDA that supports mixed precision training, you can get performance gain by setting it to true.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">max_train_steps</span></code> specifies maximum number of training steps (not epoch). Default is -1, which means maximum number of epochs is used to check if training is finished.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">feats_criterion</span></code> specifies where we use MSE loss or L1 loss. You can use L1 loss if you want while it was hardcoded to use MSE loss.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h4>train.py: data config<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">max_time_frames</span></code> specifies maximum number of time frames. You can set non-negative values to limit the maximum time frames for making a mini-batch. It would be useful to workaround GPU OOM issues.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">filter_long_segments</span></code> specifies if long segments are filtered or not. Consider to set it True when you have GPU OOM issues. Default is False.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">filter_num_frames</span></code> specifies the threshold for filtering long segments. Default is 6000, which means segments longer than 30 sec will not be used for training.</p></li>
+</ul>
+</section>
+<section id="train-resf0-py-train-config">
+<h4>train_resf0.py: train config<a class="headerlink" href="#train-resf0-py-train-config" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">use_amp</span></code> specifies if we use mixed precision training or not. Default is false. If you have GPUs/CUDA that supports mixed precision training, you can get performance gain by setting it to true.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">max_train_steps</span></code> specifies maximum number of training steps (not epoch). Default is -1, which means maximum number of epochs is used to check if training is finished.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">feats_criterion</span></code> specifies where we use MSE loss or L1 loss. You can use L1 loss if you want while it was hardcoded to use MSE loss.</p></li>
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">pitch_reg_decay_size</span></code> specifies the decay size for the pitch regularization. The larger the decay size, the smoother pitch transitions between notes are allowed during training. See <span id="id5">Hono <em>et al.</em> [<a class="reference internal" href="papers.html#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span> for details.</p></li>
+</ul>
+</section>
+<section id="train-resf0-py-data-config">
+<h4>train_resf0.py: data config<a class="headerlink" href="#train-resf0-py-data-config" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>New parameter: <code class="docutils literal notranslate"><span class="pre">max_time_frames</span></code> specifies maximum number of time frames. You can set non-negative values to limit the maximum time frames for making a mini-batch. It would be useful to workaround GPU OOM issues.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tips.html" class="btn btn-neutral float-left" title="Tips" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="optuna.html" class="btn btn-neutral float-right" title="Hyperparameter optimization with Optuna" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

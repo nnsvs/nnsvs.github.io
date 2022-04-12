@@ -1,0 +1,6 @@
+﻿nnsvs.pitch.gen\_sine\_vibrato
+==============================
+
+.. currentmodule:: nnsvs.pitch
+
+.. autofunction:: gen_sine_vibrato

@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.model &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">nnsvs.base</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">PredictionType</span>
+<span class="kn">from</span> <span class="nn">nnsvs.dsp</span> <span class="kn">import</span> <span class="n">TrTimeInvFIRFilter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.layers.conv</span> <span class="kn">import</span> <span class="n">ResnetBlock</span><span class="p">,</span> <span class="n">WNConv1d</span>
+<span class="kn">from</span> <span class="nn">nnsvs.layers.layer_norm</span> <span class="kn">import</span> <span class="n">LayerNorm</span>
+<span class="kn">from</span> <span class="nn">nnsvs.mdn</span> <span class="kn">import</span> <span class="n">MDNLayer</span><span class="p">,</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span>
+<span class="kn">from</span> <span class="nn">nnsvs.multistream</span> <span class="kn">import</span> <span class="n">split_streams</span>
+<span class="kn">from</span> <span class="nn">nnsvs.transformer.attentions</span> <span class="kn">import</span> <span class="n">sequence_mask</span>
+<span class="kn">from</span> <span class="nn">nnsvs.transformer.encoder</span> <span class="kn">import</span> <span class="n">Encoder</span> <span class="k">as</span> <span class="n">_TransformerEncoder</span>
+<span class="kn">from</span> <span class="nn">nnsvs.util</span> <span class="kn">import</span> <span class="n">init_weights</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="kn">import</span> <span class="n">pack_padded_sequence</span><span class="p">,</span> <span class="n">pad_packed_sequence</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ExtractFromInput&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FFN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LSTMRNN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LSTMRNNSAR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MDN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MDNv2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RMDN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Conv1dResnet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Conv1dResnetMDN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Conv1dResnetSAR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FFConvLSTM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LSTMEncoder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;VariancePredictor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TransformerEncoder&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">ExtractFromInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a part of input</span>
+
+<span class="sd">    This class doesn&#39;t have any learnable parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_idx (int): the start index of the input</span>
+<span class="sd">        end_idx (int): the end index of the input</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_idx</span> <span class="o">=</span> <span class="n">start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_idx</span> <span class="o">=</span> <span class="n">end_idx</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass&quot;&quot;&quot;</span>
+        <span class="c1"># x: (B, T, C)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_idx</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_idx</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Conv1dResnet">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.Conv1dResnet">[docs]</a>
+<span class="k">class</span> <span class="nc">Conv1dResnet</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conv1d + Resnet</span>
+
+<span class="sd">    The model is inspired by the MelGAN&#39;s model architecture (:cite:t:`kumar2019melgan`).</span>
+<span class="sd">    MDN layer is added if use_mdn is True.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">        use_mdn (bool): whether to use MDN or not</span>
+<span class="sd">        num_gaussians (int): the number of gaussians in MDN</span>
+<span class="sd">        dim_wise (bool): whether to use dim-wise or not</span>
+<span class="sd">        in_ph_start_idx (int): the start index of phoneme identity in a hed file</span>
+<span class="sd">        in_ph_end_idx (int): the end index of phoneme identity in a hed file</span>
+<span class="sd">        embed_dim (int): the dimension of the phoneme embedding</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">use_mdn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">in_ph_start_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_ph_end_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span> <span class="o">=</span> <span class="n">use_mdn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span> <span class="o">=</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_end_idx</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span> <span class="o">-</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+
+        <span class="k">if</span> <span class="s2">&quot;dropout&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;dropout argument in Conv1dResnet is deprecated&quot;</span>
+                <span class="s2">&quot; and will be removed in future versions&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">in_dim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="n">conv_in_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">conv_in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReflectionPad1d</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">WNConv1d</span><span class="p">(</span><span class="n">conv_in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ResnetBlock</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="n">n</span><span class="p">))</span>
+
+        <span class="n">last_conv_out_dim</span> <span class="o">=</span> <span class="n">hidden_dim</span> <span class="k">if</span> <span class="n">use_mdn</span> <span class="k">else</span> <span class="n">out_dim</span>
+        <span class="n">model</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReflectionPad1d</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">WNConv1d</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">last_conv_out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mdn_layer</span> <span class="o">=</span> <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+                <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+                <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mdn_layer</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span>
+            <span class="k">else</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">DETERMINISTIC</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x_first</span><span class="p">,</span> <span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">x_last</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">x_ph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Make sure to have one-hot vector</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">x_ph_onehot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x_ph</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_first</span><span class="p">,</span> <span class="n">x_last</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mdn_layer</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance if use_mdn is True</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+            <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span></div>
+
+
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">_shallow_ar_inference</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="p">,</span> <span class="n">analysis_filts</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">torchaudio.functional</span> <span class="kn">import</span> <span class="n">lfilter</span>
+
+    <span class="n">out_streams</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="p">)</span>
+    <span class="c1"># back to conv1d friendly (B, C, T) format</span>
+    <span class="n">out_streams</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">out_streams</span><span class="p">)</span>
+
+    <span class="n">out_syn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sidx</span><span class="p">,</span> <span class="n">os</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">out_streams</span><span class="p">):</span>
+        <span class="n">out_stream_syn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">os</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">analysis_filts</span><span class="p">[</span><span class="n">sidx</span><span class="p">]</span><span class="o">.</span><span class="n">get_filt_coefs</span><span class="p">()</span>
+        <span class="c1"># apply IIR filter for each dimiesion</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="c1"># NOTE: scipy.signal.lfilter accespts b, a in order,</span>
+            <span class="c1"># but torchaudio expect the oppsite; a, b in order</span>
+            <span class="n">ai</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">bi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">ai</span><span class="p">)</span>
+            <span class="n">bi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">out_stream_syn</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">os</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">clamp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">out_syn</span> <span class="o">+=</span> <span class="p">[</span><span class="n">out_stream_syn</span><span class="p">]</span>
+
+    <span class="n">out_syn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">out_syn</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_syn</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Conv1dResnetSAR">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.Conv1dResnetSAR">[docs]</a>
+<span class="k">class</span> <span class="nc">Conv1dResnetSAR</span><span class="p">(</span><span class="n">Conv1dResnet</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conv1dResnet with shallow AR structure</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        stream_sizes (list): Stream sizes</span>
+<span class="sd">        ar_orders (list): Filter dimensions for each stream.</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ar_orders</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">in_dim</span><span class="o">=</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">num_layers</span><span class="o">=</span><span class="n">num_layers</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;dropout&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;dropout argument in Conv1dResnetSAR is deprecated&quot;</span>
+                <span class="s2">&quot; and will be removed in future versions&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ar_orders</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ar_orders</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">K</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">,</span> <span class="n">ar_orders</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">TrTimeInvFIRFilter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">preprocess_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ys</span><span class="p">):</span>
+            <span class="n">ys</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span><span class="p">[</span><span class="n">idx</span><span class="p">](</span><span class="n">yi</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_shallow_ar_inference</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="FFN">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.FFN">[docs]</a>
+<span class="k">class</span> <span class="nc">FFN</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Feed-forward network</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">        last_sigmoid (bool): whether to apply sigmoid on the output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">last_sigmoid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FFN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_sigmoid</span> <span class="o">=</span> <span class="n">last_sigmoid</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_linear</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">hl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">hl</span><span class="p">(</span><span class="n">h</span><span class="p">)))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_linear</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_sigmoid</span> <span class="k">else</span> <span class="n">out</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<span class="c1"># For compatibility</span>
+<span class="n">FeedForwardNet</span> <span class="o">=</span> <span class="n">FFN</span>
+
+
+<div class="viewcode-block" id="LSTMRNN">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.LSTMRNN">[docs]</a>
+<span class="k">class</span> <span class="nc">LSTMRNN</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LSTM-based recurrent neural network</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        bidirectional (bool): whether to use bidirectional LSTM</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LSTMRNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">hidden_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_direction</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">bidirectional</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">in_dim</span><span class="p">,</span>
+            <span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="n">bidirectional</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden2out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_direction</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden2out</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="LSTMRNNSAR">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.LSTMRNNSAR">[docs]</a>
+<span class="k">class</span> <span class="nc">LSTMRNNSAR</span><span class="p">(</span><span class="n">LSTMRNN</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LSTM-RNN with shallow AR structure</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        bidirectional (bool): whether to use bidirectional LSTM</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        stream_sizes (list): Stream sizes</span>
+<span class="sd">        ar_orders (list): Filter dimensions for each stream.</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ar_orders</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">bidirectional</span><span class="p">,</span> <span class="n">dropout</span><span class="p">,</span> <span class="n">init_type</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ar_orders</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ar_orders</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">K</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">,</span> <span class="n">ar_orders</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">TrTimeInvFIRFilter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">preprocess_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ys</span><span class="p">):</span>
+            <span class="n">ys</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span><span class="p">[</span><span class="n">idx</span><span class="p">](</span><span class="n">yi</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_shallow_ar_inference</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_filts</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RMDN">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.RMDN">[docs]</a>
+<span class="k">class</span> <span class="nc">RMDN</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RNN-based mixture density networks (MDN)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        bidirectional (bool): whether to use bidirectional LSTM</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        num_gaussians (int): the number of gaussians</span>
+<span class="sd">        dim_wise (bool): whether to use dimension-wise or not</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RMDN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_direction</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">bidirectional</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="n">bidirectional</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mdn</span> <span class="o">=</span> <span class="n">MDNLayer</span><span class="p">(</span>
+            <span class="n">in_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_direction</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+            <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+            <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mdn</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span></div>
+
+
+
+<div class="viewcode-block" id="MDN">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.MDN">[docs]</a>
+<span class="k">class</span> <span class="nc">MDN</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixture density networks (MDN) with FFN</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        It is recommended to use MDNv2 instead, unless you want to</span>
+<span class="sd">        fine-turn from a old checkpoint of MDN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        num_gaussians (int): the number of gaussians</span>
+<span class="sd">        dim_wise (bool): whether to use dimension-wise or not</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MDN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;dropout&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;dropout argument in MDN is deprecated&quot;</span>
+                <span class="s2">&quot; and will be removed in future versions&quot;</span>
+            <span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">num_layers</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">model</span> <span class="o">+=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()]</span>
+        <span class="n">model</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+                <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+                <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span></div>
+
+
+
+<div class="viewcode-block" id="MDNv2">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.MDNv2">[docs]</a>
+<span class="k">class</span> <span class="nc">MDNv2</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixture density networks (MDN) with FFN</span>
+
+<span class="sd">    MDN (v1) + Dropout</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        hidden_dim (int): the dimension of the hidden state</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        num_gaussians (int): the number of gaussians</span>
+<span class="sd">        dim_wise (bool): whether to use dimension-wise or not</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MDNv2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">num_layers</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">model</span> <span class="o">+=</span> <span class="p">[</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">),</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+                <span class="p">]</span>
+        <span class="n">model</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+                <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+                <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span></div>
+
+
+
+<div class="viewcode-block" id="Conv1dResnetMDN">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.Conv1dResnetMDN">[docs]</a>
+<span class="k">class</span> <span class="nc">Conv1dResnetMDN</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conv1dResnet with MDN output layer&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s2">&quot;dropout&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;dropout argument in Conv1dResnet is deprecated&quot;</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Conv1dResnet</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">in_dim</span><span class="p">,</span>
+                <span class="n">hidden_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">num_layers</span><span class="o">=</span><span class="n">num_layers</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+                <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+                <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span></div>
+
+
+
+<div class="viewcode-block" id="FFConvLSTM">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.FFConvLSTM">[docs]</a>
+<span class="k">class</span> <span class="nc">FFConvLSTM</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;FFN + Conv1d + LSTM</span>
+
+<span class="sd">    A model proposed in :cite:t:`hono2021sinsy` without residual F0 prediction.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the dimension of the input</span>
+<span class="sd">        ff_hidden_dim (int): the dimension of the hidden state of the FFN</span>
+<span class="sd">        conv_hidden_dim (int): the dimension of the hidden state of the conv1d</span>
+<span class="sd">        lstm_hidden_dim (int): the dimension of the hidden state of the LSTM</span>
+<span class="sd">        out_dim (int): the dimension of the output</span>
+<span class="sd">        dropout (float): dropout rate</span>
+<span class="sd">        num_lstm_layers (int): the number of layers of the LSTM</span>
+<span class="sd">        bidirectional (bool): whether to use bidirectional LSTM</span>
+<span class="sd">        init_type (str): the type of weight initialization</span>
+<span class="sd">        use_mdn (bool): whether to use MDN or not</span>
+<span class="sd">        dim_wise (bool): whether to use dimension-wise or not</span>
+<span class="sd">        num_gaussians (int): the number of gaussians</span>
+<span class="sd">        in_ph_start_idx (int): the start index of phoneme identity in a hed file</span>
+<span class="sd">        in_ph_end_idx (int): the end index of phoneme identity in a hed file</span>
+<span class="sd">        embed_dim (int): the dimension of the phoneme embedding</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">ff_hidden_dim</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
+        <span class="n">conv_hidden_dim</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+        <span class="n">lstm_hidden_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="o">=</span><span class="mi">67</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">num_lstm_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">use_mdn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">in_ph_start_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_ph_end_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">enforce_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span> <span class="o">=</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_end_idx</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span> <span class="o">-</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span> <span class="o">=</span> <span class="n">use_mdn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enforce_sorted</span> <span class="o">=</span> <span class="n">enforce_sorted</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">in_dim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="n">ff_in_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ff_in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ff_in_dim</span><span class="p">,</span> <span class="n">ff_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ff_hidden_dim</span><span class="p">,</span> <span class="n">ff_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ff_hidden_dim</span><span class="p">,</span> <span class="n">ff_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReflectionPad1d</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">ff_hidden_dim</span><span class="p">,</span> <span class="n">conv_hidden_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">conv_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReflectionPad1d</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">conv_hidden_dim</span><span class="p">,</span> <span class="n">conv_hidden_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">conv_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReflectionPad1d</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">conv_hidden_dim</span><span class="p">,</span> <span class="n">conv_hidden_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">conv_hidden_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+        <span class="n">num_direction</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">bidirectional</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">conv_hidden_dim</span><span class="p">,</span>
+            <span class="n">lstm_hidden_dim</span><span class="p">,</span>
+            <span class="n">num_lstm_layers</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">last_in_dim</span> <span class="o">=</span> <span class="n">num_direction</span> <span class="o">*</span> <span class="n">lstm_hidden_dim</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">dim_wise</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="o">=</span><span class="n">last_in_dim</span><span class="p">,</span>
+                <span class="n">out_dim</span><span class="o">=</span><span class="n">out_dim</span><span class="p">,</span>
+                <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span>
+                <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">last_in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span>
+            <span class="k">else</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">DETERMINISTIC</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x_first</span><span class="p">,</span> <span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">x_last</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">x_ph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Make sure to have one-hot vector</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">x_ph_onehot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x_ph</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_first</span><span class="p">,</span> <span class="n">x_last</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span>
+            <span class="n">out</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enforce_sorted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enforce_sorted</span>
+        <span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">total_length</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+            <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="VariancePredictor">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.VariancePredictor">[docs]</a>
+<span class="k">class</span> <span class="nc">VariancePredictor</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Variance predictor in :cite:t:`ren2020fastspeech`.</span>
+
+<span class="sd">    The model is composed of stacks of Conv1d + ReLU + LayerNorm layers.</span>
+<span class="sd">    The model can be used for duration or pitch prediction.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the input dimension</span>
+<span class="sd">        out_dim (int): the output dimension</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        hidden_dim (int): the hidden dimension</span>
+<span class="sd">        kernel_size (int): the kernel size</span>
+<span class="sd">        dropout (float): the dropout rate</span>
+<span class="sd">        init_type (str): the initialization type</span>
+<span class="sd">        use_mdn (bool): whether to use MDN or not</span>
+<span class="sd">        num_gaussians (int): the number of gaussians</span>
+<span class="sd">        dim_wise (bool): whether to use dim-wise or not</span>
+<span class="sd">        in_ph_start_idx (int): the start index of phoneme identity in a hed file</span>
+<span class="sd">        in_ph_end_idx (int): the end index of phoneme identity in a hed file</span>
+<span class="sd">        embed_dim (int): the dimension of the phoneme embedding</span>
+<span class="sd">        mask_indices (list): the input feature indices to be masked.</span>
+<span class="sd">            e.g., specify pitch_idx to mask pitch features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">use_mdn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">num_gaussians</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">dim_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">in_ph_start_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_ph_end_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">mask_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span> <span class="o">=</span> <span class="n">use_mdn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span> <span class="o">=</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_end_idx</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span> <span class="o">-</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span> <span class="o">=</span> <span class="n">use_mdn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_indices</span> <span class="o">=</span> <span class="n">mask_indices</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">in_dim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="n">in_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+
+        <span class="n">conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+            <span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_dim</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">hidden_dim</span>
+            <span class="n">conv</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span>
+                        <span class="n">in_channels</span><span class="p">,</span>
+                        <span class="n">hidden_dim</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="p">,</span>
+                        <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                    <span class="n">LayerNorm</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">conv</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mdn_layer</span> <span class="o">=</span> <span class="n">MDNLayer</span><span class="p">(</span>
+                <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">num_gaussians</span><span class="o">=</span><span class="n">num_gaussians</span><span class="p">,</span> <span class="n">dim_wise</span><span class="o">=</span><span class="n">dim_wise</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span>
+            <span class="k">else</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">DETERMINISTIC</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward step</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+<span class="sd">            y (torch.Tensor): the optional target tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: the output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Masking specified features</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_indices</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x_first</span><span class="p">,</span> <span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">x_last</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">x_ph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Make sure to have one-hot vector</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">x_ph_onehot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x_ph</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_first</span><span class="p">,</span> <span class="n">x_last</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mdn_layer</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference step</span>
+
+<span class="sd">        Find the most likely mean and variance if use_mdn is True</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): the input tensor</span>
+<span class="sd">            lengths (torch.Tensor): the lengths of the input tensor</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: mean and variance of the output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_mdn</span><span class="p">:</span>
+            <span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+            <span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="n">mdn_get_most_probable_sigma_and_mu</span><span class="p">(</span><span class="n">log_pi</span><span class="p">,</span> <span class="n">log_sigma</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="LSTMEncoder">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.LSTMEncoder">[docs]</a>
+<span class="k">class</span> <span class="nc">LSTMEncoder</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LSTM encoder</span>
+
+<span class="sd">    A simple LSTM-based encoder</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the input dimension</span>
+<span class="sd">        hidden_dim (int): the hidden dimension</span>
+<span class="sd">        out_dim (int): the output dimension</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        bidirectional (bool): whether to use bidirectional or not</span>
+<span class="sd">        dropout (float): the dropout rate</span>
+<span class="sd">        init_type (str): the initialization type</span>
+<span class="sd">        in_ph_start_idx (int): the start index of phonetic context in a hed file</span>
+<span class="sd">        in_ph_end_idx (int): the end index of phonetic context in a hed file</span>
+<span class="sd">        embed_dim (int): the embedding dimension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">in_ph_start_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_ph_end_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">enforce_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LSTMEncoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span> <span class="o">=</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_end_idx</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span> <span class="o">-</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enforce_sorted</span> <span class="o">=</span> <span class="n">enforce_sorted</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">in_dim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="n">lstm_in_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lstm_in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="n">num_direction</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">bidirectional</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">lstm_in_dim</span><span class="p">,</span>
+            <span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="n">bidirectional</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden2out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_direction</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+        <span class="n">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x_first</span><span class="p">,</span> <span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">x_last</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">x_ph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Make sure to have one-hot vector</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">x_ph_onehot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x_ph</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_first</span><span class="p">,</span> <span class="n">x_last</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enforce_sorted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enforce_sorted</span>
+        <span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">total_length</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden2out</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="TransformerEncoder">
+<a class="viewcode-back" href="../../modules/model.html#nnsvs.model.TransformerEncoder">[docs]</a>
+<span class="k">class</span> <span class="nc">TransformerEncoder</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer encoder</span>
+
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        So far this is not well tested. Maybe be removed in the future.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): the input dimension</span>
+<span class="sd">        out_dim (int): the output dimension</span>
+<span class="sd">        hidden_dim (int): the hidden dimension</span>
+<span class="sd">        attention_dim (int): the attention dimension</span>
+<span class="sd">        num_heads (int): the number of heads</span>
+<span class="sd">        num_layers (int): the number of layers</span>
+<span class="sd">        kernel_size (int): the kernel size</span>
+<span class="sd">        dropout (float): the dropout rate</span>
+<span class="sd">        reduction_factor (int): the reduction factor</span>
+<span class="sd">        init_type (str): the initialization type</span>
+<span class="sd">        downsample_by_conv (bool): whether to use convolutional downsampling or not</span>
+<span class="sd">        in_ph_start_idx (int): the start index of phonetic context in a hed file</span>
+<span class="sd">        in_ph_end_idx (int): the end index of phonetic context in a hed file</span>
+<span class="sd">        embed_dim (int): the embedding dimension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">,</span>
+        <span class="n">hidden_dim</span><span class="p">,</span>
+        <span class="n">attention_dim</span><span class="p">,</span>
+        <span class="n">num_heads</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">downsample_by_conv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">in_ph_start_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_ph_end_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span> <span class="o">=</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_end_idx</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">=</span> <span class="n">in_ph_end_idx</span> <span class="o">-</span> <span class="n">in_ph_start_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">in_dim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">_TransformerEncoder</span><span class="p">(</span>
+            <span class="n">hidden_channels</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">filter_channels</span><span class="o">=</span><span class="n">attention_dim</span><span class="p">,</span>
+            <span class="n">n_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span>
+            <span class="n">n_layers</span><span class="o">=</span><span class="n">num_layers</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span>
+            <span class="n">p_dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc_out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_dim</span> <span class="o">*</span> <span class="n">reduction_factor</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reduction_factor</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">downsample_by_conv</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv_downsample</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span>
+                <span class="n">in_dim</span><span class="p">,</span>
+                <span class="n">in_dim</span><span class="p">,</span>
+                <span class="n">kernel_size</span><span class="o">=</span><span class="n">reduction_factor</span><span class="p">,</span>
+                <span class="n">stride</span><span class="o">=</span><span class="n">reduction_factor</span><span class="p">,</span>
+                <span class="n">groups</span><span class="o">=</span><span class="n">in_dim</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv_downsample</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_out</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">init_weights</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">init_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): input tensor</span>
+<span class="sd">            lengths (torch.Tensor): input sequence lengths</span>
+<span class="sd">            y (torch.Tensor): target tensor (optional)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: output tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x_first</span><span class="p">,</span> <span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">x_last</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_vocab</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_ph_start_idx</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">x_ph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x_ph_onehot</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Make sure to have one-hot vector</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">x_ph_onehot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x_ph</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_in</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_first</span><span class="p">,</span> <span class="n">x_last</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Adjust lengths based on the reduction factor</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">lengths</span> <span class="o">=</span> <span class="p">(</span><span class="n">lengths</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_downsample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_downsample</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">::</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span><span class="p">]</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># (B, T, C) -&gt; (B, C, T)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x_mask</span> <span class="o">=</span> <span class="n">sequence_mask</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x_mask</span><span class="p">,</span> <span class="n">x_mask</span><span class="p">)</span>
+
+        <span class="c1"># (B, C, T) -&gt; (B, T, C)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_out</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span></div>
+
+
+
+<span class="c1"># For backward compatibility</span>
+
+
+<span class="k">def</span> <span class="nf">ResF0Conv1dResnet</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nnsvs.acoustic_models</span> <span class="kn">import</span> <span class="n">ResF0Conv1dResnet</span>
+
+    <span class="k">return</span> <span class="n">ResF0Conv1dResnet</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ResF0Conv1dResnetMDN</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nnsvs.acoustic_models</span> <span class="kn">import</span> <span class="n">ResF0Conv1dResnetMDN</span>
+
+    <span class="k">return</span> <span class="n">ResF0Conv1dResnetMDN</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ResF0VariancePredictor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nnsvs.acoustic_models</span> <span class="kn">import</span> <span class="n">ResF0VariancePredictor</span>
+
+    <span class="k">return</span> <span class="n">ResF0VariancePredictor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ResSkipF0FFConvLSTM</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nnsvs.acoustic_models</span> <span class="kn">import</span> <span class="n">ResSkipF0FFConvLSTM</span>
+
+    <span class="k">return</span> <span class="n">ResSkipF0FFConvLSTM</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

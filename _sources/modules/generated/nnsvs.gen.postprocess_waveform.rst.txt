@@ -1,0 +1,6 @@
+﻿nnsvs.gen.postprocess\_waveform
+===============================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: postprocess_waveform

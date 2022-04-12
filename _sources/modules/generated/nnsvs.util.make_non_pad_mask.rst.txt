@@ -1,0 +1,6 @@
+﻿nnsvs.util.make\_non\_pad\_mask
+===============================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: make_non_pad_mask

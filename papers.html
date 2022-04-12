@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Papers &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Change log" href="changelog.html" />
+    <link rel="prev" title="Useful links" href="links.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Papers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parametric-svs">Parametric SVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#towards-end-to-end-svs">Towards end-to-end SVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#f0-modeling">F0 modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vibrato-modeling">Vibrato modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-filters">Post-filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tts">TTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vocoder">Vocoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neural-vocoders">Neural vocoders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-bibliography">All bibliography</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Papers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/papers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="papers">
+<h1>Papers<a class="headerlink" href="#papers" title="Link to this heading"></a></h1>
+<section id="parametric-svs">
+<h2>Parametric SVS<a class="headerlink" href="#parametric-svs" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id1">Zhuang <em>et al.</em> [<a class="reference internal" href="#id50" title="Xiaobin Zhuang, Tao Jiang, Szu-Yu Chou, Bin Wu, Peng Hu, and Simon Lui. Litesing: towards fast, lightweight and expressive singing voice synthesis. In Proc. ICASSP, 7078–7082. 2021.">ZJC+21</a>]</span></p></li>
+<li><p><span id="id2">Hono <em>et al.</em> [<a class="reference internal" href="#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span></p></li>
+<li><p><span id="id3">Zhuang <em>et al.</em> [<a class="reference internal" href="#id50" title="Xiaobin Zhuang, Tao Jiang, Szu-Yu Chou, Bin Wu, Peng Hu, and Simon Lui. Litesing: towards fast, lightweight and expressive singing voice synthesis. In Proc. ICASSP, 7078–7082. 2021.">ZJC+21</a>]</span></p></li>
+<li><p><span id="id4">Hono <em>et al.</em> [<a class="reference internal" href="#id36" title="Yukiya Hono, Shumma Murata, Kazuhiro Nakamura, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Recent development of the dnn-based singing voice synthesis system—sinsy. In Proc. APSIPA, 1003–1009. IEEE, 2018.">HMN+18</a>]</span></p></li>
+<li><p><span id="id5">Bonada and Blaauw [<a class="reference internal" href="#id66" title="Jordi Bonada and Merlijn Blaauw. Recent advances in our neural parametric singing synthesizer. 2018.">BB18</a>]</span></p></li>
+<li><p><span id="id6">Blaauw and Bonada [<a class="reference internal" href="#id41" title="Merlijn Blaauw and Jordi Bonada. A neural parametric singing synthesizer modeling timbre and expression from natural songs. Applied Sciences, 7(12):1313, 2017.">BB17</a>]</span></p></li>
+<li><p><span id="id7">Oura <em>et al.</em> [<a class="reference internal" href="#id35" title="Keiichiro Oura, Ayami Mase, Tomohiko Yamada, Satoru Muto, Yoshihiko Nankaku, and Keiichi Tokuda. Recent development of the hmm-based singing voice synthesis system—sinsy. In Proc. SSW. 2010.">OMY+10</a>]</span></p></li>
+<li><p><span id="id8">Lu <em>et al.</em> [<a class="reference internal" href="#id44" title="Peiling Lu, Jie Wu, Jian Luan, Xu Tan, and Li Zhou. Xiaoicesing: a high-quality and integrated singing voice synthesis system. arXiv preprint arXiv:2006.06261, 2020.">LWL+20</a>]</span></p></li>
+<li><p><span id="id9">Saino <em>et al.</em> [<a class="reference internal" href="#id45" title="Keijiro Saino, Heiga Zen, Yoshihiko Nankaku, Akinobu Lee, and Keiichi Tokuda. An hmm-based singing voice synthesis system. In Ninth International Conference on Spoken Language Processing. 2006.">SZN+06</a>]</span></p></li>
+</ul>
+</section>
+<section id="towards-end-to-end-svs">
+<h2>Towards end-to-end SVS<a class="headerlink" href="#towards-end-to-end-svs" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id10">Zhang <em>et al.</em> [<a class="reference internal" href="#id49" title="Yongmao Zhang, Jian Cong, Heyang Xue, Lei Xie, Pengcheng Zhu, and Mengxiao Bi. Visinger: variational inference with adversarial learning for end-to-end singing voice synthesis. In ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 7237–7241. IEEE, 2022.">ZCX+22</a>]</span></p></li>
+<li><p><span id="id11">Liu <em>et al.</em> [<a class="reference internal" href="#id65" title="Jinglin Liu, Chengxi Li, Yi Ren, Feiyang Chen, Peng Liu, and Zhou Zhao. Diffsinger: singing voice synthesis via shallow diffusion mechanism. arXiv preprint arXiv:2105.02446, 2021.">LLR+21</a>]</span></p></li>
+<li><p><span id="id12">Gu <em>et al.</em> [<a class="reference internal" href="#id47" title="Yu Gu, Xiang Yin, Yonghui Rao, Yuan Wan, Benlai Tang, Yang Zhang, Jitong Chen, Yuxuan Wang, and Zejun Ma. Bytesing: a chinese singing voice synthesis system using duration allocated encoder-decoder acoustic models and wavernn vocoders. In Proc. ISCSLP, 1–5. IEEE, 2021.">GYR+21</a>]</span></p></li>
+<li><p><span id="id13">Chen <em>et al.</em> [<a class="reference internal" href="#id48" title="Jiawei Chen, Xu Tan, Jian Luan, Tao Qin, and Tie-Yan Liu. Hifisinger: towards high-fidelity neural singing voice synthesis. arXiv preprint arXiv:2009.01776, 2020.">CTL+20</a>]</span></p></li>
+</ul>
+</section>
+<section id="f0-modeling">
+<h2>F0 modeling<a class="headerlink" href="#f0-modeling" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id14">Wang <em>et al.</em> [<a class="reference internal" href="#id40" title="Xin Wang, Shinji Takaki, and Junichi Yamagishi. Autoregressive neural f0 model for statistical parametric speech synthesis. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 26(8):1406–1419, 2018.">WTY18</a>]</span></p></li>
+</ul>
+</section>
+<section id="vibrato-modeling">
+<h2>Vibrato modeling<a class="headerlink" href="#vibrato-modeling" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id15">山田知彦 <em>et al.</em> [<a class="reference internal" href="#id38" title="山田知彦, 武藤聡, 南角吉彦, 酒向慎司, 徳田恵一, and others. Hmm に基づく歌声合成のためのビブラートモデル化. 研究報告音楽情報科学 (MUS), 2009(5):1–6, 2009.">+09</a>]</span></p></li>
+<li><p><span id="id16">Nakano <em>et al.</em> [<a class="reference internal" href="#id39" title="Tomoyasu Nakano, Masataka Goto, and Yuzuru Hiraga. An automatic singing skill evaluation method for unknown melodies using pitch interval accuracy and vibrato features. In Proc. Interspeech, 1706–1709. 2006.">NGH06</a>]</span></p></li>
+</ul>
+</section>
+<section id="post-filters">
+<h2>Post-filters<a class="headerlink" href="#post-filters" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id17">Kaneko <em>et al.</em> [<a class="reference internal" href="#id42" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech. August 2017.">KTKY17b</a>]</span></p></li>
+<li><p><span id="id18">Kaneko <em>et al.</em> [<a class="reference internal" href="#id43" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech, 3389–3393. 2017.">KTKY17a</a>]</span></p></li>
+<li><p><span id="id19">Takamichi <em>et al.</em> [<a class="reference internal" href="#id54" title="Shinnosuke Takamichi, Tomoki Toda, Alan W Black, Graham Neubig, Sakriani Sakti, and Satoshi Nakamura. Postfilters to modify the modulation spectrum for statistical parametric speech synthesis. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(4):755–767, 2016.">TTB+16</a>]</span></p></li>
+<li><p><span id="id20">Silén <em>et al.</em> [<a class="reference internal" href="#id51" title="Hanna Silén, Elina Helander, Jani Nurminen, and Moncef Gabbouj. Ways to implement global variance in statistical speech synthesis. In Thirteenth Annual Conference of the International Speech Communication Association. 2012.">SilenHNG12</a>]</span></p></li>
+</ul>
+</section>
+<section id="tts">
+<h2>TTS<a class="headerlink" href="#tts" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id21">Ren <em>et al.</em> [<a class="reference internal" href="#id59" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span></p></li>
+<li><p><span id="id22">Okamoto <em>et al.</em> [<a class="reference internal" href="#id60" title="Takuma Okamoto, Tomoki Toda, Yoshinori Shiga, and Hisashi Kawai. Tacotron-based acoustic model using phoneme alignment for practical neural text-to-speech systems. In 2019 IEEE Automatic Speech Recognition and Understanding Workshop (ASRU), 214–221. IEEE, 2019.">OTSK19</a>]</span></p></li>
+<li><p><span id="id23">Wang <em>et al.</em> [<a class="reference internal" href="#id46" title="Xin Wang, Jaime Lorenzo-Trueba, Shinji Takaki, Lauri Juvela, and Junichi Yamagishi. A comparison of recent waveform generation and acoustic modeling methods for neural-network-based speech synthesis. In Proc. ICASSP, 4804–4808. IEEE, 2018.">WLTT+18</a>]</span></p></li>
+<li><p><span id="id24">Shen <em>et al.</em> [<a class="reference internal" href="#id67" title="Jonathan Shen, Ruoming Pang, Ron J Weiss, Mike Schuster, Navdeep Jaitly, Zongheng Yang, Zhifeng Chen, Yu Zhang, Yuxuan Wang, Rj Skerrv-Ryan, and others. Natural TTS synthesis by conditioning WaveNet on mel spectrogram predictions. In Proc. ICASSP, 4779–4783. 2018.">SPW+18</a>]</span></p></li>
+<li><p><span id="id25">Wu <em>et al.</em> [<a class="reference internal" href="#id55" title="Zhizheng Wu, Oliver Watts, and Simon King. Merlin: an open source neural network speech synthesis system. In SSW, 202–207. 2016.">WWK16</a>]</span></p></li>
+<li><p><span id="id26">Takamichi <em>et al.</em> [<a class="reference internal" href="#id57" title="Shinnosuke Takamichi, Kazuhiro Kobayashi, Kou Tanaka, Tomoki Toda, and Satoshi Nakamura. The naist text-to-speech system for the blizzard challenge 2015. In Proc. Blizzard Challenge workshop, volume 2. Berlin, Germany, 2015.">TKT+15</a>]</span></p></li>
+<li><p><span id="id27">Zen and Senior [<a class="reference internal" href="#id64" title="Heiga Zen and Andrew Senior. Deep mixture density networks for acoustic modeling in statistical parametric speech synthesis. In 2014 IEEE international conference on acoustics, speech and signal processing (ICASSP), 3844–3848. IEEE, 2014.">ZS14</a>]</span></p></li>
+<li><p><span id="id28">Zen <em>et al.</em> [<a class="reference internal" href="#id52" title="Heiga Zen, Keiichi Tokuda, and Alan W Black. Statistical parametric speech synthesis. speech communication, 51(11):1039–1064, 2009.">ZTB09</a>]</span></p></li>
+</ul>
+</section>
+<section id="vocoder">
+<h2>Vocoder<a class="headerlink" href="#vocoder" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id29">Kumar <em>et al.</em> [<a class="reference internal" href="#id58" title="Kundan Kumar, Rithesh Kumar, Thibault de Boissiere, Lucas Gestin, Wei Zhen Teoh, Jose Sotelo, Alexandre de Brébisson, Yoshua Bengio, and Aaron C Courville. Melgan: generative adversarial networks for conditional waveform synthesis. Advances in neural information processing systems, 2019.">KKdB+19</a>]</span></p></li>
+<li><p><span id="id30">Morise <em>et al.</em> [<a class="reference internal" href="#id63" title="Masanori Morise, Genta Miyashita, and Kenji Ozawa. Low-Dimensional Representation of Spectral Envelope Without Deterioration for Full-Band Speech Analysis/Synthesis System. In Proc. Interspeech 2017, 409–413. 2017. doi:10.21437/Interspeech.2017-67.">MMO17</a>]</span></p></li>
+<li><p><span id="id31">Morise <em>et al.</em> [<a class="reference internal" href="#id53" title="Masanori Morise, Fumiya Yokomori, and Kenji Ozawa. World: a vocoder-based high-quality speech synthesis system for real-time applications. IEICE TRANSACTIONS on Information and Systems, 99(7):1877–1884, 2016.">MYO16</a>]</span></p></li>
+</ul>
+</section>
+<section id="neural-vocoders">
+<h2>Neural vocoders<a class="headerlink" href="#neural-vocoders" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id32">Wang <em>et al.</em> [<a class="reference internal" href="#id56" title="Xin Wang, Shinji Takaki, and Junichi Yamagishi. Neural source-filter waveform models for statistical parametric speech synthesis. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 28:402–415, 2019.">WTY19</a>]</span></p></li>
+</ul>
+</section>
+<section id="database">
+<h2>Database<a class="headerlink" href="#database" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span id="id33">Wang <em>et al.</em> [<a class="reference internal" href="#id61" title="Yu Wang, Xinsheng Wang, Pengcheng Zhu, Jie Wu, Hanzhao Li, Heyang Xue, Yongmao Zhang, Lei Xie, and Mengxiao Bi. Opencpop: a high-quality open source chinese popular song corpus for singing voice synthesis. arXiv preprint arXiv:2201.07429, 2022.">WWZ+22</a>]</span></p></li>
+</ul>
+</section>
+<section id="all-bibliography">
+<h2>All bibliography<a class="headerlink" href="#all-bibliography" title="Link to this heading"></a></h2>
+<div class="docutils container" id="id34">
+<div class="citation" id="id41" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">BB17</a><span class="fn-bracket">]</span></span>
+<p>Merlijn Blaauw and Jordi Bonada. A neural parametric singing synthesizer modeling timbre and expression from natural songs. <em>Applied Sciences</em>, 7(12):1313, 2017.</p>
+</div>
+<div class="citation" id="id66" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">BB18</a><span class="fn-bracket">]</span></span>
+<p>Jordi Bonada and Merlijn Blaauw. Recent advances in our neural parametric singing synthesizer. 2018.</p>
+</div>
+<div class="citation" id="id48" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">CTL+20</a><span class="fn-bracket">]</span></span>
+<p>Jiawei Chen, Xu Tan, Jian Luan, Tao Qin, and Tie-Yan Liu. Hifisinger: towards high-fidelity neural singing voice synthesis. <em>arXiv preprint arXiv:2009.01776</em>, 2020.</p>
+</div>
+<div class="citation" id="id47" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">GYR+21</a><span class="fn-bracket">]</span></span>
+<p>Yu Gu, Xiang Yin, Yonghui Rao, Yuan Wan, Benlai Tang, Yang Zhang, Jitong Chen, Yuxuan Wang, and Zejun Ma. Bytesing: a chinese singing voice synthesis system using duration allocated encoder-decoder acoustic models and wavernn vocoders. In <em>Proc. ISCSLP</em>, 1–5. IEEE, 2021.</p>
+</div>
+<div class="citation" id="id37" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HHO+21</a><span class="fn-bracket">]</span></span>
+<p>Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. <em>IEEE/ACM Trans. on Audio, Speech, and Lang. Process.</em>, 29:2803–2815, 2021.</p>
+</div>
+<div class="citation" id="id36" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">HMN+18</a><span class="fn-bracket">]</span></span>
+<p>Yukiya Hono, Shumma Murata, Kazuhiro Nakamura, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Recent development of the dnn-based singing voice synthesis system—sinsy. In <em>Proc. APSIPA</em>, 1003–1009. IEEE, 2018.</p>
+</div>
+<div class="citation" id="id43" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">KTKY17a</a><span class="fn-bracket">]</span></span>
+<p>Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In <em>Proc. Interspeech</em>, 3389–3393. 2017.</p>
+</div>
+<div class="citation" id="id42" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">KTKY17b</a><span class="fn-bracket">]</span></span>
+<p>Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In <em>Proc. Interspeech</em>. August 2017.</p>
+</div>
+<div class="citation" id="id58" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">KKdB+19</a><span class="fn-bracket">]</span></span>
+<p>Kundan Kumar, Rithesh Kumar, Thibault de Boissiere, Lucas Gestin, Wei Zhen Teoh, Jose Sotelo, Alexandre de Brébisson, Yoshua Bengio, and Aaron C Courville. Melgan: generative adversarial networks for conditional waveform synthesis. <em>Advances in neural information processing systems</em>, 2019.</p>
+</div>
+<div class="citation" id="id65" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">LLR+21</a><span class="fn-bracket">]</span></span>
+<p>Jinglin Liu, Chengxi Li, Yi Ren, Feiyang Chen, Peng Liu, and Zhou Zhao. Diffsinger: singing voice synthesis via shallow diffusion mechanism. <em>arXiv preprint arXiv:2105.02446</em>, 2021.</p>
+</div>
+<div class="citation" id="id44" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">LWL+20</a><span class="fn-bracket">]</span></span>
+<p>Peiling Lu, Jie Wu, Jian Luan, Xu Tan, and Li Zhou. Xiaoicesing: a high-quality and integrated singing voice synthesis system. <em>arXiv preprint arXiv:2006.06261</em>, 2020.</p>
+</div>
+<div class="citation" id="id63" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">MMO17</a><span class="fn-bracket">]</span></span>
+<p>Masanori Morise, Genta Miyashita, and Kenji Ozawa. Low-Dimensional Representation of Spectral Envelope Without Deterioration for Full-Band Speech Analysis/Synthesis System. In <em>Proc. Interspeech 2017</em>, 409–413. 2017. <a class="reference external" href="https://doi.org/10.21437/Interspeech.2017-67">doi:10.21437/Interspeech.2017-67</a>.</p>
+</div>
+<div class="citation" id="id53" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id31">MYO16</a><span class="fn-bracket">]</span></span>
+<p>Masanori Morise, Fumiya Yokomori, and Kenji Ozawa. World: a vocoder-based high-quality speech synthesis system for real-time applications. <em>IEICE TRANSACTIONS on Information and Systems</em>, 99(7):1877–1884, 2016.</p>
+</div>
+<div class="citation" id="id39" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">NGH06</a><span class="fn-bracket">]</span></span>
+<p>Tomoyasu Nakano, Masataka Goto, and Yuzuru Hiraga. An automatic singing skill evaluation method for unknown melodies using pitch interval accuracy and vibrato features. In <em>Proc. Interspeech</em>, 1706–1709. 2006.</p>
+</div>
+<div class="citation" id="id60" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id22">OTSK19</a><span class="fn-bracket">]</span></span>
+<p>Takuma Okamoto, Tomoki Toda, Yoshinori Shiga, and Hisashi Kawai. Tacotron-based acoustic model using phoneme alignment for practical neural text-to-speech systems. In <em>2019 IEEE Automatic Speech Recognition and Understanding Workshop (ASRU)</em>, 214–221. IEEE, 2019.</p>
+</div>
+<div class="citation" id="id35" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">OMY+10</a><span class="fn-bracket">]</span></span>
+<p>Keiichiro Oura, Ayami Mase, Tomohiko Yamada, Satoru Muto, Yoshihiko Nankaku, and Keiichi Tokuda. Recent development of the hmm-based singing voice synthesis system—sinsy. In <em>Proc. SSW</em>. 2010.</p>
+</div>
+<div class="citation" id="id59" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id21">RHQ+21</a><span class="fn-bracket">]</span></span>
+<p>Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In <em>Proc. ICLR</em>. 2021.</p>
+</div>
+<div class="citation" id="id45" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">SZN+06</a><span class="fn-bracket">]</span></span>
+<p>Keijiro Saino, Heiga Zen, Yoshihiko Nankaku, Akinobu Lee, and Keiichi Tokuda. An hmm-based singing voice synthesis system. In <em>Ninth International Conference on Spoken Language Processing</em>. 2006.</p>
+</div>
+<div class="citation" id="id67" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id24">SPW+18</a><span class="fn-bracket">]</span></span>
+<p>Jonathan Shen, Ruoming Pang, Ron J Weiss, Mike Schuster, Navdeep Jaitly, Zongheng Yang, Zhifeng Chen, Yu Zhang, Yuxuan Wang, Rj Skerrv-Ryan, and others. Natural TTS synthesis by conditioning WaveNet on mel spectrogram predictions. In <em>Proc. ICASSP</em>, 4779–4783. 2018.</p>
+</div>
+<div class="citation" id="id51" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id20">SilenHNG12</a><span class="fn-bracket">]</span></span>
+<p>Hanna Silén, Elina Helander, Jani Nurminen, and Moncef Gabbouj. Ways to implement global variance in statistical speech synthesis. In <em>Thirteenth Annual Conference of the International Speech Communication Association</em>. 2012.</p>
+</div>
+<div class="citation" id="id57" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id26">TKT+15</a><span class="fn-bracket">]</span></span>
+<p>Shinnosuke Takamichi, Kazuhiro Kobayashi, Kou Tanaka, Tomoki Toda, and Satoshi Nakamura. The naist text-to-speech system for the blizzard challenge 2015. In <em>Proc. Blizzard Challenge workshop</em>, volume 2. Berlin, Germany, 2015.</p>
+</div>
+<div class="citation" id="id54" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id19">TTB+16</a><span class="fn-bracket">]</span></span>
+<p>Shinnosuke Takamichi, Tomoki Toda, Alan W Black, Graham Neubig, Sakriani Sakti, and Satoshi Nakamura. Postfilters to modify the modulation spectrum for statistical parametric speech synthesis. <em>IEEE/ACM Transactions on Audio, Speech, and Language Processing</em>, 24(4):755–767, 2016.</p>
+</div>
+<div class="citation" id="id46" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id23">WLTT+18</a><span class="fn-bracket">]</span></span>
+<p>Xin Wang, Jaime Lorenzo-Trueba, Shinji Takaki, Lauri Juvela, and Junichi Yamagishi. A comparison of recent waveform generation and acoustic modeling methods for neural-network-based speech synthesis. In <em>Proc. ICASSP</em>, 4804–4808. IEEE, 2018.</p>
+</div>
+<div class="citation" id="id40" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">WTY18</a><span class="fn-bracket">]</span></span>
+<p>Xin Wang, Shinji Takaki, and Junichi Yamagishi. Autoregressive neural f0 model for statistical parametric speech synthesis. <em>IEEE/ACM Trans. on Audio, Speech, and Lang. Process.</em>, 26(8):1406–1419, 2018.</p>
+</div>
+<div class="citation" id="id56" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id32">WTY19</a><span class="fn-bracket">]</span></span>
+<p>Xin Wang, Shinji Takaki, and Junichi Yamagishi. Neural source-filter waveform models for statistical parametric speech synthesis. <em>IEEE/ACM Transactions on Audio, Speech, and Language Processing</em>, 28:402–415, 2019.</p>
+</div>
+<div class="citation" id="id62" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>WY19<span class="fn-bracket">]</span></span>
+<p>Xin Wang and Junichi Yamagishi. Neural harmonic-plus-noise waveform model with trainable maximum voice frequency for text-to-speech synthesis. <em>arXiv preprint arXiv:1908.10256</em>, 2019.</p>
+</div>
+<div class="citation" id="id61" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">WWZ+22</a><span class="fn-bracket">]</span></span>
+<p>Yu Wang, Xinsheng Wang, Pengcheng Zhu, Jie Wu, Hanzhao Li, Heyang Xue, Yongmao Zhang, Lei Xie, and Mengxiao Bi. Opencpop: a high-quality open source chinese popular song corpus for singing voice synthesis. <em>arXiv preprint arXiv:2201.07429</em>, 2022.</p>
+</div>
+<div class="citation" id="id55" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id25">WWK16</a><span class="fn-bracket">]</span></span>
+<p>Zhizheng Wu, Oliver Watts, and Simon King. Merlin: an open source neural network speech synthesis system. In <em>SSW</em>, 202–207. 2016.</p>
+</div>
+<div class="citation" id="id64" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id27">ZS14</a><span class="fn-bracket">]</span></span>
+<p>Heiga Zen and Andrew Senior. Deep mixture density networks for acoustic modeling in statistical parametric speech synthesis. In <em>2014 IEEE international conference on acoustics, speech and signal processing (ICASSP)</em>, 3844–3848. IEEE, 2014.</p>
+</div>
+<div class="citation" id="id52" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">ZTB09</a><span class="fn-bracket">]</span></span>
+<p>Heiga Zen, Keiichi Tokuda, and Alan W Black. Statistical parametric speech synthesis. <em>speech communication</em>, 51(11):1039–1064, 2009.</p>
+</div>
+<div class="citation" id="id49" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">ZCX+22</a><span class="fn-bracket">]</span></span>
+<p>Yongmao Zhang, Jian Cong, Heyang Xue, Lei Xie, Pengcheng Zhu, and Mengxiao Bi. Visinger: variational inference with adversarial learning for end-to-end singing voice synthesis. In <em>ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</em>, 7237–7241. IEEE, 2022.</p>
+</div>
+<div class="citation" id="id50" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ZJC+21<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Xiaobin Zhuang, Tao Jiang, Szu-Yu Chou, Bin Wu, Peng Hu, and Simon Lui. Litesing: towards fast, lightweight and expressive singing voice synthesis. In <em>Proc. ICASSP</em>, 7078–7082. 2021.</p>
+</div>
+<div class="citation" id="id38" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">+09</a><span class="fn-bracket">]</span></span>
+<p>山田知彦, 武藤聡, 南角吉彦, 酒向慎司, 徳田恵一, and others. Hmm に基づく歌声合成のためのビブラートモデル化. <em>研究報告音楽情報科学 (MUS)</em>, 2009(5):1–6, 2009.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="links.html" class="btn btn-neutral float-left" title="Useful links" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Change log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

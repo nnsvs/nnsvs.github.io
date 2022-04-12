@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.util &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.util</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.util</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">pyworld</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">hydra.utils</span> <span class="kn">import</span> <span class="n">instantiate</span>
+<span class="kn">from</span> <span class="nn">nnsvs.multistream</span> <span class="kn">import</span> <span class="n">get_static_features</span><span class="p">,</span> <span class="n">get_static_stream_sizes</span>
+<span class="kn">from</span> <span class="nn">nnsvs.usfgan</span> <span class="kn">import</span> <span class="n">USFGANWrapper</span>
+<span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">OmegaConf</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">parallel_wavegan.utils</span> <span class="kn">import</span> <span class="n">load_model</span>
+
+    <span class="n">_pwg_available</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">_pwg_available</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="c1"># mask-related functions were adapted from https://github.com/espnet/espnet</span>
+
+<span class="n">EXAMPLE_DIR</span> <span class="o">=</span> <span class="s2">&quot;_example_data&quot;</span>
+
+
+<span class="c1"># Adapted from https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix</span>
+<div class="viewcode-block" id="init_weights">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.init_weights.html#nnsvs.util.init_weights">[docs]</a>
+<span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">init_type</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">init_gain</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize network weights.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        net (torch.nn.Module): network to initialize</span>
+<span class="sd">        init_type (str): the name of an initialization method:</span>
+<span class="sd">            normal | xavier | kaiming | orthogonal | none.</span>
+<span class="sd">        init_gain (float): scaling factor for normal, xavier and orthogonal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">init_type</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">init_func</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">classname</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">classname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Conv&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">classname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Linear&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">init_type</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">init_gain</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">init_type</span> <span class="o">==</span> <span class="s2">&quot;xavier_normal&quot;</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_normal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="n">init_gain</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">init_type</span> <span class="o">==</span> <span class="s2">&quot;kaiming_normal&quot;</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">kaiming_normal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;fan_in&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">init_type</span> <span class="o">==</span> <span class="s2">&quot;orthogonal&quot;</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">orthogonal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="n">init_gain</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                    <span class="s2">&quot;initialization method [</span><span class="si">%s</span><span class="s2">] is not implemented&quot;</span> <span class="o">%</span> <span class="n">init_type</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">classname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;BatchNorm2d&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># BatchNorm Layer&#39;s weight is not a matrix; only normal distribution applies.</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">init_gain</span><span class="p">)</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">net</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">init_func</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_world_stream_info">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.get_world_stream_info.html#nnsvs.util.get_world_stream_info">[docs]</a>
+<span class="k">def</span> <span class="nf">get_world_stream_info</span><span class="p">(</span>
+    <span class="n">sr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">mgc_order</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">num_windows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">vibrato_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">use_mcep_aperiodicity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">mcep_aperiodicity_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get stream sizes for WORLD-based acoustic features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        mgc_order (int): order of mel-generalized cepstrum</span>
+<span class="sd">        num_windows (int): number of windows</span>
+<span class="sd">        vibrato_mode (str): vibrato analysis mode</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: stream sizes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># [mgc, lf0, vuv, bap]</span>
+    <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">mgc_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_windows</span><span class="p">,</span>
+        <span class="n">num_windows</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">pyworld</span><span class="o">.</span><span class="n">get_num_aperiodicities</span><span class="p">(</span><span class="n">sr</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_windows</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">use_mcep_aperiodicity</span>
+        <span class="k">else</span> <span class="n">mcep_aperiodicity_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">vibrato_mode</span> <span class="o">==</span> <span class="s2">&quot;diff&quot;</span><span class="p">:</span>
+        <span class="c1"># vib</span>
+        <span class="n">stream_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_windows</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vibrato_mode</span> <span class="o">==</span> <span class="s2">&quot;sine&quot;</span><span class="p">:</span>
+        <span class="c1"># vib + vib_flags</span>
+        <span class="n">stream_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">num_windows</span><span class="p">)</span>
+        <span class="n">stream_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vibrato_mode</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unknown vibrato mode: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vibrato_mode</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">stream_sizes</span></div>
+
+
+
+<div class="viewcode-block" id="load_utt_list">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.load_utt_list.html#nnsvs.util.load_utt_list">[docs]</a>
+<span class="k">def</span> <span class="nf">load_utt_list</span><span class="p">(</span><span class="n">utt_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a list of utterances.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        utt_list (str): path to a file containing a list of utterances</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List[str]: list of utterances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">utt_list</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">utt_ids</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">utt_ids</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">utt_id</span><span class="p">:</span> <span class="n">utt_id</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">utt_ids</span><span class="p">)</span>
+    <span class="n">utt_ids</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">utt_id</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">utt_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">utt_ids</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">utt_ids</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="example_xml_file">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.example_xml_file.html#nnsvs.util.example_xml_file">[docs]</a>
+<span class="k">def</span> <span class="nf">example_xml_file</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;haruga_kita&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path to an included xml file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        key (str): key of the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: path to an example xml file</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: if the file is not found</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">join</span><span class="p">(</span><span class="n">EXAMPLE_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">.xml&quot;</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="init_seed">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.init_seed.html#nnsvs.util.init_seed">[docs]</a>
+<span class="k">def</span> <span class="nf">init_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize random seed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        seed (int): random seed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dynamic_import">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.dynamic_import.html#nnsvs.util.dynamic_import">[docs]</a>
+<span class="k">def</span> <span class="nf">dynamic_import</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dynamic import</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): module_name + &quot;:&quot; + class_name</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Any: class object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mod_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">mod_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pad_2d">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.pad_2d.html#nnsvs.util.pad_2d">[docs]</a>
+<span class="k">def</span> <span class="nf">pad_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">max_len</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pad a 2d-tensor.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (torch.Tensor): tensor to pad</span>
+<span class="sd">        max_len (int): maximum length of the tensor</span>
+<span class="sd">        constant_values (int, optional): value to pad with. Default: 0</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: padded tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+        <span class="n">constant_values</span><span class="o">=</span><span class="n">constant_values</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+
+<div class="viewcode-block" id="make_pad_mask">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.make_pad_mask.html#nnsvs.util.make_pad_mask">[docs]</a>
+<span class="k">def</span> <span class="nf">make_pad_mask</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">xs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">length_dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make mask tensor containing indices of padded part.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lengths (LongTensor or List): Batch of lengths (B,).</span>
+<span class="sd">        xs (Tensor, optional): The reference tensor. If set, masks will be</span>
+<span class="sd">            the same shape as this tensor.</span>
+<span class="sd">        length_dim (int, optional): Dimension indicator of the above tensor.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor: Mask tensor containing indices of padded part.</span>
+<span class="sd">                dtype=torch.uint8 in PyTorch 1.2-</span>
+<span class="sd">                dtype=torch.bool in PyTorch 1.2+ (including 1.2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">length_dim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;length_dim cannot be 0: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length_dim</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">bs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lengths</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">maxlen</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">xs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">lengths</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">maxlen</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">length_dim</span><span class="p">)</span>
+
+    <span class="n">seq_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">seq_range_expand</span> <span class="o">=</span> <span class="n">seq_range</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">)</span>
+    <span class="n">seq_length_expand</span> <span class="o">=</span> <span class="n">seq_range_expand</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">seq_range_expand</span> <span class="o">&gt;=</span> <span class="n">seq_length_expand</span>
+
+    <span class="k">if</span> <span class="n">xs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">xs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">bs</span><span class="p">,</span> <span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">bs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">length_dim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">length_dim</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">+</span> <span class="n">length_dim</span>
+        <span class="c1"># ind = (:, None, ..., None, :, , None, ..., None)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length_dim</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+        <span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">expand_as</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mask</span></div>
+
+
+
+<div class="viewcode-block" id="make_non_pad_mask">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.util.make_non_pad_mask.html#nnsvs.util.make_non_pad_mask">[docs]</a>
+<span class="k">def</span> <span class="nf">make_non_pad_mask</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">xs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">length_dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make mask tensor containing indices of non-padded part.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lengths (LongTensor or List): Batch of lengths (B,).</span>
+<span class="sd">        xs (Tensor, optional): The reference tensor.</span>
+<span class="sd">            If set, masks will be the same shape as this tensor.</span>
+<span class="sd">        length_dim (int, optional): Dimension indicator of the above tensor.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ByteTensor: mask tensor containing indices of padded part.</span>
+<span class="sd">                    dtype=torch.uint8 in PyTorch 1.2-</span>
+<span class="sd">                    dtype=torch.bool in PyTorch 1.2+ (including 1.2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="o">~</span><span class="n">make_pad_mask</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">length_dim</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PyTorchStandardScaler">
+<a class="viewcode-back" href="../../modules/util.html#nnsvs.util.PyTorchStandardScaler">[docs]</a>
+<span class="k">class</span> <span class="nc">PyTorchStandardScaler</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;PyTorch module for standardization.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mean (torch.Tensor): mean</span>
+<span class="sd">        scale (torch.Tensor): scale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span>
+
+    <span class="k">def</span> <span class="nf">inverse_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span></div>
+
+
+
+<div class="viewcode-block" id="StandardScaler">
+<a class="viewcode-back" href="../../modules/util.html#nnsvs.util.StandardScaler">[docs]</a>
+<span class="k">class</span> <span class="nc">StandardScaler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;sklearn.preprocess.StandardScaler like class with only</span>
+<span class="sd">    transform functionality</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mean (np.ndarray): mean</span>
+<span class="sd">        var (np.ndarray): variance</span>
+<span class="sd">        scale (np.ndarray): scale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_</span> <span class="o">=</span> <span class="n">var</span>
+        <span class="c1"># NOTE: scale may not exactly same as np.sqrt(var)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">=</span> <span class="n">scale</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span>
+
+    <span class="k">def</span> <span class="nf">inverse_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span></div>
+
+
+
+<div class="viewcode-block" id="MinMaxScaler">
+<a class="viewcode-back" href="../../modules/util.html#nnsvs.util.MinMaxScaler">[docs]</a>
+<span class="k">class</span> <span class="nc">MinMaxScaler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;sklearn.preprocess.MinMaxScaler like class with only</span>
+<span class="sd">    transform functionality</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        min (np.ndarray): minimum</span>
+<span class="sd">        scale (np.ndarray): scale</span>
+<span class="sd">        data_min (np.ndarray): minimum of input data</span>
+<span class="sd">        data_max (np.ndarray): maximum of input data</span>
+<span class="sd">        feature_range (tuple): (min, max)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">data_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_</span> <span class="o">=</span> <span class="nb">min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_min_</span> <span class="o">=</span> <span class="n">data_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_max_</span> <span class="o">=</span> <span class="n">data_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_range</span> <span class="o">=</span> <span class="n">feature_range</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_</span>
+
+    <span class="k">def</span> <span class="nf">inverse_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">extract_static_scaler</span><span class="p">(</span><span class="n">out_scaler</span><span class="p">,</span> <span class="n">model_config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract scaler for static features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        out_scaler (StandardScaler or MinMaxScaler): target scaler</span>
+<span class="sd">        model_config (dict): model config that contain stream information</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        StandardScaler or MinMaxScaler: scaler for static features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean_</span> <span class="o">=</span> <span class="n">get_static_features</span><span class="p">(</span>
+        <span class="n">out_scaler</span><span class="o">.</span><span class="n">mean_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_scaler</span><span class="o">.</span><span class="n">mean_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mean_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mean_</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">var_</span> <span class="o">=</span> <span class="n">get_static_features</span><span class="p">(</span>
+        <span class="n">out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">var_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">var_</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">scale_</span> <span class="o">=</span> <span class="n">get_static_features</span><span class="p">(</span>
+        <span class="n">out_scaler</span><span class="o">.</span><span class="n">scale_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_scaler</span><span class="o">.</span><span class="n">scale_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+        <span class="n">model_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">scale_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">scale_</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">static_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="n">mean_</span><span class="p">,</span> <span class="n">var_</span><span class="p">,</span> <span class="n">scale_</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">static_scaler</span>
+
+
+<span class="k">def</span> <span class="nf">load_vocoder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">acoustic_config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load vocoder model from a given checkpoint path</span>
+
+<span class="sd">    Note that the path needs to be a checkpoint of PWG or USFGAN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str or Path): Path to the vocoder model</span>
+<span class="sd">        device (str): Device to load the model</span>
+<span class="sd">        acoustic_config (dict): Acoustic model config</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (vocoder, vocoder_in_scaler, vocoder_config)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_pwg_available</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;parallel_wavegan is required to load pre-trained checkpoint.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">path</span>
+    <span class="n">model_dir</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parent</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;vocoder_model.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="c1"># packed model</span>
+        <span class="n">vocoder_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;vocoder_model.yaml&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="c1"># PWG checkpoint</span>
+        <span class="n">vocoder_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># usfgan</span>
+        <span class="n">vocoder_config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;generator&quot;</span> <span class="ow">in</span> <span class="n">vocoder_config</span> <span class="ow">and</span> <span class="s2">&quot;discriminator&quot;</span> <span class="ow">in</span> <span class="n">vocoder_config</span><span class="p">:</span>
+        <span class="c1"># usfgan</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span>
+            <span class="n">map_location</span><span class="o">=</span><span class="k">lambda</span> <span class="n">storage</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">storage</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">vocoder</span> <span class="o">=</span> <span class="n">instantiate</span><span class="p">(</span><span class="n">vocoder_config</span><span class="o">.</span><span class="n">generator</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">vocoder</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">][</span><span class="s2">&quot;generator&quot;</span><span class="p">])</span>
+        <span class="n">vocoder</span><span class="o">.</span><span class="n">remove_weight_norm</span><span class="p">()</span>
+        <span class="n">vocoder</span> <span class="o">=</span> <span class="n">USFGANWrapper</span><span class="p">(</span><span class="n">vocoder_config</span><span class="p">,</span> <span class="n">vocoder</span><span class="p">)</span>
+
+        <span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">get_static_stream_sizes</span><span class="p">(</span>
+            <span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+            <span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Extract scaler params for [mgc, bap]</span>
+        <span class="k">if</span> <span class="n">vocoder_config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">aux_feats</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;mcep&quot;</span><span class="p">,</span> <span class="s2">&quot;codeap&quot;</span><span class="p">]:</span>
+            <span class="c1"># streams: (mgc, lf0, vuv, bap)</span>
+            <span class="n">mean_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_mean.npy&quot;</span><span class="p">)</span>
+            <span class="n">var_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_var.npy&quot;</span><span class="p">)</span>
+            <span class="n">scale_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_scale.npy&quot;</span><span class="p">)</span>
+            <span class="n">mgc_end_dim</span> <span class="o">=</span> <span class="n">stream_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bap_start_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">bap_end_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">vocoder_in_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mean_</span><span class="p">[:</span><span class="n">mgc_end_dim</span><span class="p">],</span> <span class="n">mean_</span><span class="p">[</span><span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">]]),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">var_</span><span class="p">[:</span><span class="n">mgc_end_dim</span><span class="p">],</span> <span class="n">var_</span><span class="p">[</span><span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">]]),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">scale_</span><span class="p">[:</span><span class="n">mgc_end_dim</span><span class="p">],</span> <span class="n">scale_</span><span class="p">[</span><span class="n">bap_start_dim</span><span class="p">:</span><span class="n">bap_end_dim</span><span class="p">]]</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># streams: (mel, lf0, vuv)</span>
+            <span class="n">mel_dim</span> <span class="o">=</span> <span class="n">stream_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">vocoder_in_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_mean.npy&quot;</span><span class="p">)[:</span><span class="n">mel_dim</span><span class="p">],</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_var.npy&quot;</span><span class="p">)[:</span><span class="n">mel_dim</span><span class="p">],</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_scale.npy&quot;</span><span class="p">)[:</span><span class="n">mel_dim</span><span class="p">],</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># PWG</span>
+        <span class="n">vocoder</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">vocoder_config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">vocoder</span><span class="o">.</span><span class="n">remove_weight_norm</span><span class="p">()</span>
+        <span class="n">vocoder_in_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_mean.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_var.npy&quot;</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">/</span> <span class="s2">&quot;in_vocoder_scaler_scale.npy&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">vocoder</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">vocoder</span><span class="p">,</span> <span class="n">vocoder_in_scaler</span><span class="p">,</span> <span class="n">vocoder_config</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

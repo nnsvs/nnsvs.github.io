@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change log &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Papers" href="papers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Change log</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v0-1-0-2022-xx-xx">v0.1.0 &lt;2022-xx-xx&gt;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-3-2022-10-15">v0.0.3 &lt;2022-10-15&gt;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecations">Deprecations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experimental-features">Experimental features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-2-2022-04-29">v0.0.2 &lt;2022-04-29&gt;</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-1-2022-03-11">v0.0.1 &lt;2022-03-11&gt;</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Change log</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="change-log">
+<h1>Change log<a class="headerlink" href="#change-log" title="Link to this heading"></a></h1>
+<section id="v0-1-0-2022-xx-xx">
+<h2>v0.1.0 &lt;2022-xx-xx&gt;<a class="headerlink" href="#v0-1-0-2022-xx-xx" title="Link to this heading"></a></h2>
+<p>WILL BE MOVED TO GITHUB RELEASES.</p>
+<section id="new-features">
+<h3>New features<a class="headerlink" href="#new-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Dynamic batch size support (by <code class="docutils literal notranslate"><span class="pre">batch_max_frames</span></code>).</p></li>
+<li><p>New acoustic models based on duration informed Tacotron.</p></li>
+<li><p>New F0 prediction models based on duration informed Tacotron.</p></li>
+<li><p>Multi-stream model implementations</p></li>
+<li><p>Support mel-spectrogram as acoustic features.</p></li>
+<li><p>Integrate uSFGAN vocoder</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-0-3-2022-10-15">
+<h2>v0.0.3 &lt;2022-10-15&gt;<a class="headerlink" href="#v0-0-3-2022-10-15" title="Link to this heading"></a></h2>
+<p>Moved the repository to <a class="reference external" href="https://github.com/nnsvs">https://github.com/nnsvs</a> organization.</p>
+<section id="id1">
+<h3>New features<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Mixed precision training <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/106">#106</a></p></li>
+<li><p>Recipe-level integration of hyperparameter optimization with Optuna <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/43">#43</a> <a class="reference internal" href="optuna.html"><span class="doc">Hyperparameter optimization with Optuna</span></a></p></li>
+<li><p>Added VariancePredictor (<span id="id2">Ren <em>et al.</em> [<a class="reference internal" href="papers.html#id59" title="Yi Ren, Chenxu Hu, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. FastSpeech 2: Fast and high-quality end-to-end text-to-speech. In Proc. ICLR. 2021.">RHQ+21</a>]</span>).</p></li>
+<li><p>Spectrogram, aperiodicity, F0, and generated audio is now logged to tensorboard if <code class="docutils literal notranslate"><span class="pre">train_resf0.py</span></code> is used.</p></li>
+<li><p>Objective metrics (such as mel-cepstrum distortion and RMSE) are now logged to tensorboard. <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/41">#41</a></p></li>
+<li><p>Added MDNv2 (MDN + dropout) <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/118">#118</a></p></li>
+<li><p>Correct V/UV (<code class="docutils literal notranslate"><span class="pre">correct_vuv</span></code>) option is added to feature processing.</p></li>
+<li><p>Support training non-resf0 models with <code class="docutils literal notranslate"><span class="pre">train_resf0.py</span></code> <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/125">#125</a></p></li>
+<li><p>Global-variance (GV)-based post-filter</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Add a heuristic trick to prevent non-negative durations at synthesis time</p></li>
+<li><p>Fix error when no dynamic features are used <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/128">#128</a></p></li>
+<li><p>Add a workaround for WORLD’s segfaults issue when <code class="docutils literal notranslate"><span class="pre">min_f0</span></code> is too high.</p></li>
+<li><p>Fix bug of computing pitch regularization weights</p></li>
+<li><p>Fix continuous F0 for rest</p></li>
+</ul>
+</section>
+<section id="improvements">
+<h3>Improvements<a class="headerlink" href="#improvements" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nnsvs.model.MDN</span></code> now support dropout by the <code class="docutils literal notranslate"><span class="pre">dropout</span></code> argument. The <code class="docutils literal notranslate"><span class="pre">dropout</span></code> argument existed before but it was no-op for a long time.</p></li>
+<li><p>Number of training iterations can be now specified by either epochs or steps.</p></li>
+<li><p>A heuristic trick is added to prevent serious V/UV prediction errors . <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/95">#95</a> <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/119">#119</a></p></li>
+<li><p>Speech parameter trajectory smoothing (<span id="id3">Takamichi <em>et al.</em> [<a class="reference internal" href="papers.html#id57" title="Shinnosuke Takamichi, Kazuhiro Kobayashi, Kou Tanaka, Tomoki Toda, and Satoshi Nakamura. The naist text-to-speech system for the blizzard challenge 2015. In Proc. Blizzard Challenge workshop, volume 2. Berlin, Germany, 2015.">TKT+15</a>]</span>). Disabled by default.</p></li>
+<li><p>Added recipe tests on CI <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/116">#116</a></p></li>
+<li><p>Add option to allow filtering of long segments <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/135">#135</a></p></li>
+<li><p>Stream-wise flags to enable/disable dynamic features</p></li>
+<li><p>Pre-processing: Tweaked min_f0/max_f0 threshold</p></li>
+<li><p>Pre-processing: Add resampling if necessary</p></li>
+<li><p>Pre-processing: Allow users to specify expliciti F0 range</p></li>
+<li><p>Expose decay_size for pitch reguralization</p></li>
+<li><p>Support Codecov</p></li>
+</ul>
+</section>
+<section id="deprecations">
+<h3>Deprecations<a class="headerlink" href="#deprecations" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dropout</span></code> for <code class="docutils literal notranslate"><span class="pre">nnsvs.model.MDN</span></code> is deprecated. Please consider removing the parameter as it has no effect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dropout</span></code> for <code class="docutils literal notranslate"><span class="pre">nnsvs.model.Conv1dResnet</span></code> is deprecated. Please consider removing the parameter as it has no effect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FeedForwardNet</span></code> is renamed to <code class="docutils literal notranslate"><span class="pre">FFN</span></code> to be consistent with other names (such as MDN)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ResF0Conv1dResnetMDN</span></code> is deprecated. You can use <code class="docutils literal notranslate"><span class="pre">ResF0Conv1dResnet</span></code> with <code class="docutils literal notranslate"><span class="pre">use_mdn=True</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Conv1dResnetMDN</span></code> is deprecated. You can use <code class="docutils literal notranslate"><span class="pre">Conv1dResnet</span></code> with <code class="docutils literal notranslate"><span class="pre">use_mdn=True</span></code>.</p></li>
+</ul>
+</section>
+<section id="breaking-changes">
+<h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Update d4c threshold to prevent serious voiced -&gt; unvoiced errors from 0.85 to 0.15. If you prefer the old default, please set <cite>d4c_threshold</cite> to 0.85.</p></li>
+<li><p>Default values of functions in <code class="docutils literal notranslate"><span class="pre">gen.py</span></code> and <code class="docutils literal notranslate"><span class="pre">svs.py</span></code> are changed while refactoring. Please explicitly set the function arguments to avoid unexpected behavior.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h3>
+<p>Added documentations as mush as possible.</p>
+</section>
+<section id="experimental-features">
+<h3>Experimental features<a class="headerlink" href="#experimental-features" title="Link to this heading"></a></h3>
+<p>Some features that are available but not yet tested or documented</p>
+<ul class="simple">
+<li><p>GAN-based post-filters (<span id="id4">Kaneko <em>et al.</em> [<a class="reference internal" href="papers.html#id42" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech. August 2017.">KTKY17b</a>]</span>, <span id="id5">Kaneko <em>et al.</em> [<a class="reference internal" href="papers.html#id43" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech, 3389–3393. 2017.">KTKY17a</a>]</span>) <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/85">#85</a> and GV post-filter (<span id="id6">Silén <em>et al.</em> [<a class="reference internal" href="papers.html#id51" title="Hanna Silén, Elina Helander, Jani Nurminen, and Moncef Gabbouj. Ways to implement global variance in statistical speech synthesis. In Thirteenth Annual Conference of the International Speech Communication Association. 2012.">SilenHNG12</a>]</span>)</p></li>
+<li><p>CycleGAN-based post-filter</p></li>
+<li><p>Support for neural vocoders <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/72">#72</a></p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">ResF0NonAttentiveTacotron</span></code> acoustic model. <a class="reference external" href="https://github.com/r9y9/nnsvs/pull/129">#129</a> <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/15">#15</a></p></li>
+<li><p>WaveNet <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/100">#100</a></p></li>
+<li><p>GAN-based acoustic models <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/85">#85</a></p></li>
+<li><p>Make <a class="reference internal" href="modules/svs.html"><span class="doc">nnsvs.svs</span></a> to support trainable post-filters and neural vocoders.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-0-2-2022-04-29">
+<h2>v0.0.2 &lt;2022-04-29&gt;<a class="headerlink" href="#v0-0-2-2022-04-29" title="Link to this heading"></a></h2>
+<p>A version that should work with <a class="reference external" href="https://github.com/oatsu-gh/ENUNU/releases/tag/v0.4.0">ENUNU v0.4.0</a></p>
+<section id="id7">
+<h3>New features<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Improved timings with MDN duration models <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/80">#80</a></p></li>
+<li><p>Improved acoustic models with residual F0 prediction <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/76">#76</a></p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>Bug fixes<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>numpy.linalg.LinAlgError in MDN models <a class="reference external" href="https://github.com/r9y9/nnsvs/issues/94">#94</a></p></li>
+</ul>
+</section>
+</section>
+<section id="v0-0-1-2022-03-11">
+<h2>v0.0.1 &lt;2022-03-11&gt;<a class="headerlink" href="#v0-0-1-2022-03-11" title="Link to this heading"></a></h2>
+<p>The first release</p>
+<p>The initial version of nnsvs (with some experimental features like vibrato modeling and data augmentation). This version should be compatible with currently available tools around nnsvs (e.g., ENUNU). Hydra &gt;=v1.0.0, &lt;v1.2.0 is supported.
+PyPi release is also available. So you can install the core library by pip install nnsvs.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="papers.html" class="btn btn-neutral float-left" title="Papers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

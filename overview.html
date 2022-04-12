@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview of NNSVS’s SVS &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nnsvs.base" href="modules/base.html" />
+    <link rel="prev" title="How to convert ENUNU models to NNSVS’ ones" href="enunu2nnsvs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview of NNSVS’s SVS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#time-lag-model">Time-lag model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duration-model">Duration model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acoustic-model">Acoustic model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-filter">Post-filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vocoder">Vocoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#difference-with-sinsy">Difference with Sinsy</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview of NNSVS’s SVS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview-of-nnsvs-s-svs">
+<h1>Overview of NNSVS’s SVS<a class="headerlink" href="#overview-of-nnsvs-s-svs" title="Link to this heading"></a></h1>
+<img alt="NNSVS's system overview" src="_images/nnsvs_svs_overview.png" />
+<p>NNSVS provides functionality to build singing voice synthesis (SVS) systems.
+The above figure shows the overview of NNSVS’s SVS.
+There are five modules that can be modeled by neural networks. Brief descriptions of each module are given below.</p>
+<section id="time-lag-model">
+<h2>Time-lag model<a class="headerlink" href="#time-lag-model" title="Link to this heading"></a></h2>
+<p>A time-lag model takes a musical score as input and outputs the time-lag for each note.
+A time-lag is defined as note onset difference between a musical score and an actual singing voice.
+An illustration of the time-lag is shown below. The figure was taken from <span id="id1">Saino <em>et al.</em> [<a class="reference internal" href="papers.html#id45" title="Keijiro Saino, Heiga Zen, Yoshihiko Nankaku, Akinobu Lee, and Keiichi Tokuda. An hmm-based singing voice synthesis system. In Ninth International Conference on Spoken Language Processing. 2006.">SZN+06</a>]</span>.</p>
+<a class="reference internal image-reference" href="_images/svs_timelag.png"><img alt="Time-lag" class="align-center" src="_images/svs_timelag.png" style="width: 391.20000000000005px; height: 259.6px;" /></a>
+<p>Following Sinsy, a musical score is represented as <a class="reference external" href="https://hts.sp.nitech.ac.jp/">HTS</a>-style full-context labels.
+The full-context labels are internally converted to an array-like representation that contains categorical and numeric featrues.
+And those features are used as the input of neural networks.</p>
+</section>
+<section id="duration-model">
+<h2>Duration model<a class="headerlink" href="#duration-model" title="Link to this heading"></a></h2>
+<p>A duration model takes a musical score as input and outputs durations for each phoneme.
+The duration model is pretty much the same as the one used in traditional statistical parametric text-to-speech (TTS) systems.
+You can find more details in <span id="id2">Zen <em>et al.</em> [<a class="reference internal" href="papers.html#id52" title="Heiga Zen, Keiichi Tokuda, and Alan W Black. Statistical parametric speech synthesis. speech communication, 51(11):1039–1064, 2009.">ZTB09</a>]</span>.</p>
+</section>
+<section id="acoustic-model">
+<h2>Acoustic model<a class="headerlink" href="#acoustic-model" title="Link to this heading"></a></h2>
+<p>An acoustic model predicts acoustic features from a musical score.
+The acoustic feature typically consists of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mgc</span></code>: Mel-generalized cespstrum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lf0</span></code>: logarithmic fundamental frequency</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vuv</span></code>: voiced and unvoiced flags,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bap</span></code>: band aperiodicity</p></li>
+</ul>
+<p>Predicting <code class="docutils literal notranslate"><span class="pre">mgc</span></code> and <code class="docutils literal notranslate"><span class="pre">lf0</span></code> is the most important part for intelligibility and expressiveness.
+The above four features can be extracted by a vocoder.
+Newer models may use vibrato frequency/amplitude as additional features for vibrato modeling (<span id="id3">Nakano <em>et al.</em> [<a class="reference internal" href="papers.html#id39" title="Tomoyasu Nakano, Masataka Goto, and Yuzuru Hiraga. An automatic singing skill evaluation method for unknown melodies using pitch interval accuracy and vibrato features. In Proc. Interspeech, 1706–1709. 2006.">NGH06</a>]</span>).
+Note that NNSVS adopts WORLD (<span id="id4">Morise <em>et al.</em> [<a class="reference internal" href="papers.html#id53" title="Masanori Morise, Fumiya Yokomori, and Kenji Ozawa. World: a vocoder-based high-quality speech synthesis system for real-time applications. IEICE TRANSACTIONS on Information and Systems, 99(7):1877–1884, 2016.">MYO16</a>]</span>) as the primary vocoder.</p>
+<p>Some recent work adopts Mel-spectrogram as the acoustic features (<span id="id5">Gu <em>et al.</em> [<a class="reference internal" href="papers.html#id47" title="Yu Gu, Xiang Yin, Yonghui Rao, Yuan Wan, Benlai Tang, Yang Zhang, Jitong Chen, Yuxuan Wang, and Zejun Ma. Bytesing: a chinese singing voice synthesis system using duration allocated encoder-decoder acoustic models and wavernn vocoders. In Proc. ISCSLP, 1–5. IEEE, 2021.">GYR+21</a>]</span>). We have plans to support this feature in the future.</p>
+<p>The figure below illustrates how the acoustic model works.</p>
+<img alt="Reference and predicted spectrogram" src="_images/svs_pred_spectrogram.png" />
+<p>It is often observed that the predicted features are over-smoothed especially if we train a neural network with mean squared error loss. We can address this issue to some extent by a post-filter.</p>
+</section>
+<section id="post-filter">
+<h2>Post-filter<a class="headerlink" href="#post-filter" title="Link to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The post-filter is currently not recommended to use. Consider using a diffusion acoustic model to alleviate the over-smoothing problem.</p>
+</div>
+<p>A post-filter is a post-processing module, typically applied for spectral features only.
+There are multiple choices to address the over-smoothing problem by a post-filter as follows:</p>
+<ul class="simple">
+<li><p>Spectral enhancement (<span id="id6">Wu <em>et al.</em> [<a class="reference internal" href="papers.html#id55" title="Zhizheng Wu, Oliver Watts, and Simon King. Merlin: an open source neural network speech synthesis system. In SSW, 202–207. 2016.">WWK16</a>]</span>)</p></li>
+<li><p>Global variance (GV) or modulation spectrum (MS) based post-filters (<span id="id7">Silén <em>et al.</em> [<a class="reference internal" href="papers.html#id51" title="Hanna Silén, Elina Helander, Jani Nurminen, and Moncef Gabbouj. Ways to implement global variance in statistical speech synthesis. In Thirteenth Annual Conference of the International Speech Communication Association. 2012.">SilenHNG12</a>]</span>, <span id="id8">Takamichi <em>et al.</em> [<a class="reference internal" href="papers.html#id54" title="Shinnosuke Takamichi, Tomoki Toda, Alan W Black, Graham Neubig, Sakriani Sakti, and Satoshi Nakamura. Postfilters to modify the modulation spectrum for statistical parametric speech synthesis. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(4):755–767, 2016.">TTB+16</a>]</span>)</p></li>
+<li><p>Learned post-filter (<span id="id9">Kaneko <em>et al.</em> [<a class="reference internal" href="papers.html#id42" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech. August 2017.">KTKY17b</a>]</span>, <span id="id10">Kaneko <em>et al.</em> [<a class="reference internal" href="papers.html#id43" title="Takuhiro Kaneko, Shinji Takaki, Hirokazu Kameoka, and Junichi Yamagishi. Generative adversarial network-based postfilter for stft spectrograms. In Proc. Interspeech, 3389–3393. 2017.">KTKY17a</a>]</span>)</p></li>
+</ul>
+<p>The first one is what NNSVS has been using since the first release.
+The newer NNSVS support GV post-filter and learned post-filter to further improve the synthetic quality.</p>
+<p>The following figures show how the learned post-filter works (above: before post-filtering, bottom: after post-filtering).
+Note that learned post-filter is currently under development.</p>
+<img alt="Post-filter before" src="_images/svs_postfilter_before.png" />
+<img alt="Post-filter after" src="_images/svs_postfilter_after.png" />
+</section>
+<section id="vocoder">
+<h2>Vocoder<a class="headerlink" href="#vocoder" title="Link to this heading"></a></h2>
+<p>The vocoder is a model that generates waveform from acoustic features. NNSVS adopts WORLD (<span id="id11">Morise <em>et al.</em> [<a class="reference internal" href="papers.html#id53" title="Masanori Morise, Fumiya Yokomori, and Kenji Ozawa. World: a vocoder-based high-quality speech synthesis system for real-time applications. IEICE TRANSACTIONS on Information and Systems, 99(7):1877–1884, 2016.">MYO16</a>]</span>) as the primiary vocoder.
+We have plans to support neural vocoders but its support is currently limited.
+Neural source-filter models (<span id="id12">Wang <em>et al.</em> [<a class="reference internal" href="papers.html#id56" title="Xin Wang, Shinji Takaki, and Junichi Yamagishi. Neural source-filter waveform models for statistical parametric speech synthesis. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 28:402–415, 2019.">WTY19</a>]</span>) will be available in the near future.</p>
+</section>
+<section id="difference-with-sinsy">
+<h2>Difference with Sinsy<a class="headerlink" href="#difference-with-sinsy" title="Link to this heading"></a></h2>
+<p>The design of our system is mostly inspired by one of the frontier statistical model-based SVS system, Sinsy (<span id="id13">Hono <em>et al.</em> [<a class="reference internal" href="papers.html#id37" title="Yukiya Hono, Kei Hashimoto, Keiichiro Oura, Yoshihiko Nankaku, and Keiichi Tokuda. Sinsy: a deep neural network-based singing voice synthesis system. IEEE/ACM Trans. on Audio, Speech, and Lang. Process., 29:2803–2815, 2021.">HHO+21</a>]</span>).
+Sinsy was originally based on hidden Markov models (HMMs) but they adopted neural networks in their recent work.
+Note that the NNSVS’s SVS systems are not limited to the pipeline architecture and can be configured differently.</p>
+<p>The most important difference between NNSVS and Sinsy is its open-/closeed-source policy.
+NNSVS is fully open-source, while Sinsy is not. Specifically, Sinsy’s neural network-based models are closed source. Note that Sinsy stopped their open-source updates at Dec. 2015.</p>
+<p>Furthermore, thanks to the open-source nature of NNSVS, one can create their own SVS systems by recoding database by themselves. This is actually what the vocal synth community has been doing after the NNSVS (and ENUNU) release.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enunu2nnsvs.html" class="btn btn-neutral float-left" title="How to convert ENUNU models to NNSVS’ ones" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules/base.html" class="btn btn-neutral float-right" title="nnsvs.base" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

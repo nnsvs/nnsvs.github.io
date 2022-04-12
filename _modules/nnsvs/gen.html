@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.gen &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.gen</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.gen</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">import</span> <span class="nn">librosa</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pyloudnorm</span> <span class="k">as</span> <span class="nn">pyln</span>
+<span class="kn">import</span> <span class="nn">pysptk</span>
+<span class="kn">import</span> <span class="nn">pyworld</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.frontend</span> <span class="kn">import</span> <span class="n">merlin</span> <span class="k">as</span> <span class="n">fe</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.io</span> <span class="kn">import</span> <span class="n">hts</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.postfilters</span> <span class="kn">import</span> <span class="n">merlin_post_filter</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii.preprocessing.f0</span> <span class="kn">import</span> <span class="n">interp1d</span>
+<span class="kn">from</span> <span class="nn">nnsvs.base</span> <span class="kn">import</span> <span class="n">PredictionType</span>
+<span class="kn">from</span> <span class="nn">nnsvs.dsp</span> <span class="kn">import</span> <span class="n">bandpass_filter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.io.hts</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_note_frame_indices</span><span class="p">,</span>
+    <span class="n">get_note_indices</span><span class="p">,</span>
+    <span class="n">get_pitch_index</span><span class="p">,</span>
+    <span class="n">get_pitch_indices</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">nnsvs.multistream</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_static_stream_sizes</span><span class="p">,</span>
+    <span class="n">get_windows</span><span class="p">,</span>
+    <span class="n">multi_stream_mlpg</span><span class="p">,</span>
+    <span class="n">split_streams</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">nnsvs.pitch</span> <span class="kn">import</span> <span class="n">gen_sine_vibrato</span><span class="p">,</span> <span class="n">lowpass_filter</span>
+<span class="kn">from</span> <span class="nn">nnsvs.postfilters</span> <span class="kn">import</span> <span class="n">variance_scaling</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+
+<span class="k">def</span> <span class="nf">_midi_to_hz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">log_f0</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">z</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">midi_to_hz</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="n">idx</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">log_f0</span><span class="p">:</span>
+        <span class="n">z</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">z</span>
+
+
+<span class="k">def</span> <span class="nf">_is_silence</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="n">is_full_context</span> <span class="o">=</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">label</span>
+    <span class="k">if</span> <span class="n">is_full_context</span><span class="p">:</span>
+        <span class="n">is_silence</span> <span class="o">=</span> <span class="s2">&quot;-sil&quot;</span> <span class="ow">in</span> <span class="n">label</span> <span class="ow">or</span> <span class="s2">&quot;-pau&quot;</span> <span class="ow">in</span> <span class="n">label</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">is_silence</span> <span class="o">=</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;sil&quot;</span> <span class="ow">or</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;pau&quot;</span>
+    <span class="k">return</span> <span class="n">is_silence</span>
+
+
+<div class="viewcode-block" id="predict_timelag">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.predict_timelag.html#nnsvs.gen.predict_timelag">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_timelag</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">timelag_model</span><span class="p">,</span>
+    <span class="n">timelag_config</span><span class="p">,</span>
+    <span class="n">timelag_in_scaler</span><span class="p">,</span>
+    <span class="n">timelag_out_scaler</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">pitch_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">allowed_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">allowed_range_rest</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_clip_input_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict time-lag from HTS labels</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): device</span>
+<span class="sd">        labels (nnmnkwii.io.hts.HTSLabelFile): HTS-style labels</span>
+<span class="sd">        timelag_model (nn.Module): time-lag model</span>
+<span class="sd">        timelag_config (dict): time-lag model config</span>
+<span class="sd">        timelag_in_scaler (sklearn.preprocessing.MinMaxScaler): input scaler</span>
+<span class="sd">        timelag_out_scaler (sklearn.preprocessing.MinMaxScaler): output scaler</span>
+<span class="sd">        binary_dict (dict): binary feature dict</span>
+<span class="sd">        numeric_dict (dict): numeric feature dict</span>
+<span class="sd">        pitch_indices (list): indices of pitch features</span>
+<span class="sd">        log_f0_conditioning (bool): whether to condition on log f0</span>
+<span class="sd">        allowed_range (list): allowed range of time-lag</span>
+<span class="sd">        allowed_range_rest (list): allowed range of time-lag for rest</span>
+<span class="sd">        force_clip_input_features (bool): whether to clip input features</span>
+
+<span class="sd">    Returns;</span>
+<span class="sd">        ndarray: time-lag predictions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="c1"># make sure to set frame shift properly before calling round_ method</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">frame_shift</span> <span class="o">=</span> <span class="n">hts_frame_shift</span>
+    <span class="k">if</span> <span class="n">pitch_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pitch_indices</span> <span class="o">=</span> <span class="n">get_pitch_indices</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">allowed_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">allowed_range</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">allowed_range_rest</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">allowed_range_rest</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+    <span class="c1"># round start/end times just in case.</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">round_</span><span class="p">()</span>
+
+    <span class="c1"># Extract note-level labels</span>
+    <span class="n">note_indices</span> <span class="o">=</span> <span class="n">get_note_indices</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">note_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">note_indices</span><span class="p">]</span>
+
+    <span class="c1"># Extract musical/linguistic context</span>
+    <span class="n">timelag_linguistic_features</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">linguistic_features</span><span class="p">(</span>
+        <span class="n">note_labels</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">add_frame_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">subphone_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_shift</span><span class="o">=</span><span class="n">hts_frame_shift</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Adjust input features if we use log-f0 conditioning</span>
+    <span class="k">if</span> <span class="n">log_f0_conditioning</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pitch_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pitch feature indices must be specified!&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">pitch_indices</span><span class="p">:</span>
+            <span class="n">timelag_linguistic_features</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
+                <span class="n">_midi_to_hz</span><span class="p">(</span><span class="n">timelag_linguistic_features</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">log_f0_conditioning</span><span class="p">),</span>
+                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;slinear&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Normalization</span>
+    <span class="n">timelag_linguistic_features</span> <span class="o">=</span> <span class="n">timelag_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+        <span class="n">timelag_linguistic_features</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">force_clip_input_features</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timelag_in_scaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">):</span>
+        <span class="c1"># clip to feature range (except for pitch-related features)</span>
+        <span class="n">non_pitch_indices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">idx</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">timelag_linguistic_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pitch_indices</span>
+        <span class="p">]</span>
+        <span class="n">timelag_linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">timelag_linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">],</span>
+            <span class="n">timelag_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">timelag_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Run model</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">timelag_linguistic_features</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="c1"># Run model</span>
+    <span class="k">if</span> <span class="n">timelag_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+        <span class="c1"># (B, T, D_out)</span>
+        <span class="n">max_mu</span><span class="p">,</span> <span class="n">max_sigma</span> <span class="o">=</span> <span class="n">timelag_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="c1"># Apply denormalization</span>
+            <span class="c1"># (B, T, D_out) -&gt; (T, D_out)</span>
+            <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">max_sigma</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">timelag_out_scaler</span><span class="o">.</span><span class="n">var_</span>
+            <span class="p">)</span>
+            <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">max_sigma_sq</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">)</span>
+            <span class="n">max_mu</span> <span class="o">=</span> <span class="n">timelag_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="c1"># (T, D_out) -&gt; (T, static_dim)</span>
+            <span class="n">pred_timelag</span> <span class="o">=</span> <span class="n">multi_stream_mlpg</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="p">,</span>
+                <span class="n">max_sigma_sq</span><span class="p">,</span>
+                <span class="n">get_windows</span><span class="p">(</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">),</span>
+                <span class="n">timelag_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="n">timelag_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Apply denormalization</span>
+            <span class="n">pred_timelag</span> <span class="o">=</span> <span class="n">timelag_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># (T, D_out)</span>
+        <span class="n">pred_timelag</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">timelag_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="c1"># Apply denormalization</span>
+        <span class="n">pred_timelag</span> <span class="o">=</span> <span class="n">timelag_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">pred_timelag</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="c1"># (T, D_out) -&gt; (T, static_dim)</span>
+            <span class="n">pred_timelag</span> <span class="o">=</span> <span class="n">multi_stream_mlpg</span><span class="p">(</span>
+                <span class="n">pred_timelag</span><span class="p">,</span>
+                <span class="n">timelag_out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="p">,</span>
+                <span class="n">get_windows</span><span class="p">(</span><span class="n">timelag_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">),</span>
+                <span class="n">timelag_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="n">timelag_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Rounding</span>
+    <span class="n">pred_timelag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">pred_timelag</span><span class="p">)</span>
+
+    <span class="c1"># Clip to the allowed range</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pred_timelag</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">_is_silence</span><span class="p">(</span><span class="n">note_labels</span><span class="o">.</span><span class="n">contexts</span><span class="p">[</span><span class="n">idx</span><span class="p">]):</span>
+            <span class="n">pred_timelag</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">pred_timelag</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">allowed_range_rest</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">allowed_range_rest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pred_timelag</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">pred_timelag</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">allowed_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">allowed_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="c1"># frames -&gt; 100 ns</span>
+    <span class="n">pred_timelag</span> <span class="o">*=</span> <span class="n">hts_frame_shift</span>
+
+    <span class="k">return</span> <span class="n">pred_timelag</span></div>
+
+
+
+<div class="viewcode-block" id="predict_duration">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.predict_duration.html#nnsvs.gen.predict_duration">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_duration</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">duration_model</span><span class="p">,</span>
+    <span class="n">duration_config</span><span class="p">,</span>
+    <span class="n">duration_in_scaler</span><span class="p">,</span>
+    <span class="n">duration_out_scaler</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">pitch_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force_clip_input_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict phoneme durations from HTS labels</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): device to run the model on</span>
+<span class="sd">        labels (nnmnkwii.io.hts.HTSLabelFile): labels</span>
+<span class="sd">        duration_model (nn.Module): duration model</span>
+<span class="sd">        duration_config (dict): duration config</span>
+<span class="sd">        duration_in_scaler (sklearn.preprocessing.MinMaxScaler): duration input scaler</span>
+<span class="sd">        duration_out_scaler (sklearn.preprocessing.MinMaxScaler): duration output scaler</span>
+<span class="sd">        binary_dict (dict): binary feature dictionary</span>
+<span class="sd">        numeric_dict (dict): numeric feature dictionary</span>
+<span class="sd">        pitch_indices (list): indices of pitch features</span>
+<span class="sd">        log_f0_conditioning (bool): whether to use log-f0 conditioning</span>
+<span class="sd">        force_clip_input_features (bool): whether to clip input features</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: predicted durations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pitch_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pitch_indices</span> <span class="o">=</span> <span class="n">get_pitch_indices</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="c1"># Extract musical/linguistic features</span>
+    <span class="n">duration_linguistic_features</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">linguistic_features</span><span class="p">(</span>
+        <span class="n">labels</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">add_frame_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">subphone_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_shift</span><span class="o">=</span><span class="n">hts_frame_shift</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">log_f0_conditioning</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">pitch_indices</span><span class="p">:</span>
+            <span class="n">duration_linguistic_features</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
+                <span class="n">_midi_to_hz</span><span class="p">(</span><span class="n">duration_linguistic_features</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">log_f0_conditioning</span><span class="p">),</span>
+                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;slinear&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Apply normalization</span>
+    <span class="n">duration_linguistic_features</span> <span class="o">=</span> <span class="n">duration_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+        <span class="n">duration_linguistic_features</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">force_clip_input_features</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">duration_in_scaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">):</span>
+        <span class="c1"># clip to feature range (except for pitch-related features)</span>
+        <span class="n">non_pitch_indices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">idx</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">duration_linguistic_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pitch_indices</span>
+        <span class="p">]</span>
+        <span class="n">duration_linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">duration_linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">],</span>
+            <span class="n">duration_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">duration_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Apply model</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">duration_linguistic_features</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">duration_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+        <span class="c1"># (B, T, D_out)</span>
+        <span class="n">max_mu</span><span class="p">,</span> <span class="n">max_sigma</span> <span class="o">=</span> <span class="n">duration_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">duration_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Dynamic features are not supported for duration modeling&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Apply denormalization</span>
+        <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">max_sigma</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">duration_out_scaler</span><span class="o">.</span><span class="n">var_</span>
+        <span class="p">)</span>
+        <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">max_sigma_sq</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">)</span>
+        <span class="n">max_mu</span> <span class="o">=</span> <span class="n">duration_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+            <span class="n">max_mu</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">max_mu</span><span class="p">,</span> <span class="n">max_sigma_sq</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># (T, D_out)</span>
+        <span class="n">pred_durations</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">duration_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="c1"># Apply denormalization</span>
+        <span class="n">pred_durations</span> <span class="o">=</span> <span class="n">duration_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">pred_durations</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">duration_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="c1"># (T, D_out) -&gt; (T, static_dim)</span>
+            <span class="n">pred_durations</span> <span class="o">=</span> <span class="n">multi_stream_mlpg</span><span class="p">(</span>
+                <span class="n">pred_durations</span><span class="p">,</span>
+                <span class="n">duration_out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="p">,</span>
+                <span class="n">get_windows</span><span class="p">(</span><span class="n">duration_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">),</span>
+                <span class="n">duration_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="n">duration_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="n">pred_durations</span><span class="p">[</span><span class="n">pred_durations</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">pred_durations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">pred_durations</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pred_durations</span></div>
+
+
+
+<div class="viewcode-block" id="postprocess_duration">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.postprocess_duration.html#nnsvs.gen.postprocess_duration">[docs]</a>
+<span class="k">def</span> <span class="nf">postprocess_duration</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">pred_durations</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Post-process durations based on predicted time-lag</span>
+
+<span class="sd">    Ref : https://arxiv.org/abs/2108.02776</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        labels (HTSLabelFile): HTS labels</span>
+<span class="sd">        pred_durations (array or tuple): predicted durations for non-MDN,</span>
+<span class="sd">            mean and variance for MDN</span>
+<span class="sd">        lag (array): predicted time-lag</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HTSLabelFile: labels with adjusted durations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+
+    <span class="n">note_indices</span> <span class="o">=</span> <span class="n">get_note_indices</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="c1"># append the end of note</span>
+    <span class="n">note_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+    <span class="n">is_mdn</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pred_durations</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">pred_durations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="n">output_labels</span> <span class="o">=</span> <span class="n">hts</span><span class="o">.</span><span class="n">HTSLabelFile</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">note_indices</span><span class="p">)):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">note_indices</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="n">note_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+        <span class="c1"># Compute note duration with time-lag</span>
+        <span class="c1"># eq (11)</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fe</span><span class="o">.</span><span class="n">duration_features</span><span class="p">(</span><span class="n">p</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">note_indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">L_hat</span> <span class="o">=</span> <span class="n">L</span> <span class="o">-</span> <span class="p">(</span><span class="n">lag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lag</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">hts_frame_shift</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">L_hat</span> <span class="o">=</span> <span class="n">L</span> <span class="o">-</span> <span class="p">(</span><span class="n">lag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">hts_frame_shift</span>
+
+        <span class="c1"># Prevent negative duration</span>
+        <span class="n">L_hat</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">L_hat</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># adjust the start time of the note</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">start_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">start_times</span><span class="p">)</span> <span class="o">+</span> <span class="n">lag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">end_times</span><span class="p">)</span> <span class="o">-</span> <span class="n">hts_frame_shift</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">start_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">start_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">start_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">start_times</span><span class="p">,</span> <span class="n">output_labels</span><span class="o">.</span><span class="n">start_times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">hts_frame_shift</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Compute normalized phoneme durations</span>
+        <span class="k">if</span> <span class="n">is_mdn</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="n">pred_durations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">note_indices</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="n">note_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">sigma_sq</span> <span class="o">=</span> <span class="n">pred_durations</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">note_indices</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="n">note_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="c1"># eq (17)</span>
+            <span class="n">rho</span> <span class="o">=</span> <span class="p">(</span><span class="n">L_hat</span> <span class="o">-</span> <span class="n">mu</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="n">sigma_sq</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="c1"># eq (16)</span>
+            <span class="n">d_norm</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_sq</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">d_norm</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="c1"># eq (12) (using mu as d_hat)</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">frame_period</span> <span class="o">*</span> <span class="mf">0.001</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Negative phoneme durations are predicted at </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-th note. &quot;</span>
+                    <span class="s2">&quot;The note duration: &quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2"> sec -&gt; </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">L_hat</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2"> sec&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;It&#39;s likely that the model couldn&#39;t predict correct durations &quot;</span>
+                    <span class="s2">&quot;for short notes.&quot;</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Variance scaling based durations (in frame):</span><span class="se">\n</span><span class="si">{</span><span class="p">(</span><span class="n">mu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rho</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma_sq</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Fallback to uniform scaling (in frame):</span><span class="se">\n</span><span class="si">{</span><span class="p">(</span><span class="n">L_hat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mu</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mu</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">d_norm</span> <span class="o">=</span> <span class="n">L_hat</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">mu</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># eq (12)</span>
+            <span class="n">d_hat</span> <span class="o">=</span> <span class="n">pred_durations</span><span class="p">[</span><span class="n">note_indices</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="n">note_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">d_norm</span> <span class="o">=</span> <span class="n">L_hat</span> <span class="o">*</span> <span class="n">d_hat</span> <span class="o">/</span> <span class="n">d_hat</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="n">d_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d_norm</span><span class="p">)</span>
+        <span class="n">d_norm</span><span class="p">[</span><span class="n">d_norm</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">set_durations</span><span class="p">(</span><span class="n">d_norm</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">output_labels</span><span class="o">.</span><span class="n">end_times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">start_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
+            <span class="n">output_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">output_labels</span></div>
+
+
+
+<div class="viewcode-block" id="predict_timing">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.predict_timing.html#nnsvs.gen.predict_timing">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_timing</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">timelag_model</span><span class="p">,</span>
+    <span class="n">timelag_config</span><span class="p">,</span>
+    <span class="n">timelag_in_scaler</span><span class="p">,</span>
+    <span class="n">timelag_out_scaler</span><span class="p">,</span>
+    <span class="n">duration_model</span><span class="p">,</span>
+    <span class="n">duration_config</span><span class="p">,</span>
+    <span class="n">duration_in_scaler</span><span class="p">,</span>
+    <span class="n">duration_out_scaler</span><span class="p">,</span>
+    <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">allowed_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">allowed_range_rest</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_clip_input_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict timinigs from HTS labels</span>
+
+<span class="sd">    This is equivalent to ``predict_timelag + predict_duration + postprocess_duration``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): device to run the model on</span>
+<span class="sd">        labels (nnmnkwii.io.hts.HTSLabelFile): labels</span>
+<span class="sd">        binary_dict (dict): binary feature dictionary</span>
+<span class="sd">        numeric_dict (dict): numeric feature dictionary</span>
+<span class="sd">        timelag_model (nn.Module): timelag model</span>
+<span class="sd">        timelag_config (dict): timelag config</span>
+<span class="sd">        timelag_in_scaler (sklearn.preprocessing.MinMaxScaler): timelag input scaler</span>
+<span class="sd">        timelag_out_scaler (sklearn.preprocessing.MinMaxScaler): timelag output scaler</span>
+<span class="sd">        duration_model (nn.Module): duration model</span>
+<span class="sd">        duration_config (dict): duration config</span>
+<span class="sd">        duration_in_scaler (sklearn.preprocessing.MinMaxScaler): duration input scaler</span>
+<span class="sd">        duration_out_scaler (sklearn.preprocessing.MinMaxScaler): duration output scaler</span>
+<span class="sd">        log_f0_conditioning (bool): whether to condition on log f0</span>
+<span class="sd">        allowed_range (list): allowed range of time-lag</span>
+<span class="sd">        allowed_range_rest (list): allowed range of time-lag for rest</span>
+<span class="sd">        force_clip_input_features (bool): whether to clip input features</span>
+<span class="sd">        frame_period (int): frame period in milliseconds</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nnmnkwii.io.hts.HTSLabelFile: duration modified labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">frame_shift</span> <span class="o">=</span> <span class="n">hts_frame_shift</span>
+
+    <span class="n">pitch_indices</span> <span class="o">=</span> <span class="n">get_pitch_indices</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="c1"># Time-lag</span>
+    <span class="n">lag</span> <span class="o">=</span> <span class="n">predict_timelag</span><span class="p">(</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+        <span class="n">timelag_model</span><span class="o">=</span><span class="n">timelag_model</span><span class="p">,</span>
+        <span class="n">timelag_config</span><span class="o">=</span><span class="n">timelag_config</span><span class="p">,</span>
+        <span class="n">timelag_in_scaler</span><span class="o">=</span><span class="n">timelag_in_scaler</span><span class="p">,</span>
+        <span class="n">timelag_out_scaler</span><span class="o">=</span><span class="n">timelag_out_scaler</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="o">=</span><span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="o">=</span><span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">pitch_indices</span><span class="o">=</span><span class="n">pitch_indices</span><span class="p">,</span>
+        <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="n">log_f0_conditioning</span><span class="p">,</span>
+        <span class="n">allowed_range</span><span class="o">=</span><span class="n">allowed_range</span><span class="p">,</span>
+        <span class="n">allowed_range_rest</span><span class="o">=</span><span class="n">allowed_range_rest</span><span class="p">,</span>
+        <span class="n">force_clip_input_features</span><span class="o">=</span><span class="n">force_clip_input_features</span><span class="p">,</span>
+        <span class="n">frame_period</span><span class="o">=</span><span class="n">frame_period</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Duration predictions</span>
+    <span class="n">durations</span> <span class="o">=</span> <span class="n">predict_duration</span><span class="p">(</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+        <span class="n">duration_model</span><span class="o">=</span><span class="n">duration_model</span><span class="p">,</span>
+        <span class="n">duration_config</span><span class="o">=</span><span class="n">duration_config</span><span class="p">,</span>
+        <span class="n">duration_in_scaler</span><span class="o">=</span><span class="n">duration_in_scaler</span><span class="p">,</span>
+        <span class="n">duration_out_scaler</span><span class="o">=</span><span class="n">duration_out_scaler</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="o">=</span><span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="o">=</span><span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">pitch_indices</span><span class="o">=</span><span class="n">pitch_indices</span><span class="p">,</span>
+        <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="n">log_f0_conditioning</span><span class="p">,</span>
+        <span class="n">force_clip_input_features</span><span class="o">=</span><span class="n">force_clip_input_features</span><span class="p">,</span>
+        <span class="n">frame_period</span><span class="o">=</span><span class="n">frame_period</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Normalize phoneme durations</span>
+    <span class="n">duration_modified_labels</span> <span class="o">=</span> <span class="n">postprocess_duration</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">durations</span><span class="p">,</span> <span class="n">lag</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">duration_modified_labels</span></div>
+
+
+
+<div class="viewcode-block" id="predict_acoustic">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.predict_acoustic.html#nnsvs.gen.predict_acoustic">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_acoustic</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">acoustic_model</span><span class="p">,</span>
+    <span class="n">acoustic_config</span><span class="p">,</span>
+    <span class="n">acoustic_in_scaler</span><span class="p">,</span>
+    <span class="n">acoustic_out_scaler</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">subphone_features</span><span class="o">=</span><span class="s2">&quot;coarse_coding&quot;</span><span class="p">,</span>
+    <span class="n">pitch_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">log_f0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force_clip_input_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">f0_shift_in_cent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict acoustic features from HTS labels</span>
+
+<span class="sd">    MLPG is applied to the predicted features if the output features have</span>
+<span class="sd">    dynamic features.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): device to use</span>
+<span class="sd">        labels (HTSLabelFile): HTS labels</span>
+<span class="sd">        acoustic_model (nn.Module): acoustic model</span>
+<span class="sd">        acoustic_config (AcousticConfig): acoustic configuration</span>
+<span class="sd">        acoustic_in_scaler (sklearn.preprocessing.StandardScaler): input scaler</span>
+<span class="sd">        acoustic_out_scaler (sklearn.preprocessing.StandardScaler): output scaler</span>
+<span class="sd">        binary_dict (dict): binary feature dictionary</span>
+<span class="sd">        numeric_dict (dict): numeric feature dictionary</span>
+<span class="sd">        subphone_features (str): subphone feature type</span>
+<span class="sd">        pitch_indices (list): indices of pitch features</span>
+<span class="sd">        log_f0_conditioning (bool): whether to use log f0 conditioning</span>
+<span class="sd">        force_clip_input_features (bool): whether to force clip input features</span>
+<span class="sd">        frame_period (float): frame period in msec</span>
+<span class="sd">        f0_shift_in_cent (float): F0 shift in cent-scale before the inference</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ndarray: predicted acoustic features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pitch_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pitch_indices</span> <span class="o">=</span> <span class="n">get_pitch_indices</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="c1"># Musical/linguistic features</span>
+    <span class="n">linguistic_features</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">linguistic_features</span><span class="p">(</span>
+        <span class="n">labels</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">add_frame_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">subphone_features</span><span class="o">=</span><span class="n">subphone_features</span><span class="p">,</span>
+        <span class="n">frame_shift</span><span class="o">=</span><span class="n">hts_frame_shift</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">log_f0_conditioning</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">pitch_indices</span><span class="p">:</span>
+            <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
+                <span class="n">_midi_to_hz</span><span class="p">(</span><span class="n">linguistic_features</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">log_f0_conditioning</span><span class="p">),</span>
+                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;slinear&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">f0_shift_in_cent</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">lf0_offset</span> <span class="o">=</span> <span class="n">f0_shift_in_cent</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span>
+                <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">lf0_offset</span>
+
+    <span class="c1"># Apply normalization</span>
+    <span class="n">linguistic_features</span> <span class="o">=</span> <span class="n">acoustic_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">linguistic_features</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">force_clip_input_features</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">acoustic_in_scaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">):</span>
+        <span class="c1"># clip to feature range (except for pitch-related features)</span>
+        <span class="n">non_pitch_indices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">idx</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">linguistic_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pitch_indices</span>
+        <span class="p">]</span>
+        <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">non_pitch_indices</span><span class="p">],</span>
+            <span class="n">acoustic_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">acoustic_in_scaler</span><span class="o">.</span><span class="n">feature_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Predict acoustic features</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">linguistic_features</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">acoustic_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">,</span>
+        <span class="n">PredictionType</span><span class="o">.</span><span class="n">MULTISTREAM_HYBRID</span><span class="p">,</span>
+    <span class="p">]:</span>
+        <span class="c1"># (B, T, D_out)</span>
+        <span class="n">max_mu</span><span class="p">,</span> <span class="n">max_sigma</span> <span class="o">=</span> <span class="n">acoustic_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="c1"># Apply denormalization</span>
+            <span class="c1"># (B, T, D_out) -&gt; (T, D_out)</span>
+            <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">max_sigma</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">acoustic_out_scaler</span><span class="o">.</span><span class="n">var_</span>
+            <span class="p">)</span>
+            <span class="n">max_sigma_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">max_sigma_sq</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">)</span>
+            <span class="n">max_mu</span> <span class="o">=</span> <span class="n">acoustic_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+
+            <span class="c1"># (T, D_out) -&gt; (T, static_dim)</span>
+            <span class="n">pred_acoustic</span> <span class="o">=</span> <span class="n">multi_stream_mlpg</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="p">,</span>
+                <span class="n">max_sigma_sq</span><span class="p">,</span>
+                <span class="n">get_windows</span><span class="p">(</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">),</span>
+                <span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Apply denormalization</span>
+            <span class="n">pred_acoustic</span> <span class="o">=</span> <span class="n">acoustic_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+                <span class="n">max_mu</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># (T, D_out)</span>
+        <span class="n">pred_acoustic</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">acoustic_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="c1"># Apply denormalization</span>
+        <span class="n">pred_acoustic</span> <span class="o">=</span> <span class="n">acoustic_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">pred_acoustic</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+            <span class="c1"># (T, D_out) -&gt; (T, static_dim)</span>
+            <span class="n">pred_acoustic</span> <span class="o">=</span> <span class="n">multi_stream_mlpg</span><span class="p">(</span>
+                <span class="n">pred_acoustic</span><span class="p">,</span>
+                <span class="n">acoustic_out_scaler</span><span class="o">.</span><span class="n">var_</span><span class="p">,</span>
+                <span class="n">get_windows</span><span class="p">(</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">),</span>
+                <span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+                <span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pred_acoustic</span></div>
+
+
+
+<div class="viewcode-block" id="postprocess_acoustic">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.postprocess_acoustic.html#nnsvs.gen.postprocess_acoustic">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">postprocess_acoustic</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">acoustic_features</span><span class="p">,</span>
+    <span class="n">duration_modified_labels</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">acoustic_config</span><span class="p">,</span>
+    <span class="n">acoustic_out_static_scaler</span><span class="p">,</span>
+    <span class="n">postfilter_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">postfilter_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">postfilter_out_scaler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="o">=</span><span class="mi">48000</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">relative_f0</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+    <span class="n">post_filter_type</span><span class="o">=</span><span class="s2">&quot;gv&quot;</span><span class="p">,</span>
+    <span class="n">trajectory_smoothing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">trajectory_smoothing_cutoff</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">trajectory_smoothing_cutoff_f0</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">vuv_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">f0_shift_in_cent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">vibrato_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">force_fix_vuv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">fill_silence_to_rest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Post-process acoustic features</span>
+
+<span class="sd">    The function converts acoustic features in single ndarray to tuple of</span>
+<span class="sd">    multi-stream acoustic features.</span>
+
+<span class="sd">    e.g., array -&gt; (mgc, lf0, vuv, bap)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): Device.</span>
+<span class="sd">        duration_modified_labels (nnmnkwii.io.hts.HTSLabelFile): HTS label file.</span>
+<span class="sd">        binary_dict (dict): Dictionary of binary features.</span>
+<span class="sd">        numeric_dict (dict): Dictionary of numeric features.</span>
+<span class="sd">        acoustic_config (dict): Acoustic model configuration.</span>
+<span class="sd">        acoustic_features (np.ndarray): Acoustic features.</span>
+<span class="sd">        acoustic_out_static_scaler (sklearn.preprocessing.StandardScaler): Scaler</span>
+<span class="sd">            for acoustic features.</span>
+<span class="sd">        postfilter_model (nn.Module): Post-filter model.</span>
+<span class="sd">        postfilter_config (dict): Post-filter model configuration.</span>
+<span class="sd">        postfilter_out_scaler (sklearn.preprocessing.StandardScaler): Scaler for post-filter.</span>
+<span class="sd">        sample_rate (int): Sampling rate.</span>
+<span class="sd">        frame_period (float): Frame period in milliseconds.</span>
+<span class="sd">        relative_f0 (bool): If True, use relative f0.</span>
+<span class="sd">        feature_type (str): Feature type.</span>
+<span class="sd">        post_filter_type (str): Post-filter type.</span>
+<span class="sd">            One of ``gv``, ``merlin`` or ``nnsvs``. Recommended to use ``gv``</span>
+<span class="sd">            for general purpose.</span>
+<span class="sd">        trajectory_smoothing (bool): Whether to apply trajectory smoothing.</span>
+<span class="sd">        trajectory_smoothing_cutoff (float): Cutoff frequency for trajectory smoothing</span>
+<span class="sd">            of spectral features.</span>
+<span class="sd">        trajectory_smoothing_cutoff_f0 (float): Cutoff frequency for trajectory smoothing of f0.</span>
+<span class="sd">        vuv_threshold (float): V/UV threshold.</span>
+<span class="sd">        f0_shift_in_cent (float): F0 shift in cents.</span>
+<span class="sd">        vibrato_scale (float): Vibrato scale.</span>
+<span class="sd">        force_fix_vuv (bool): If True, force to fix V/UV.</span>
+<span class="sd">        fill_silence_to_rest (bool): Fill silence to rest frames.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Post-processed acoustic features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="n">pitch_idx</span> <span class="o">=</span> <span class="n">get_pitch_index</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="n">static_stream_sizes</span> <span class="o">=</span> <span class="n">get_static_stream_sizes</span><span class="p">(</span>
+        <span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+        <span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+        <span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">linguistic_features</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">linguistic_features</span><span class="p">(</span>
+        <span class="n">duration_modified_labels</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">add_frame_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">frame_shift</span><span class="o">=</span><span class="n">hts_frame_shift</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># GV post-filter</span>
+    <span class="k">if</span> <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;gv&quot;</span> <span class="ow">or</span> <span class="p">(</span>
+        <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;nnsvs&quot;</span> <span class="ow">and</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span>
+    <span class="p">):</span>
+        <span class="n">note_frame_indices</span> <span class="o">=</span> <span class="n">get_note_frame_indices</span><span class="p">(</span>
+            <span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">,</span> <span class="n">linguistic_features</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+            <span class="c1"># NOTE: set offset so that post-filter does not affect F0</span>
+            <span class="n">mel_freq</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">mel_frequencies</span><span class="p">(</span>
+                <span class="n">n_mels</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mi">63</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">sample_rate</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="p">)</span>
+            <span class="c1"># NOTE: the threshold could be tuned for better performance</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mel_freq</span> <span class="o">&gt;</span> <span class="mi">1200</span><span class="p">)</span>
+
+        <span class="c1"># NOTE: apply the post-filter for note frames only</span>
+        <span class="n">mgc_end_dim</span> <span class="o">=</span> <span class="n">static_stream_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="p">:</span><span class="n">mgc_end_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">variance_scaling</span><span class="p">(</span>
+            <span class="n">acoustic_out_static_scaler</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[:</span><span class="n">mgc_end_dim</span><span class="p">],</span>
+            <span class="n">acoustic_features</span><span class="p">[:,</span> <span class="p">:</span><span class="n">mgc_end_dim</span><span class="p">],</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">note_frame_indices</span><span class="o">=</span><span class="n">note_frame_indices</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Learned post-filter using nnsvs</span>
+    <span class="k">if</span> <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;nnsvs&quot;</span> <span class="ow">and</span> <span class="n">postfilter_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># (1) Raw spectrogram or (2) mgc</span>
+        <span class="n">rawsp_output</span> <span class="o">=</span> <span class="n">postfilter_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">128</span>
+
+        <span class="c1"># If the post-filter output is raw spectrogrma, convert mgc to log spectrogram</span>
+        <span class="k">if</span> <span class="n">rawsp_output</span><span class="p">:</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">acoustic_features</span><span class="p">,</span> <span class="n">static_stream_sizes</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">outs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+            <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">outs</span>
+            <span class="n">fft_size</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">get_cheaptrick_fft_size</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+            <span class="n">sp</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">decode_spectral_envelope</span><span class="p">(</span>
+                <span class="n">mgc</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">fft_size</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+            <span class="n">acoustic_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">sp</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">in_feats</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">acoustic_features</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">in_feats</span> <span class="o">=</span> <span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">in_feats</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="c1"># Run inference</span>
+        <span class="n">out_feats</span> <span class="o">=</span> <span class="n">postfilter_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">in_feats</span><span class="p">,</span> <span class="p">[</span><span class="n">in_feats</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">acoustic_features</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">postfilter_out_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">out_feats</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Convert log spectrogram to mgc</span>
+        <span class="c1"># NOTE: mgc is used to reduce possible artifacts</span>
+        <span class="c1"># Ref: https://bit.ly/3AHjstU</span>
+        <span class="k">if</span> <span class="n">rawsp_output</span><span class="p">:</span>
+            <span class="n">sp</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span>
+                <span class="n">acoustic_features</span><span class="p">,</span> <span class="n">postfilter_config</span><span class="o">.</span><span class="n">stream_sizes</span>
+            <span class="p">)</span>
+            <span class="n">sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">code_spectral_envelope</span><span class="p">(</span>
+                <span class="n">sp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="mi">60</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">acoustic_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Generate WORLD parameters</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">gen_spsvs_static_features</span><span class="p">(</span>
+            <span class="n">labels</span><span class="o">=</span><span class="n">duration_modified_labels</span><span class="p">,</span>
+            <span class="n">acoustic_features</span><span class="o">=</span><span class="n">acoustic_features</span><span class="p">,</span>
+            <span class="n">binary_dict</span><span class="o">=</span><span class="n">binary_dict</span><span class="p">,</span>
+            <span class="n">numeric_dict</span><span class="o">=</span><span class="n">numeric_dict</span><span class="p">,</span>
+            <span class="n">stream_sizes</span><span class="o">=</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">,</span>
+            <span class="n">has_dynamic_features</span><span class="o">=</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">has_dynamic_features</span><span class="p">,</span>
+            <span class="n">pitch_idx</span><span class="o">=</span><span class="n">pitch_idx</span><span class="p">,</span>
+            <span class="n">num_windows</span><span class="o">=</span><span class="n">acoustic_config</span><span class="o">.</span><span class="n">num_windows</span><span class="p">,</span>
+            <span class="n">frame_period</span><span class="o">=</span><span class="n">frame_period</span><span class="p">,</span>
+            <span class="n">relative_f0</span><span class="o">=</span><span class="n">relative_f0</span><span class="p">,</span>
+            <span class="n">vibrato_scale</span><span class="o">=</span><span class="n">vibrato_scale</span><span class="p">,</span>
+            <span class="n">vuv_threshold</span><span class="o">=</span><span class="n">vuv_threshold</span><span class="p">,</span>
+            <span class="n">force_fix_vuv</span><span class="o">=</span><span class="n">force_fix_vuv</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+        <span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">acoustic_features</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown feature type: </span><span class="si">{</span><span class="n">feature_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fill_silence_to_rest</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">_get_nonrest_frame_soft_mask</span><span class="p">(</span>
+            <span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">,</span> <span class="n">linguistic_features</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+            <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">_fill_silence_to_world_params</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+            <span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span> <span class="o">=</span> <span class="n">_fill_silence_to_mel_params</span><span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">f0_shift_in_cent</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">lf0_offset</span> <span class="o">=</span> <span class="n">f0_shift_in_cent</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span>
+        <span class="n">lf0</span> <span class="o">=</span> <span class="n">lf0</span> <span class="o">+</span> <span class="n">lf0_offset</span>
+
+    <span class="c1"># NOTE: spectral enhancement based on the Merlin&#39;s post-filter implementation</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span> <span class="ow">and</span> <span class="n">post_filter_type</span> <span class="o">==</span> <span class="s2">&quot;merlin&quot;</span><span class="p">:</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">mcepalpha</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+        <span class="n">mgc</span> <span class="o">=</span> <span class="n">merlin_post_filter</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+
+    <span class="c1"># Remove high-frequency components of lf0/mgc/bap</span>
+    <span class="c1"># NOTE: Useful to reduce high-frequency artifacts</span>
+    <span class="k">if</span> <span class="n">trajectory_smoothing</span><span class="p">:</span>
+        <span class="n">modfs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">))</span>
+        <span class="n">lf0</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+            <span class="n">lf0</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff_f0</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mgc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">mgc</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+                    <span class="n">mgc</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff</span>
+                <span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">bap</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+                    <span class="n">bap</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff</span>
+                <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">mel</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span>
+                    <span class="n">mel</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">modfs</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">trajectory_smoothing_cutoff</span>
+                <span class="p">)</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">use_mcep_aperiodicity</span> <span class="o">=</span> <span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_mcep_aperiodicity</span><span class="p">:</span>
+        <span class="n">bap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">bap</span><span class="p">,</span> <span class="n">a_min</span><span class="o">=-</span><span class="mi">60</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span>
+    <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span></div>
+
+
+
+<div class="viewcode-block" id="predict_waveform">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.predict_waveform.html#nnsvs.gen.predict_waveform">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_waveform</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">multistream_features</span><span class="p">,</span>
+    <span class="n">vocoder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">vocoder_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">vocoder_in_scaler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="o">=</span><span class="mi">48000</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">use_world_codec</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+    <span class="n">vocoder_type</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+    <span class="n">vuv_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict waveform from multi-stream acoustic features</span>
+
+<span class="sd">    Vocoders can be 1) WORLD, 2) PWG or 3) uSFGAN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device): Device to run inference</span>
+<span class="sd">        features (tuple): Acoustic features</span>
+<span class="sd">        vocoder (nn.Module): Vocoder model</span>
+<span class="sd">        vocoder_config (dict): Vocoder config</span>
+<span class="sd">        vocoder_in_scaler (StandardScaler): Vocoder input scaler</span>
+<span class="sd">        sample_rate (int,): Sampling rate.</span>
+<span class="sd">        frame_period (float): Frame period in msec.</span>
+<span class="sd">        use_world_codec (bool): Whether to use WORLD codec for decoding.</span>
+<span class="sd">        feature_type (str): Feature type.</span>
+<span class="sd">            ``world`` ``world_org``, ``melf0`` or ``neutrino``.</span>
+<span class="sd">        vocoder_type (str): Vocoder type. ``world`` or ``pwg`` or ``usfgan``</span>
+<span class="sd">        vuv_threshold (float): VUV threshold.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Predicted waveform</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">multistream_features</span>
+    <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world_org&quot;</span><span class="p">:</span>
+        <span class="n">f0</span><span class="p">,</span> <span class="n">spectrogram</span><span class="p">,</span> <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">multistream_features</span>
+    <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;neutrino&quot;</span><span class="p">:</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">multistream_features</span>
+        <span class="c1"># prepare (mgc, lf0, vuv, bap) to be compatible with NNSVS</span>
+        <span class="n">lf0</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">lf0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)])</span>
+        <span class="n">vuv</span> <span class="o">=</span> <span class="p">(</span><span class="n">f0</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+        <span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span> <span class="o">=</span> <span class="n">multistream_features</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown feature type: </span><span class="si">{</span><span class="n">feature_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># NOTE: `use_mcep_aperiodicity` was used for experimental purpose but didn&#39;t make</span>
+    <span class="c1"># significant difference. Please just ignore or ping @r9y9 for details.</span>
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;neutrino&quot;</span><span class="p">]:</span>
+        <span class="n">use_mcep_aperiodicity</span> <span class="o">=</span> <span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;neutrino&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_world_codec</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;use_world_codec must be True when feature_type is neutrino&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Waveform generation by WORLD</span>
+    <span class="k">if</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;world_org&quot;</span><span class="p">,</span> <span class="s2">&quot;neutrino&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid feature type for WORLD vocoder: </span><span class="si">{</span><span class="n">feature_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world_org&quot;</span><span class="p">:</span>
+            <span class="c1"># NOTE: WORLD-based features are already converted to raw WORLD parameters</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f0</span><span class="p">,</span> <span class="n">spectrogram</span><span class="p">,</span> <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">gen_world_params</span><span class="p">(</span>
+                <span class="n">mgc</span><span class="p">,</span>
+                <span class="n">lf0</span><span class="p">,</span>
+                <span class="n">vuv</span><span class="p">,</span>
+                <span class="n">bap</span><span class="p">,</span>
+                <span class="n">sample_rate</span><span class="p">,</span>
+                <span class="n">vuv_threshold</span><span class="o">=</span><span class="n">vuv_threshold</span><span class="p">,</span>
+                <span class="n">use_world_codec</span><span class="o">=</span><span class="n">use_world_codec</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># make sure to have float64 typed parameters</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">synthesize</span><span class="p">(</span>
+            <span class="n">f0</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+            <span class="n">spectrogram</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+            <span class="n">aperiodicity</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+            <span class="n">sample_rate</span><span class="p">,</span>
+            <span class="n">frame_period</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;pwg&quot;</span><span class="p">:</span>
+        <span class="c1"># NOTE: So far vocoder models are trained on binary V/UV features</span>
+        <span class="n">vuv</span> <span class="o">=</span> <span class="p">(</span><span class="n">vuv</span> <span class="o">&gt;</span> <span class="n">vuv_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+            <span class="n">voc_inp</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+                    <span class="n">vocoder_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">float</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+            <span class="n">voc_inp</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+                    <span class="n">vocoder_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">float</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">vocoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">voc_inp</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">vocoder_type</span> <span class="o">==</span> <span class="s2">&quot;usfgan&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;neutrino&quot;</span><span class="p">]:</span>
+            <span class="n">fftlen</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">get_cheaptrick_fft_size</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">use_mcep_aperiodicity</span><span class="p">:</span>
+                <span class="c1"># Convert mel-cepstrum-based aperiodicity to WORLD&#39;s aperiodicity</span>
+                <span class="n">aperiodicity_order</span> <span class="o">=</span> <span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">alpha</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">mcepalpha</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+                <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">mc2sp</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">bap</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                    <span class="n">fftlen</span><span class="o">=</span><span class="n">fftlen</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">decode_aperiodicity</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">bap</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                    <span class="n">sample_rate</span><span class="p">,</span>
+                    <span class="n">fftlen</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="c1"># fill aperiodicity with ones for unvoiced regions</span>
+            <span class="n">aperiodicity</span><span class="p">[</span><span class="n">vuv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="c1"># WORLD fails catastrophically for out of range aperiodicity</span>
+            <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">aperiodicity</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+            <span class="c1"># Convert aperiodicity back to BAP</span>
+            <span class="k">if</span> <span class="n">use_mcep_aperiodicity</span><span class="p">:</span>
+                <span class="n">bap</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">sp2mc</span><span class="p">(</span>
+                    <span class="n">aperiodicity</span><span class="p">,</span>
+                    <span class="n">order</span><span class="o">=</span><span class="n">aperiodicity_order</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bap</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">code_aperiodicity</span><span class="p">(</span><span class="n">aperiodicity</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
+                <span class="p">)</span>
+            <span class="n">aux_feats</span> <span class="o">=</span> <span class="p">[</span><span class="n">mgc</span><span class="p">,</span> <span class="n">bap</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;melf0&quot;</span><span class="p">:</span>
+            <span class="n">aux_feats</span> <span class="o">=</span> <span class="p">[</span><span class="n">mel</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;world_org&quot;</span><span class="p">:</span>
+            <span class="c1"># it is possible to implement here but I suppose nobody wants to use</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+        <span class="n">aux_feats</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+                <span class="n">vocoder_in_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">aux_feats</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">contf0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lf0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vocoder_config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sine_f0_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;contf0&quot;</span><span class="p">,</span> <span class="s2">&quot;cf0&quot;</span><span class="p">]:</span>
+            <span class="n">f0_inp</span> <span class="o">=</span> <span class="n">contf0</span>
+        <span class="k">elif</span> <span class="n">vocoder_config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sine_f0_type</span> <span class="o">==</span> <span class="s2">&quot;f0&quot;</span><span class="p">:</span>
+            <span class="n">f0_inp</span> <span class="o">=</span> <span class="n">contf0</span>
+            <span class="n">f0_inp</span><span class="p">[</span><span class="n">vuv</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># NOTE: uSFGAN internally performs normalization</span>
+        <span class="c1"># so we don&#39;t need to normalize inputs here</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">vocoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">f0_inp</span><span class="p">,</span> <span class="n">aux_feats</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">wav</span></div>
+
+
+
+<div class="viewcode-block" id="postprocess_waveform">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.postprocess_waveform.html#nnsvs.gen.postprocess_waveform">[docs]</a>
+<span class="k">def</span> <span class="nf">postprocess_waveform</span><span class="p">(</span>
+    <span class="n">wav</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
+    <span class="n">peak_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">loudness_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">target_loudness</span><span class="o">=-</span><span class="mf">20.0</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform post-processing for synthesized waveform</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        wav (ndarray): The input waveform</span>
+<span class="sd">        sample_rate (int): The sampling rate</span>
+<span class="sd">        dtype (np.dtype): The dtype of output waveform. Default is np.int16.</span>
+<span class="sd">        peak_norm (bool): Whether to perform peak normalization</span>
+<span class="sd">        loudness_norm (bool): Whether to perform loudness normalization</span>
+<span class="sd">        target_loudness (float): Target loudness in dB</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ndarray: The post-processed waveform</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wav</span> <span class="o">=</span> <span class="n">bandpass_filter</span><span class="p">(</span><span class="n">wav</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">)</span>
+
+    <span class="c1"># Peak normalize audio to 0 dB</span>
+    <span class="k">if</span> <span class="n">peak_norm</span><span class="p">:</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">pyln</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">peak</span><span class="p">(</span><span class="n">wav</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Normalize loudnes</span>
+    <span class="c1"># NOTE: -20 dB is roughly the same as the NEURINO (NSF ver.)</span>
+    <span class="k">if</span> <span class="n">loudness_norm</span><span class="p">:</span>
+        <span class="n">meter</span> <span class="o">=</span> <span class="n">pyln</span><span class="o">.</span><span class="n">Meter</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+        <span class="n">loudness</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">integrated_loudness</span><span class="p">(</span><span class="n">wav</span><span class="p">)</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">pyln</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">loudness</span><span class="p">(</span><span class="n">wav</span><span class="p">,</span> <span class="n">loudness</span><span class="p">,</span> <span class="n">target_loudness</span><span class="p">)</span>
+
+    <span class="c1"># NOTE: use np.int16 to save disk space</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="s2">&quot;int16&quot;</span><span class="p">]:</span>
+        <span class="c1"># NOTE: NNSVS (&gt;=0.0.3) uses waveforms normalized in [-1, 1] for training.</span>
+        <span class="c1"># so the following code shouldn&#39;t be used but in case for models trained</span>
+        <span class="c1"># with earlier NNSVS</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wav</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="c1"># data is likely already in [-32768, 32767]</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="n">wav</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wav</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">wav</span> <span class="o">=</span> <span class="p">(</span><span class="n">wav</span> <span class="o">*</span> <span class="mf">32767.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># may need to handle int32 data (if any)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unexpected waveform range: </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">wav</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">wav</span><span class="p">)))</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Failed to convert to int16. Returning waveform with floating point.&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wav</span> <span class="o">=</span> <span class="n">wav</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wav</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_get_nonrest_frame_soft_mask</span><span class="p">(</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">linguistic_features</span><span class="p">,</span>
+    <span class="n">win_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">duration_threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get mask for non-rest frames</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        binary_dict (dict): Dictionary for binary features</span>
+<span class="sd">        numeric_dict (dict): Dictionary for numeric features</span>
+<span class="sd">        linguistic_features (ndarray): Linguistic features</span>
+<span class="sd">        win_length (int): Window length</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ndarray: Soft mask for non-rest frames.</span>
+<span class="sd">            1 for non-rest frames and 0 for otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">linguistic_features</span><span class="p">))</span>
+
+    <span class="n">in_sil_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">binary_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="s2">&quot;C-Phone_sil&quot;</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;C-Phone_pau&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">in_sil_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_sil_indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mask</span>
+
+    <span class="n">in_note_dur_idx</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">numeric_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="s2">&quot;e7&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">in_note_dur_idx</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="k">break</span>
+
+    <span class="n">dur</span> <span class="o">=</span> <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="nb">len</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">)</span> <span class="o">+</span> <span class="n">in_note_dur_idx</span><span class="p">]</span>
+    <span class="n">dur_in_sec</span> <span class="o">=</span> <span class="n">dur</span> <span class="o">*</span> <span class="mf">0.01</span>
+    <span class="k">for</span> <span class="n">in_sil_idx</span> <span class="ow">in</span> <span class="n">in_sil_indices</span><span class="p">:</span>
+        <span class="c1"># Only mask out sil/pau segments over ${silence_threshold} sec. such as long pause</span>
+        <span class="n">mask</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">in_sil_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dur_in_sec</span> <span class="o">&gt;</span> <span class="n">duration_threshold</span><span class="p">)</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># make a smoothed mask with ${win_length} * 5ms window length</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">win_length</span><span class="p">)</span> <span class="o">/</span> <span class="n">win_length</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+
+    <span class="c1"># make sure that we don&#39;t mask out frames where notes are assigned</span>
+    <span class="n">pitch_idx</span> <span class="o">=</span> <span class="n">get_pitch_index</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+    <span class="n">score_f0</span> <span class="o">=</span> <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">pitch_idx</span><span class="p">]</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">score_f0</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">return</span> <span class="n">mask</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_fill_silence_to_world_params</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+    <span class="n">mgc_sil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mgc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># NOTE: mgc_sil is a VERY ROUGH estimate of mgc for silence regions</span>
+    <span class="c1"># the speech signal is assumed to be in [-1, 1].</span>
+    <span class="c1">#   sr = 48000</span>
+    <span class="c1">#   noise = np.random.randn(sr * 10) * 1e-5</span>
+    <span class="c1">#   f0, timeaxis = pyworld.harvest(noise, sr, frame_period=5)</span>
+    <span class="c1">#   f0[:] = 0</span>
+    <span class="c1">#   spectrogram = pyworld.cheaptrick(noise, f0, timeaxis, sr)</span>
+    <span class="c1">#   mgc = pyworld.code_spectral_envelope(spectrogram, sr, 60)</span>
+    <span class="c1">#   print(mgc.mean(0))</span>
+    <span class="n">mgc_sil</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">23.3</span>
+    <span class="n">mgc_sil</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0679</span>
+    <span class="n">mgc_sil</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.00640</span>
+    <span class="n">mgc_sil</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="mf">1e-3</span>
+    <span class="n">bap_sil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">bap</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-11</span>
+
+    <span class="n">mgc</span> <span class="o">=</span> <span class="n">mgc</span> <span class="o">*</span> <span class="n">mask</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">mgc_sil</span>
+    <span class="n">bap</span> <span class="o">=</span> <span class="n">bap</span> <span class="o">*</span> <span class="n">mask</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">bap_sil</span>
+
+    <span class="k">return</span> <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span>
+
+
+<span class="k">def</span> <span class="nf">_fill_silence_to_mel_params</span><span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+    <span class="c1"># NOTE: -5.5 is also a very rough estimate of log-melspectrogram</span>
+    <span class="c1"># for silence regions</span>
+    <span class="n">mel_sil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">-</span> <span class="mf">5.5</span>
+    <span class="n">mel</span> <span class="o">=</span> <span class="n">mel</span> <span class="o">*</span> <span class="n">mask</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">mel_sil</span>
+    <span class="k">return</span> <span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span>
+
+
+<div class="viewcode-block" id="correct_vuv_by_phone">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.correct_vuv_by_phone.html#nnsvs.gen.correct_vuv_by_phone">[docs]</a>
+<span class="k">def</span> <span class="nf">correct_vuv_by_phone</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="n">binary_dict</span><span class="p">,</span> <span class="n">linguistic_features</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Correct V/UV by phone-related flags in a hed file</span>
+
+<span class="sd">    This function allows us to control V/UV explicitly by ``C-VUV_Voiced``</span>
+<span class="sd">    and ``C-VUV_Unvoied`` flags in a hed file. This is useful when you see</span>
+<span class="sd">    your trained acoustic model have lots of V/UV errors.</span>
+<span class="sd">    Note that manually controlling V/UV means we are ignoring the</span>
+<span class="sd">    acoustic model&#39;s prediction. It would have negative impact in some</span>
+<span class="sd">    cases, but most cases it would help workaround V/UV errors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vuv (ndarray): V/UV flags</span>
+<span class="sd">        binary_dict (dict): binary feature dictionary</span>
+<span class="sd">        linguistic_features (ndarray): linguistic features</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ndarray: corrected V/UV flags</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vuv</span> <span class="o">=</span> <span class="n">vuv</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Set V/UV to 1 based on the C-VUV_Voiced flag</span>
+    <span class="n">in_voiced_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">binary_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="s2">&quot;C-VUV_Voiced&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">in_voiced_idx</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="n">in_voiced_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">in_voiced_idx</span> <span class="p">:</span> <span class="n">in_voiced_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">vuv</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Set V/UV to 0 based on the C-VUV_Unvoiced flag</span>
+    <span class="n">in_unvoiced_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">binary_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="s2">&quot;C-VUV_Unvoiced&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">in_unvoiced_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_unvoiced_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">in_unvoiced_idx</span> <span class="ow">in</span> <span class="n">in_unvoiced_indices</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">in_unvoiced_idx</span> <span class="p">:</span> <span class="n">in_unvoiced_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="n">vuv</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Set V/UV to 0 for sil/pau/br</span>
+    <span class="n">in_sil_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">binary_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="s2">&quot;C-Phone_sil&quot;</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;C-Phone_pau&quot;</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;C-Phone_br&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">in_sil_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_sil_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">in_sil_idx</span> <span class="ow">in</span> <span class="n">in_sil_indices</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">linguistic_features</span><span class="p">[:,</span> <span class="n">in_sil_idx</span> <span class="p">:</span> <span class="n">in_sil_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="n">vuv</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">vuv</span></div>
+
+
+
+<div class="viewcode-block" id="gen_spsvs_static_features">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.gen_spsvs_static_features.html#nnsvs.gen.gen_spsvs_static_features">[docs]</a>
+<span class="k">def</span> <span class="nf">gen_spsvs_static_features</span><span class="p">(</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">acoustic_features</span><span class="p">,</span>
+    <span class="n">binary_dict</span><span class="p">,</span>
+    <span class="n">numeric_dict</span><span class="p">,</span>
+    <span class="n">stream_sizes</span><span class="p">,</span>
+    <span class="n">has_dynamic_features</span><span class="p">,</span>
+    <span class="n">pitch_idx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_windows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">frame_period</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">relative_f0</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">vibrato_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">vuv_threshold</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">force_fix_vuv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate static features from predicted acoustic features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        labels (HTSLabelFile): HTS labels</span>
+<span class="sd">        acoustic_features (ndarray): predicted acoustic features</span>
+<span class="sd">        binary_dict (dict): binary feature dictionary</span>
+<span class="sd">        numeric_dict (dict): numeric feature dictionary</span>
+<span class="sd">        stream_sizes (list): stream sizes</span>
+<span class="sd">        has_dynamic_features (list): whether each stream has dynamic features</span>
+<span class="sd">        pitch_idx (int): index of pitch features</span>
+<span class="sd">        num_windows (int): number of windows</span>
+<span class="sd">        frame_period (float): frame period</span>
+<span class="sd">        relative_f0 (bool): whether to use relative f0</span>
+<span class="sd">        vibrato_scale (float): vibrato scale</span>
+<span class="sd">        vuv_threshold (float): vuv threshold</span>
+<span class="sd">        force_fix_vuv (bool): whether to use post-processing to fix VUV.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: tuple of mgc, lf0, vuv and bap.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hts_frame_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pitch_idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pitch_idx</span> <span class="o">=</span> <span class="n">get_pitch_index</span><span class="p">(</span><span class="n">binary_dict</span><span class="p">,</span> <span class="n">numeric_dict</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">has_dynamic_features</span><span class="p">):</span>
+        <span class="n">static_stream_sizes</span> <span class="o">=</span> <span class="n">get_static_stream_sizes</span><span class="p">(</span>
+            <span class="n">stream_sizes</span><span class="p">,</span> <span class="n">has_dynamic_features</span><span class="p">,</span> <span class="n">num_windows</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">static_stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+
+    <span class="c1"># Copy here to avoid inplace operations on input acoustic features</span>
+    <span class="n">acoustic_features</span> <span class="o">=</span> <span class="n">acoustic_features</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Split multi-stream features</span>
+    <span class="n">streams</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">acoustic_features</span><span class="p">,</span> <span class="n">static_stream_sizes</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">streams</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">target_f0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span> <span class="o">=</span> <span class="n">streams</span>
+        <span class="n">vib</span><span class="p">,</span> <span class="n">vib_flags</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">streams</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="c1"># Assuming diff-based vibrato parameters</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">target_f0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">,</span> <span class="n">vib</span> <span class="o">=</span> <span class="n">streams</span>
+        <span class="n">vib_flags</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">streams</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="c1"># Assuming sine-based vibrato parameters</span>
+        <span class="n">mgc</span><span class="p">,</span> <span class="n">target_f0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">,</span> <span class="n">vib</span><span class="p">,</span> <span class="n">vib_flags</span> <span class="o">=</span> <span class="n">streams</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Not supported streams&quot;</span><span class="p">)</span>
+
+    <span class="n">linguistic_features</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">linguistic_features</span><span class="p">(</span>
+        <span class="n">labels</span><span class="p">,</span>
+        <span class="n">binary_dict</span><span class="p">,</span>
+        <span class="n">numeric_dict</span><span class="p">,</span>
+        <span class="n">add_frame_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">frame_shift</span><span class="o">=</span><span class="n">hts_frame_shift</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Correct V/UV based on special phone flags</span>
+    <span class="k">if</span> <span class="n">force_fix_vuv</span><span class="p">:</span>
+        <span class="n">vuv</span> <span class="o">=</span> <span class="n">correct_vuv_by_phone</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="n">binary_dict</span><span class="p">,</span> <span class="n">linguistic_features</span><span class="p">)</span>
+
+    <span class="c1"># F0</span>
+    <span class="k">if</span> <span class="n">relative_f0</span><span class="p">:</span>
+        <span class="n">diff_lf0</span> <span class="o">=</span> <span class="n">target_f0</span>
+        <span class="n">f0_score</span> <span class="o">=</span> <span class="n">_midi_to_hz</span><span class="p">(</span><span class="n">linguistic_features</span><span class="p">,</span> <span class="n">pitch_idx</span><span class="p">,</span> <span class="kc">False</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">lf0_score</span> <span class="o">=</span> <span class="n">f0_score</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">lf0_score</span><span class="p">)</span>
+        <span class="n">lf0_score</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f0_score</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">])</span>
+        <span class="n">lf0_score</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">lf0_score</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;slinear&quot;</span><span class="p">)</span>
+
+        <span class="n">f0</span> <span class="o">=</span> <span class="n">diff_lf0</span> <span class="o">+</span> <span class="n">lf0_score</span>
+        <span class="n">f0</span><span class="p">[</span><span class="n">vuv</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f0</span> <span class="o">=</span> <span class="n">target_f0</span>
+        <span class="n">f0</span><span class="p">[</span><span class="n">vuv</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)])</span>
+
+    <span class="k">if</span> <span class="n">vib</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">vib_flags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Generate sine-based vibrato</span>
+            <span class="n">vib_flags</span> <span class="o">=</span> <span class="n">vib_flags</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">m_a</span><span class="p">,</span> <span class="n">m_f</span> <span class="o">=</span> <span class="n">vib</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vib</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># Fill zeros for non-vibrato frames</span>
+            <span class="n">m_a</span><span class="p">[</span><span class="n">vib_flags</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">m_f</span><span class="p">[</span><span class="n">vib_flags</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Gen vibrato</span>
+            <span class="n">sr_f0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">frame_period</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">))</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="n">gen_sine_vibrato</span><span class="p">(</span><span class="n">f0</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">sr_f0</span><span class="p">,</span> <span class="n">m_a</span><span class="p">,</span> <span class="n">m_f</span><span class="p">,</span> <span class="n">vibrato_scale</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Generate diff-based vibrato</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">+</span> <span class="n">vibrato_scale</span> <span class="o">*</span> <span class="n">vib</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="c1"># NOTE: Back to log-domain for convenience</span>
+    <span class="n">lf0</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">lf0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">lf0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">lf0</span><span class="p">)])</span>
+    <span class="c1"># NOTE: interpolation is necessary</span>
+    <span class="n">lf0</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;slinear&quot;</span><span class="p">)</span>
+
+    <span class="n">lf0</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lf0</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">lf0</span>
+    <span class="n">vuv</span> <span class="o">=</span> <span class="n">vuv</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vuv</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">vuv</span>
+
+    <span class="k">return</span> <span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span></div>
+
+
+
+<div class="viewcode-block" id="gen_world_params">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.gen.gen_world_params.html#nnsvs.gen.gen_world_params">[docs]</a>
+<span class="k">def</span> <span class="nf">gen_world_params</span><span class="p">(</span>
+    <span class="n">mgc</span><span class="p">,</span>
+    <span class="n">lf0</span><span class="p">,</span>
+    <span class="n">vuv</span><span class="p">,</span>
+    <span class="n">bap</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="p">,</span>
+    <span class="n">vuv_threshold</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">use_world_codec</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate WORLD parameters from mgc, lf0, vuv and bap.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mgc (ndarray): mgc</span>
+<span class="sd">        lf0 (ndarray): lf0</span>
+<span class="sd">        vuv (ndarray): vuv</span>
+<span class="sd">        bap (ndarray): bap</span>
+<span class="sd">        sample_rate (int): sample rate</span>
+<span class="sd">        vuv_threshold (float): threshold for VUV</span>
+<span class="sd">        use_world_codec (bool): whether to use WORLD codec for spectral envelope</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: tuple of f0, spectrogram and aperiodicity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fftlen</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">get_cheaptrick_fft_size</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">mcepalpha</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+    <span class="n">use_mcep_aperiodicity</span> <span class="o">=</span> <span class="n">bap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">use_world_codec</span><span class="p">:</span>
+        <span class="n">spectrogram</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">decode_spectral_envelope</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mgc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">fftlen</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">spectrogram</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">mc2sp</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mgc</span><span class="p">),</span> <span class="n">fftlen</span><span class="o">=</span><span class="n">fftlen</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">use_mcep_aperiodicity</span><span class="p">:</span>
+        <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">pysptk</span><span class="o">.</span><span class="n">mc2sp</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">bap</span><span class="p">),</span> <span class="n">fftlen</span><span class="o">=</span><span class="n">fftlen</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">pyworld</span><span class="o">.</span><span class="n">decode_aperiodicity</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">bap</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">fftlen</span>
+        <span class="p">)</span>
+
+    <span class="c1"># fill aperiodicity with ones for unvoiced regions</span>
+    <span class="n">aperiodicity</span><span class="p">[</span><span class="n">vuv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="c1"># WORLD fails catastrophically for out of range aperiodicity</span>
+    <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">aperiodicity</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">f0</span> <span class="o">=</span> <span class="n">lf0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">f0</span><span class="p">)])</span>
+    <span class="n">f0</span><span class="p">[</span><span class="n">vuv</span> <span class="o">&lt;</span> <span class="n">vuv_threshold</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">f0</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">spectrogram</span> <span class="o">=</span> <span class="n">spectrogram</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">aperiodicity</span> <span class="o">=</span> <span class="n">aperiodicity</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">spectrogram</span><span class="p">,</span> <span class="n">aperiodicity</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

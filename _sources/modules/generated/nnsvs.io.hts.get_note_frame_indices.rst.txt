@@ -1,0 +1,6 @@
+﻿nnsvs.io.hts.get\_note\_frame\_indices
+======================================
+
+.. currentmodule:: nnsvs.io.hts
+
+.. autofunction:: get_note_frame_indices

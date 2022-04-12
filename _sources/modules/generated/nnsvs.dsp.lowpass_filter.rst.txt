@@ -1,0 +1,6 @@
+﻿nnsvs.dsp.lowpass\_filter
+=========================
+
+.. currentmodule:: nnsvs.dsp
+
+.. autofunction:: lowpass_filter

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.pitch &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.pitch</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.pitch</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module provides functionality for pitch analysis.</span>
+
+<span class="sd">References:</span>
+
+<span class="sd">Nakano et al, &quot;An Automatic Singing Skill Evaluation Method</span>
+<span class="sd">for Unknown Melodies Using Pitch Interval Accuracy and Vibrato Features&quot;</span>
+<span class="sd">Proc. Interspeech 2006.</span>
+
+<span class="sd">山田 et al, &quot;HMM に基づく歌声合成のためのビブラートモデル化&quot;</span>
+<span class="sd">IPSJ SIG Tech. Report 2009.</span>
+
+<span class="sd">Note that vibrato extraction method in this module is exerimental.</span>
+<span class="sd">Because details of the vibrato extraction method are not described</span>
+<span class="sd">in the above papers and not trivial to implement (in my opinion),</span>
+<span class="sd">my implementation may not work well compared to the original author&#39;s one.</span>
+<span class="sd">Also note that there are a lot of tunable parameters (threshold,</span>
+<span class="sd">window size, min/max extent, cut-off frequency, etc.).</span>
+<span class="sd">If you want to get maximum performance, you might want to tune these</span>
+<span class="sd">parameters with your dataset.</span>
+<span class="sd">I tested this code with kiritan_singing and nit-song070 database.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">librosa</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">nnsvs.dsp</span> <span class="kn">import</span> <span class="n">lowpass_filter</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">argrelmax</span><span class="p">,</span> <span class="n">argrelmin</span>
+
+<span class="n">_c4_hz</span> <span class="o">=</span> <span class="mi">440</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">_c4_cent</span> <span class="o">=</span> <span class="mi">4800</span>
+
+
+<div class="viewcode-block" id="hz_to_cent_based_c4">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.hz_to_cent_based_c4.html#nnsvs.pitch.hz_to_cent_based_c4">[docs]</a>
+<span class="k">def</span> <span class="nf">hz_to_cent_based_c4</span><span class="p">(</span><span class="n">hz</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert Hz to cent based on C4</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hz (np.ndarray): array of Hz</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of cent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">hz</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hz</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">1200</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">hz</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">/</span> <span class="n">_c4_hz</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">_c4_cent</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="cent_to_hz_based_c4">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.cent_to_hz_based_c4.html#nnsvs.pitch.cent_to_hz_based_c4">[docs]</a>
+<span class="k">def</span> <span class="nf">cent_to_hz_based_c4</span><span class="p">(</span><span class="n">cent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert cent to Hz based on C4</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cent (np.ndarray): array of cent</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of Hz</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">cent</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cent</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">cent</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">-</span> <span class="n">_c4_cent</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span> <span class="o">*</span> <span class="n">_c4_hz</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="nonzero_segments">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.nonzero_segments.html#nnsvs.pitch.nonzero_segments">[docs]</a>
+<span class="k">def</span> <span class="nf">nonzero_segments</span><span class="p">(</span><span class="n">f0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find nonzero segments</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0 (np.ndarray): array of f0</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: list of (start, end)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vuv</span> <span class="o">=</span> <span class="n">f0</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f0</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">vuv</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">started</span><span class="p">:</span>
+            <span class="n">started</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span>
+        <span class="k">elif</span> <span class="n">started</span> <span class="ow">and</span> <span class="p">(</span><span class="n">vuv</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">idx</span>
+            <span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="n">started</span> <span class="ow">and</span> <span class="n">vuv</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vuv</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">segments</span></div>
+
+
+
+<div class="viewcode-block" id="note_segments">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.train_util.note_segments.html#nnsvs.pitch.note_segments">[docs]</a>
+<span class="k">def</span> <span class="nf">note_segments</span><span class="p">(</span><span class="n">lf0_score_denorm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute note segments (start and end indices) from log-F0</span>
+
+<span class="sd">    Note that unvoiced frames must be set to 0 in advance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lf0_score_denorm (Tensor): (B, T)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: list of note (start, end) indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">nonzero_segments</span><span class="p">(</span><span class="n">lf0_score_denorm</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">lf0_score_denorm</span><span class="p">[</span><span class="n">s</span> <span class="p">:</span> <span class="n">e</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])))</span>
+        <span class="n">transitions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">out</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">note_start</span><span class="p">,</span> <span class="n">note_end</span> <span class="o">=</span> <span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">transitions</span><span class="p">:</span>
+            <span class="n">note_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">pos</span><span class="p">)</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">note_start</span><span class="p">,</span> <span class="n">note_end</span><span class="p">))</span>
+            <span class="n">note_start</span> <span class="o">=</span> <span class="n">note_end</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Handle last note</span>
+        <span class="k">while</span> <span class="p">(</span>
+            <span class="n">note_start</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lf0_score_denorm</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">lf0_score_denorm</span><span class="p">[</span><span class="n">note_start</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+        <span class="p">):</span>
+            <span class="n">note_start</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">note_end</span> <span class="o">=</span> <span class="n">note_start</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">note_end</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lf0_score_denorm</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">lf0_score_denorm</span><span class="p">[</span><span class="n">note_end</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">note_end</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">note_end</span> <span class="o">!=</span> <span class="n">note_start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">note_start</span><span class="p">,</span> <span class="n">note_end</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">segments</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">compute_f0_correction_ratio</span><span class="p">(</span>
+    <span class="n">f0</span><span class="p">,</span>
+    <span class="n">f0_score</span><span class="p">,</span>
+    <span class="n">edges_to_be_excluded</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">out_of_tune_threshold</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">correction_threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute f0 correction ratio</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0 (np.ndarray): array of f0</span>
+<span class="sd">        f0_score (np.ndarray): array of f0 score</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: correction ratio to multiplied to F0 (i.e. f0 * ratio)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="n">note_segments</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">f0_score</span><span class="p">))</span>
+
+    <span class="n">center_f0s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">center_score_f0s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># edges_to_be_excluded = 50  # 0.25 sec for excluding overshoot/preparation</span>
+    <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">e</span> <span class="o">-</span> <span class="n">s</span>
+        <span class="k">if</span> <span class="n">L</span> <span class="o">&gt;</span> <span class="n">edges_to_be_excluded</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">center_f0s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="n">edges_to_be_excluded</span> <span class="p">:</span> <span class="n">e</span> <span class="o">-</span> <span class="n">edges_to_be_excluded</span><span class="p">])</span>
+            <span class="n">center_score_f0s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">f0_score</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="n">edges_to_be_excluded</span> <span class="p">:</span> <span class="n">e</span> <span class="o">-</span> <span class="n">edges_to_be_excluded</span><span class="p">]</span>
+            <span class="p">)</span>
+    <span class="n">center_f0s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">center_f0s</span><span class="p">)</span>
+    <span class="n">center_score_f0s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">center_score_f0s</span><span class="p">)</span>
+
+    <span class="c1"># Compute pitch ratio to be multiplied</span>
+    <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_f0s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">center_score_f0s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">center_score_f0s</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span> <span class="o">/</span> <span class="n">center_f0s</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">]</span>
+
+    <span class="c1"># Exclude too out-of-tune frames (over 2 semitone)</span>
+    <span class="n">up_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">out_of_tune_threshold</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span>
+    <span class="n">low_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">out_of_tune_threshold</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span>
+
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">ratio</span><span class="p">[(</span><span class="n">ratio</span> <span class="o">&lt;</span> <span class="n">up_threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ratio</span> <span class="o">&gt;</span> <span class="n">low_threshold</span><span class="p">)]</span>
+
+    <span class="n">global_offset</span> <span class="o">=</span> <span class="n">ratio</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Avoid corrections over semi-tone</span>
+    <span class="c1"># If more than semi-tone pitch correction is needed, it is better to correct</span>
+    <span class="c1"># data by hand or fix musicxml or UST instead.</span>
+    <span class="n">up_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">correction_threshold</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span>
+    <span class="n">low_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">correction_threshold</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">global_offset</span> <span class="o">&gt;</span> <span class="n">up_threshold</span> <span class="ow">or</span> <span class="n">global_offset</span> <span class="o">&lt;</span> <span class="n">low_threshold</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;&quot;&quot;warn: more than 1 semitone pitch correction is needed.</span>
+<span class="s2">global_offset: </span><span class="si">{</span><span class="n">global_offset</span><span class="si">}</span><span class="s2"> cent.</span>
+<span class="s2">It is likely that manual pitch corrections are preferable.&quot;&quot;&quot;</span>
+        <span class="p">)</span>
+    <span class="n">global_offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">global_offset</span><span class="p">,</span> <span class="n">low_threshold</span><span class="p">,</span> <span class="n">up_threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">global_offset</span>
+
+
+<span class="k">def</span> <span class="nf">extract_vibrato_parameters_impl</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">,</span> <span class="n">sr</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract vibrato parameters for a single pitch segment</span>
+
+<span class="sd">    Nakano et al, &quot;An Automatic Singing Skill Evaluation Method</span>
+<span class="sd">    for Unknown Melodies Using Pitch Interval Accuracy and Vibrato Features&quot;</span>
+<span class="sd">    Proc. Interspeech 2006.</span>
+
+<span class="sd">    山田 et al, &quot;HMM に基づく歌声合成のためのビブラートモデル化&quot;</span>
+<span class="sd">    IPSJ SIG Tech. Report 2009.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pitch_seg (np.ndarray): array of pitch</span>
+<span class="sd">        sr (int): sampling rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (R, E, m_a, m_f)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peak_high_pos</span> <span class="o">=</span> <span class="n">argrelmax</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">peak_low_pos</span> <span class="o">=</span> <span class="n">argrelmin</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">m_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">))</span>
+    <span class="n">m_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning! Probably a bug...T.T&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">,</span> <span class="n">peak_low_pos</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="n">peak_high_pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span>
+    <span class="n">peak_low_pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">)</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos_diff</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos_diff</span><span class="p">))</span>
+    <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_high_pos_diff</span>
+    <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_low_pos_diff</span>
+
+    <span class="n">m_f_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">m_f_ind</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_f_ind</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_low_pos</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_f</span><span class="p">[</span><span class="n">m_f_ind</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">R</span><span class="p">)</span> <span class="o">*</span> <span class="n">sr</span>
+
+    <span class="n">peak_high_pitch</span> <span class="o">=</span> <span class="n">pitch_seg</span><span class="p">[</span><span class="n">peak_high_pos</span><span class="p">]</span>
+    <span class="n">peak_low_pitch</span> <span class="o">=</span> <span class="n">pitch_seg</span><span class="p">[</span><span class="n">peak_low_pos</span><span class="p">]</span>
+
+    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">))</span>
+    <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">peak_high_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">peak_high_pitch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">peak_low_pitch</span>
+    <span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_high_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">peak_low_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">peak_low_pitch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="n">m_a_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">m_a_ind</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_low_pos</span>
+    <span class="n">m_a_ind</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_a</span><span class="p">[</span><span class="n">m_a_ind</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">E</span>
+
+    <span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">R</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">sr</span>
+    <span class="n">extent</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">E</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rate: </span><span class="si">{</span><span class="n">rate</span><span class="si">}</span><span class="s2">, Extent: </span><span class="si">{</span><span class="n">extent</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">R</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">m_a</span><span class="p">,</span> <span class="n">m_f</span>
+
+
+<span class="k">def</span> <span class="nf">compute_extent</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute extent of a pitch segment</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pitch_seg (np.ndarray): array of pitch</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of extent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peak_high_pos</span> <span class="o">=</span> <span class="n">argrelmax</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">peak_low_pos</span> <span class="o">=</span> <span class="n">argrelmin</span><span class="p">(</span><span class="n">pitch_seg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">):</span>
+        <span class="n">peak_low_pos</span> <span class="o">=</span> <span class="n">peak_low_pos</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">):</span>
+        <span class="n">peak_low_pos</span> <span class="o">=</span> <span class="n">peak_low_pos</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">peak_high_pitch</span> <span class="o">=</span> <span class="n">pitch_seg</span><span class="p">[</span><span class="n">peak_high_pos</span><span class="p">]</span>
+    <span class="n">peak_low_pitch</span> <span class="o">=</span> <span class="n">pitch_seg</span><span class="p">[</span><span class="n">peak_low_pos</span><span class="p">]</span>
+
+    <span class="n">peak_high_pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">)</span>
+    <span class="n">peak_low_pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_low_pos</span><span class="p">)</span>
+
+    <span class="c1"># TODO: would probably be a bug...</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pitch</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pitch</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos_diff</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_low_pos_diff</span><span class="p">))</span>
+    <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">peak_high_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">peak_high_pitch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">peak_low_pitch</span>
+    <span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_high_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">peak_low_pitch</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">peak_low_pitch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">E</span>
+
+
+<span class="k">def</span> <span class="nf">extract_smoothed_f0</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract smoothed f0 by low-pass filtering</span>
+
+<span class="sd">    Note that the low-pass filter is only applied to voiced segments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0 (np.ndarray): array of f0</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        cutoff (float): cutoff frequency</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of smoothed f0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="n">nonzero_segments</span><span class="p">(</span><span class="n">f0</span><span class="p">)</span>
+
+    <span class="n">f0_smooth</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span>
+        <span class="n">f0_smooth</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">],</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f0_smooth</span>
+
+
+<span class="k">def</span> <span class="nf">extract_smoothed_continuous_f0</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract smoothed continuous f0 by low-pass filtering</span>
+
+<span class="sd">    Note that the input must be continuous F0 or log-F0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0 (np.ndarray): array of continuous f0</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        cutoff (float): initial cutoff frequency</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of smoothed continuous f0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">is_2d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f0</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">f0</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_2d</span> <span class="k">else</span> <span class="n">f0</span>
+
+    <span class="c1"># Ref: https://bit.ly/3SOePFw</span>
+    <span class="n">f0_smooth</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="c1"># Fallback case: shound&#39;t happen I believe</span>
+    <span class="c1"># NOTE: hard-coded for now</span>
+    <span class="n">next_cutoff</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">f0_smooth</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">f0_smooth</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">next_cutoff</span><span class="p">)</span>
+        <span class="n">next_cutoff</span> <span class="o">*=</span> <span class="mi">2</span>
+
+    <span class="n">f0_smooth</span> <span class="o">=</span> <span class="n">f0_smooth</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_2d</span> <span class="k">else</span> <span class="n">f0_smooth</span>
+    <span class="k">return</span> <span class="n">f0_smooth</span>
+
+
+<div class="viewcode-block" id="extract_vibrato_likelihood">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.extract_vibrato_likelihood.html#nnsvs.pitch.extract_vibrato_likelihood">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_vibrato_likelihood</span><span class="p">(</span>
+    <span class="n">f0_smooth</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">min_freq</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_freq</span><span class="o">=</span><span class="mi">8</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract vibrato likelihood</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0_smooth (np.ndarray): array of smoothed f0</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        win_length (int): window length</span>
+<span class="sd">        n_fft (int): FFT size</span>
+<span class="sd">        min_freq (float): minimum frequency of the vibrato</span>
+<span class="sd">        max_freq (float): maximum frequency of the vibrato</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of vibrato likelihood</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># STFT on 1st order diffference of F0</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+        <span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f0_smooth</span><span class="p">),</span>
+            <span class="n">hop_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">win_length</span><span class="o">=</span><span class="n">win_length</span><span class="p">,</span>
+            <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span><span class="p">,</span>
+            <span class="n">window</span><span class="o">=</span><span class="s2">&quot;hann&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">X_norm</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
+
+    <span class="n">freq_per_bin</span> <span class="o">=</span> <span class="n">sr</span> <span class="o">/</span> <span class="n">n_fft</span>
+    <span class="n">min_freq_bin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_freq</span> <span class="o">/</span> <span class="n">freq_per_bin</span><span class="p">)</span>
+    <span class="n">max_freq_bin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_freq</span> <span class="o">/</span> <span class="n">freq_per_bin</span><span class="p">)</span>
+
+    <span class="c1"># Compute vibrato likelhiood</span>
+    <span class="n">St</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Ft</span> <span class="o">=</span> <span class="n">X_norm</span><span class="p">[</span><span class="n">min_freq_bin</span><span class="p">:</span><span class="n">max_freq_bin</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">vibrato_likelihood</span> <span class="o">=</span> <span class="n">St</span> <span class="o">*</span> <span class="n">Ft</span>
+
+    <span class="k">return</span> <span class="n">vibrato_likelihood</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">interp_vibrato</span><span class="p">(</span><span class="n">m_f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpolate a sequence of vibrato parameter by linear interpolation</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        m_f (np.ndarray): array of vibrato parameter</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of vibrato parameter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">m_f</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">nonzero_indices</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">m_f</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m_f</span><span class="p">)),</span> <span class="n">nonzero_indices</span><span class="p">,</span> <span class="n">m_f</span><span class="p">[</span><span class="n">nonzero_indices</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<div class="viewcode-block" id="extract_vibrato_parameters">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.extract_vibrato_parameters.html#nnsvs.pitch.extract_vibrato_parameters">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_vibrato_parameters</span><span class="p">(</span>
+    <span class="n">pitch</span><span class="p">,</span>
+    <span class="n">vibrato_likelihood</span><span class="p">,</span>
+    <span class="n">sr</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span>
+    <span class="n">min_cross_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">min_extent</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">max_extent</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">interp_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">smooth_params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">smooth_width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">clip_extent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract vibrato parameters</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pitch (np.ndarray): array of pitch (smoothed f0)</span>
+<span class="sd">        vibrato_likelihood (np.ndarray): array of vibrato likelihood</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        threshold (float): threshold of vibrato likelihood</span>
+<span class="sd">        min_cross_count (int): minimum number of cross points</span>
+<span class="sd">        min_extent (int): minimum extent of vibrato (cent)</span>
+<span class="sd">        max_extent (int): maximum extent of vibrato (cent)</span>
+<span class="sd">        interp_params (bool): whether to interpolate vibrato parameters</span>
+<span class="sd">        smooth_params (bool): whether to smooth vibrato parameters</span>
+<span class="sd">        smooth_width (int): width of smoothing window</span>
+<span class="sd">        clip_extent (bool): whether to clip extent</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: tuple of vibrato parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vibrato_likelihood</span><span class="p">)</span>
+
+    <span class="n">vibrato_flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">m_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">m_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">peak_high_pos</span> <span class="o">=</span> <span class="n">argrelmax</span><span class="p">(</span><span class="n">pitch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">peak_low_pos</span> <span class="o">=</span> <span class="n">argrelmin</span><span class="p">(</span><span class="n">pitch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># iterate over every peak position</span>
+    <span class="n">peak_high_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">peak_high_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">):</span>
+        <span class="n">peak_frame_idx</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_high_idx</span><span class="p">]</span>
+
+        <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">vibrato_likelihood</span><span class="p">[</span><span class="n">peak_frame_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="c1"># Initial positions for vibrato section</span>
+            <span class="n">start_index</span> <span class="o">=</span> <span class="n">peak_frame_idx</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">peak_low_pos</span><span class="p">[</span><span class="n">peak_low_pos</span> <span class="o">&gt;</span> <span class="n">peak_frame_idx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">end_index</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">peak_high_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="n">next_start_peak_high_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="c1"># Find a peak position that is close to the next non-speech segment</span>
+            <span class="c1"># assuming that there&#39;s a non-speech segment right after vibrato</span>
+            <span class="c1"># NOTE: we may want to remove this constraint</span>
+            <span class="n">peak_high_pos_rest</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_high_pos</span> <span class="o">&gt;</span> <span class="n">peak_frame_idx</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">end_index</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">pitch</span><span class="p">[</span><span class="n">frame_idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">peaks</span> <span class="o">=</span> <span class="n">peak_high_pos_rest</span><span class="p">[</span><span class="n">peak_high_pos_rest</span> <span class="o">&lt;</span> <span class="n">frame_idx</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">end_index</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">next_start_peak_high_idx</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_high_pos</span> <span class="o">&lt;</span> <span class="n">end_index</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+                        <span class="p">)</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># Set the search width (backward)</span>
+            <span class="n">search_width_backward</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">pitch</span><span class="p">[</span><span class="n">frame_idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">peaks_backward</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[</span>
+                        <span class="p">(</span><span class="n">peak_high_pos</span> <span class="o">&lt;</span> <span class="n">peak_frame_idx</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">peak_high_pos</span> <span class="o">&gt;</span> <span class="n">frame_idx</span><span class="p">)</span>
+                    <span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks_backward</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">backward</span> <span class="o">=</span> <span class="n">peaks_backward</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">search_width_backward</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                            <span class="n">peak_high_pos</span><span class="p">[</span>
+                                <span class="p">(</span><span class="n">peak_high_pos</span> <span class="o">&gt;</span> <span class="n">backward</span><span class="p">)</span>
+                                <span class="o">&amp;</span> <span class="p">(</span><span class="n">peak_high_pos</span> <span class="o">&lt;=</span> <span class="n">peak_frame_idx</span><span class="p">)</span>
+                            <span class="p">]</span>
+                        <span class="p">)</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># Find a peak position that satisfies the following vibrato constraints</span>
+            <span class="c1"># 1) more than 5 times crossing</span>
+            <span class="c1"># 2) 30 ~ 150 cent oscillation</span>
+            <span class="n">estimate_start_index</span> <span class="o">=</span> <span class="n">start_index</span>
+            <span class="n">rate</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">peak_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+                <span class="nb">max</span><span class="p">(</span><span class="n">peak_high_idx</span> <span class="o">-</span> <span class="n">search_width_backward</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">peak_high_idx</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">T</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">f0_seg</span> <span class="o">=</span> <span class="n">pitch</span><span class="p">[</span><span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span> <span class="p">:</span> <span class="n">end_index</span><span class="p">]</span>
+
+                <span class="c1"># Check if the segment satisfies vibrato constraints</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">f0_seg</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="n">cross_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">f0_seg</span> <span class="o">-</span> <span class="n">m</span><span class="p">)))[</span><span class="mi">0</span><span class="p">])</span>
+
+                <span class="c1"># Find the start_index so that the vibrato section has more than 5 crossing</span>
+                <span class="n">E</span> <span class="o">=</span> <span class="n">compute_extent</span><span class="p">(</span><span class="n">f0_seg</span><span class="p">)</span>
+                <span class="n">extent</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">E</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="n">having_large_deviation</span> <span class="o">=</span> <span class="p">((</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">E</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_extent</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">cross_count</span> <span class="o">&gt;=</span> <span class="n">min_cross_count</span>
+                    <span class="ow">and</span> <span class="n">cross_count</span> <span class="o">&gt;=</span> <span class="n">rate</span>
+                    <span class="ow">and</span> <span class="n">extent</span> <span class="o">&gt;=</span> <span class="n">min_extent</span>
+                    <span class="ow">and</span> <span class="n">extent</span> <span class="o">&lt;=</span> <span class="n">max_extent</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="n">having_large_deviation</span>
+                    <span class="ow">and</span> <span class="p">(</span><span class="n">E</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                <span class="p">):</span>
+                    <span class="n">rate</span> <span class="o">=</span> <span class="n">cross_count</span>
+                    <span class="n">estimate_start_index</span> <span class="o">=</span> <span class="n">peak_high_pos</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
+
+            <span class="n">start_index</span> <span class="o">=</span> <span class="n">estimate_start_index</span>
+
+            <span class="k">if</span> <span class="n">rate</span> <span class="o">&gt;=</span> <span class="n">min_cross_count</span><span class="p">:</span>
+                <span class="n">R</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">m_a_seg</span><span class="p">,</span> <span class="n">m_f_seg</span> <span class="o">=</span> <span class="n">extract_vibrato_parameters_impl</span><span class="p">(</span>
+                    <span class="n">pitch</span><span class="p">[</span><span class="n">start_index</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">end_index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="n">sr</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">m_a_seg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">vibrato_flags</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="k">if</span> <span class="n">interp_params</span><span class="p">:</span>
+                    <span class="n">m_a_seg</span> <span class="o">=</span> <span class="n">interp_vibrato</span><span class="p">(</span><span class="n">m_a_seg</span><span class="p">)</span>
+                    <span class="n">m_f_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">interp_vibrato</span><span class="p">(</span><span class="n">m_f_seg</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">smooth_params</span><span class="p">:</span>
+                    <span class="n">m_a_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+                        <span class="n">m_a_seg</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smooth_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">smooth_width</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">m_f_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+                        <span class="n">m_f_seg</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smooth_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">smooth_width</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">clip_extent</span><span class="p">:</span>
+                    <span class="n">m_a_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">m_a_seg</span><span class="p">,</span> <span class="n">min_extent</span><span class="p">,</span> <span class="n">max_extent</span><span class="p">)</span>
+                <span class="n">m_a</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_a_seg</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">m_f</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_f_seg</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="k">assert</span> <span class="n">next_start_peak_high_idx</span> <span class="o">&gt;</span> <span class="n">peak_high_idx</span>
+                <span class="n">peak_high_idx</span> <span class="o">=</span> <span class="n">next_start_peak_high_idx</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+            <span class="n">peak_high_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">vibrato_flags</span><span class="p">,</span> <span class="n">m_a</span><span class="p">,</span> <span class="n">m_f</span></div>
+
+
+
+<div class="viewcode-block" id="gen_sine_vibrato">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.pitch.gen_sine_vibrato.html#nnsvs.pitch.gen_sine_vibrato">[docs]</a>
+<span class="k">def</span> <span class="nf">gen_sine_vibrato</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">m_a</span><span class="p">,</span> <span class="n">m_f</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate F0 with sine-based vibrato</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f0 (ndarray): fundamental frequency</span>
+<span class="sd">        sr (int): sampling rate</span>
+<span class="sd">        m_a (ndarray): amplitude of vibrato</span>
+<span class="sd">        m_f (ndarray): frequency of vibrato</span>
+<span class="sd">        scale (float): scale factor</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ndarray: F0 with sine-based vibrato</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f0_gen</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">voiced_end_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">nonzero_segments</span><span class="p">(</span><span class="n">f0</span><span class="p">)])</span>
+
+    <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">nonzero_segments</span><span class="p">(</span><span class="n">m_a</span><span class="p">):</span>
+        <span class="c1"># limit vibrato rate to [3, 8] Hz</span>
+        <span class="n">m_f_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">m_f</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="c1"># limit vibrato extent to [30, 150] cent</span>
+        <span class="n">m_a_seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">m_a</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">],</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+
+        <span class="n">cent</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">m_a_seg</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">sr</span> <span class="o">*</span> <span class="n">m_f_seg</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span> <span class="o">-</span> <span class="n">s</span><span class="p">))</span>
+        <span class="n">new_f0</span> <span class="o">=</span> <span class="n">f0</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">cent</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1200</span><span class="p">)</span>
+        <span class="n">f0_gen</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_f0</span>
+
+        <span class="c1"># NOTE: this is a hack to avoid discontinuity at the end of vibrato</span>
+        <span class="n">voiced_ends_next_to_vibrato</span> <span class="o">=</span> <span class="n">voiced_end_indices</span><span class="p">[</span><span class="n">voiced_end_indices</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">voiced_ends_next_to_vibrato</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">voiced_end</span> <span class="o">=</span> <span class="n">voiced_ends_next_to_vibrato</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">f0_gen</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">voiced_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_filter</span><span class="p">(</span><span class="n">f0_gen</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">voiced_end</span><span class="p">],</span> <span class="n">sr</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f0_gen</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿nnsvs.gen.predict\_waveform
+===========================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: predict_waveform

@@ -1,0 +1,6 @@
+﻿nnsvs.io.hts.get\_pitch\_indices
+================================
+
+.. currentmodule:: nnsvs.io.hts
+
+.. autofunction:: get_pitch_indices

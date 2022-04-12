@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.base &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.base</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+
+<div class="viewcode-block" id="PredictionType">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.PredictionType">[docs]</a>
+<span class="k">class</span> <span class="nc">PredictionType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prediction types&quot;&quot;&quot;</span>
+
+    <span class="n">DETERMINISTIC</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deterministic prediction</span>
+
+<span class="sd">    Non-MDN single-stream models should use this type.</span>
+
+<span class="sd">    Pseudo code:</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        # training</span>
+<span class="sd">        y = model(x)</span>
+<span class="sd">        # inference</span>
+<span class="sd">        y = model.inference(x)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">PROBABILISTIC</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probabilistic prediction with mixture density networks</span>
+
+<span class="sd">    MDN-based models should use this type.</span>
+
+<span class="sd">    Pseudo code:</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        # training</span>
+<span class="sd">        mdn_params = model(x)</span>
+<span class="sd">        # inference</span>
+<span class="sd">        mu, sigma = model.inference(x)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">MULTISTREAM_HYBRID</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multi-stream preodictions where each prediction can be</span>
+<span class="sd">    detereministic or probabilistic</span>
+
+<span class="sd">    Multi-stream models should use this type.</span>
+
+<span class="sd">    Pseudo code:</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        # training</span>
+<span class="sd">        feature_streams = model(x) # e.g. (mgc, lf0, vuv, bap) or (mel, lf0, vuv)</span>
+<span class="sd">        # inference</span>
+<span class="sd">        y = model.inference(x)</span>
+
+<span class="sd">    Note that concatenated features are assumed to be returned during inference.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">DIFFUSION</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Diffusion model&#39;s prediction</span>
+
+<span class="sd">    NOTE: may subject to change in the future</span>
+
+<span class="sd">    Pseudo code:</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        # training</span>
+<span class="sd">        noise, x_recon = model(x)</span>
+
+<span class="sd">        # inference</span>
+<span class="sd">        y = model.inference(x)</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BaseModel">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all models</span>
+
+<span class="sd">    If you want to implement your custom model, you should inherit from this class.</span>
+<span class="sd">    You must need to implement the forward method. Other methods are optional.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseModel.forward">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (tensor): input features</span>
+<span class="sd">            lengths (tensor): lengths of the input features</span>
+<span class="sd">            y (tensor): optional target features</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tensor: output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="BaseModel.inference">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.inference">[docs]</a>
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inference method</span>
+
+<span class="sd">        If you want to implement custom inference method such as autoregressive sampling,</span>
+<span class="sd">        please override this method.</span>
+
+<span class="sd">        Defaults to call the forward method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (tensor): input features</span>
+<span class="sd">            lengths (tensor): lengths of the input features</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tensor: output features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BaseModel.preprocess_target">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.preprocess_target">[docs]</a>
+    <span class="k">def</span> <span class="nf">preprocess_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess target signals at training time</span>
+
+<span class="sd">        This is useful for shallow AR models in which a FIR filter</span>
+<span class="sd">        is used for the target signals. For other types of model, you don&#39;t need to</span>
+<span class="sd">        implement this method.</span>
+
+<span class="sd">        Defaults to do nothing.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            y (tensor): target features</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tensor: preprocessed target features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">y</span></div>
+
+
+<div class="viewcode-block" id="BaseModel.prediction_type">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.prediction_type">[docs]</a>
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prediction type.</span>
+
+<span class="sd">        If your model has a MDN layer, please return ``PredictionType.PROBABILISTIC``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            PredictionType: Determisitic or probabilistic. Default is deterministic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">DETERMINISTIC</span></div>
+
+
+<div class="viewcode-block" id="BaseModel.is_autoregressive">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.is_autoregressive">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Is autoregressive or not</span>
+
+<span class="sd">        If your custom model is an autoregressive model, please return ``True``. In that case,</span>
+<span class="sd">        you would need to implement autoregressive sampling in :py:meth:`inference`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if autoregressive. Default is False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="BaseModel.has_residual_lf0_prediction">
+<a class="viewcode-back" href="../../modules/base.html#nnsvs.base.BaseModel.has_residual_lf0_prediction">[docs]</a>
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the model has residual log-F0 prediction or not.</span>
+
+<span class="sd">        This should only be used for acoustic models.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the model has residual log-F0 prediction. Default is False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

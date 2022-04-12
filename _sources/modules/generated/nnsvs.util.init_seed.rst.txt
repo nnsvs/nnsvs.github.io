@@ -1,0 +1,6 @@
+﻿nnsvs.util.init\_seed
+=====================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: init_seed

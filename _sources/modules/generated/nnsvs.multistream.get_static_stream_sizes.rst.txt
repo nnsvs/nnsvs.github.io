@@ -1,0 +1,6 @@
+﻿nnsvs.multistream.get\_static\_stream\_sizes
+============================================
+
+.. currentmodule:: nnsvs.multistream
+
+.. autofunction:: get_static_stream_sizes

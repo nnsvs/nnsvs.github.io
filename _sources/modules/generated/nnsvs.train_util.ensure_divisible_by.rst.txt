@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.ensure\_divisible\_by
+=======================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: ensure_divisible_by

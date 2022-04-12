@@ -1,0 +1,6 @@
+﻿nnsvs.multistream.select\_streams
+=================================
+
+.. currentmodule:: nnsvs.multistream
+
+.. autofunction:: select_streams

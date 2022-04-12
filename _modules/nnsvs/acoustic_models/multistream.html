@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.acoustic_models.multistream &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../acoustic_models.html">nnsvs.acoustic_models</a></li>
+      <li class="breadcrumb-item active">nnsvs.acoustic_models.multistream</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.acoustic_models.multistream</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">nnsvs.acoustic_models.util</span> <span class="kn">import</span> <span class="n">pad_inference</span>
+<span class="kn">from</span> <span class="nn">nnsvs.base</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">PredictionType</span>
+<span class="kn">from</span> <span class="nn">nnsvs.multistream</span> <span class="kn">import</span> <span class="n">split_streams</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;MultistreamSeparateF0ParametricModel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NPSSMultistreamParametricModel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NPSSMDNMultistreamParametricModel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MultistreamSeparateF0MelModel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MDNMultistreamSeparateF0MelModel&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="MultistreamSeparateF0ParametricModel">
+<a class="viewcode-back" href="../../../modules/acoustic_models.html#nnsvs.acoustic_models.MultistreamSeparateF0ParametricModel">[docs]</a>
+<span class="k">class</span> <span class="nc">MultistreamSeparateF0ParametricModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multi-stream model with a separate F0 prediction model</span>
+
+<span class="sd">    acoustic features: [MGC, LF0, VUV, BAP]</span>
+
+<span class="sd">    vib_model and vib_flags_model are optional and will be likely to be removed.</span>
+
+<span class="sd">    Conditional dependency:</span>
+<span class="sd">    p(MGC, LF0, VUV, BAP |C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, C)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): Input dimension.</span>
+<span class="sd">        out_dim (int): Output dimension.</span>
+<span class="sd">        stream_sizes (list): List of stream sizes.</span>
+<span class="sd">        reduction_factor (int): Reduction factor.</span>
+<span class="sd">        encoder (nn.Module): A shared encoder.</span>
+<span class="sd">        mgc_model (nn.Module): MGC prediction model.</span>
+<span class="sd">        lf0_model (nn.Module): log-F0 prediction model.</span>
+<span class="sd">        vuv_model (nn.Module): V/UV prediction model.</span>
+<span class="sd">        bap_model (nn.Module): BAP prediction model.</span>
+<span class="sd">        in_rest_idx (int): Index of the rest symbol in the input features.</span>
+<span class="sd">        in_lf0_idx (int): index of lf0 in input features</span>
+<span class="sd">        in_lf0_min (float): minimum value of lf0 in the training data of input features</span>
+<span class="sd">        in_lf0_max (float): maximum value of lf0 in the training data of input features</span>
+<span class="sd">        out_lf0_idx (int): index of lf0 in output features. Typically 180.</span>
+<span class="sd">        out_lf0_mean (float): mean of lf0 in the training data of output features</span>
+<span class="sd">        out_lf0_scale (float): scale of lf0 in the training data of output features</span>
+<span class="sd">        lf0_teacher_forcing (bool): Whether to use teacher forcing for F0 prediction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">encoder</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">mgc_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">lf0_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vuv_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">bap_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vib_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># kept as is for compatibility</span>
+        <span class="n">vib_flags_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># kept as is for compatibility</span>
+        <span class="c1"># NOTE: you must carefully set the following parameters</span>
+        <span class="n">in_rest_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_lf0_idx</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+        <span class="n">in_lf0_min</span><span class="o">=</span><span class="mf">5.3936276</span><span class="p">,</span>
+        <span class="n">in_lf0_max</span><span class="o">=</span><span class="mf">6.491111</span><span class="p">,</span>
+        <span class="n">out_lf0_idx</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+        <span class="n">out_lf0_mean</span><span class="o">=</span><span class="mf">5.953093881972361</span><span class="p">,</span>
+        <span class="n">out_lf0_scale</span><span class="o">=</span><span class="mf">0.23435173188961034</span><span class="p">,</span>
+        <span class="n">lf0_teacher_forcing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_teacher_forcing</span> <span class="o">=</span> <span class="n">lf0_teacher_forcing</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">encoder</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">encoder</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span> <span class="o">=</span> <span class="n">mgc_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span> <span class="o">=</span> <span class="n">lf0_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span> <span class="o">=</span> <span class="n">vuv_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span> <span class="o">=</span> <span class="n">bap_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span> <span class="o">=</span> <span class="n">in_rest_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_idx</span> <span class="o">=</span> <span class="n">in_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="n">in_lf0_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="n">in_lf0_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_idx</span> <span class="o">=</span> <span class="n">out_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="n">out_lf0_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_set_lf0_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Special care for residual F0 prediction models</span>
+        <span class="c1"># NOTE: don&#39;t overwrite out_lf0_idx and in_lf0_idx</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">,</span> <span class="s2">&quot;out_lf0_mean&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_lf0_params</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span>
+
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Teacher-forcing</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Inference</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># Predict continuous log-F0 first</span>
+        <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoder_outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+            <span class="c1"># Concat log-F0, rest flags and the outputs of the encoder</span>
+            <span class="c1"># This may make the decoder to be aware of the input F0</span>
+            <span class="n">rest_flags</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_teacher_forcing</span> <span class="ow">and</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">rest_flags</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">rest_flags</span><span class="p">,</span> <span class="n">lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">x</span>
+
+        <span class="c1"># Decoders for each stream</span>
+        <span class="n">mgc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="p">(</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_mgc</span><span class="p">)</span>
+        <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="p">(</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">)</span>
+        <span class="n">bap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="p">(</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_bap</span><span class="p">)</span>
+
+        <span class="c1"># make a concatenated stream</span>
+        <span class="n">has_postnet_output</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bap</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">has_postnet_output</span><span class="p">:</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mgc</span><span class="p">)):</span>
+                <span class="n">mgc_</span> <span class="o">=</span> <span class="n">mgc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">mgc</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">lf0</span>
+                <span class="n">vuv_</span> <span class="o">=</span> <span class="n">vuv</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">vuv</span>
+                <span class="n">bap_</span> <span class="o">=</span> <span class="n">bap</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bap</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">bap</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mgc_</span><span class="p">,</span> <span class="n">lf0_</span><span class="p">,</span> <span class="n">vuv_</span><span class="p">,</span> <span class="n">bap_</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+                <span class="n">outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">outs</span><span class="p">,</span> <span class="n">lf0_residual</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+
+        <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">lf0_residual</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pad_inference</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span> <span class="n">reduction_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="NPSSMultistreamParametricModel">
+<a class="viewcode-back" href="../../../modules/acoustic_models.html#nnsvs.acoustic_models.NPSSMultistreamParametricModel">[docs]</a>
+<span class="k">class</span> <span class="nc">NPSSMultistreamParametricModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;NPSS-like cascaded multi-stream model with no mixture density networks.</span>
+
+<span class="sd">    NPSS: :cite:t:`blaauw2017neural`</span>
+
+<span class="sd">    Different from the original NPSS, we don&#39;t use spectral parameters</span>
+<span class="sd">    for the inputs of aperiodicity and V/UV prediction models.</span>
+<span class="sd">    This is because</span>
+<span class="sd">    (1) D4C does not use spectral parameters as input for aperiodicity estimation.</span>
+<span class="sd">    (2) V/UV detection is done from aperiodicity at 0-3 kHz in WORLD.</span>
+<span class="sd">    In addition, f0 and VUV models dont use MDNs.</span>
+
+<span class="sd">    Empirically, we found the above configuration works better than the original one.</span>
+
+<span class="sd">    Conditional dependency:</span>
+<span class="sd">    p(MGC, LF0, VUV, BAP |C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, BAP, C)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): Input dimension.</span>
+<span class="sd">        out_dim (int): Output dimension.</span>
+<span class="sd">        stream_sizes (list): List of stream sizes.</span>
+<span class="sd">        lf0_model (BaseModel): Model for predicting log-F0.</span>
+<span class="sd">        mgc_model (BaseModel): Model for predicting MGC.</span>
+<span class="sd">        bap_model (BaseModel): Model for predicting BAP.</span>
+<span class="sd">        vuv_model (BaseModel): Model for predicting V/UV.</span>
+<span class="sd">        in_rest_idx (int): Index of the rest symbol in the input features.</span>
+<span class="sd">        in_lf0_idx (int): index of lf0 in input features</span>
+<span class="sd">        in_lf0_min (float): minimum value of lf0 in the training data of input features</span>
+<span class="sd">        in_lf0_max (float): maximum value of lf0 in the training data of input features</span>
+<span class="sd">        out_lf0_idx (int): index of lf0 in output features. Typically 180.</span>
+<span class="sd">        out_lf0_mean (float): mean of lf0 in the training data of output features</span>
+<span class="sd">        out_lf0_scale (float): scale of lf0 in the training data of output features</span>
+<span class="sd">        vuv_model_bap_conditioning (bool): If True, use  BAP features for V/UV prediction.</span>
+<span class="sd">        vuv_model_bap0_conditioning (bool): If True, use only 0-th coef. of BAP</span>
+<span class="sd">            for V/UV prediction.</span>
+<span class="sd">        vuv_model_lf0_conditioning (bool): If True, use log-F0 features for V/UV prediction.</span>
+<span class="sd">        vuv_model_mgc_conditioning (bool): If True, use MGC features for V/UV prediction.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">lf0_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">mgc_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">bap_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vuv_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="c1"># NOTE: you must carefully set the following parameters</span>
+        <span class="n">in_rest_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">in_lf0_idx</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+        <span class="n">in_lf0_min</span><span class="o">=</span><span class="mf">5.3936276</span><span class="p">,</span>
+        <span class="n">in_lf0_max</span><span class="o">=</span><span class="mf">6.491111</span><span class="p">,</span>
+        <span class="n">out_lf0_idx</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">out_lf0_mean</span><span class="o">=</span><span class="mf">5.953093881972361</span><span class="p">,</span>
+        <span class="n">out_lf0_scale</span><span class="o">=</span><span class="mf">0.23435173188961034</span><span class="p">,</span>
+        <span class="n">npss_style_conditioning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">vuv_model_bap_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">vuv_model_bap0_conditioning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">vuv_model_lf0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">vuv_model_mgc_conditioning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_bap_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_bap0_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_lf0_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_mgc_conditioning</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">npss_style_conditioning</span><span class="p">,</span> <span class="s2">&quot;Not supported&quot;</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span> <span class="o">=</span> <span class="n">lf0_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span> <span class="o">=</span> <span class="n">mgc_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span> <span class="o">=</span> <span class="n">bap_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span> <span class="o">=</span> <span class="n">vuv_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span> <span class="o">=</span> <span class="n">in_rest_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_idx</span> <span class="o">=</span> <span class="n">in_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="n">in_lf0_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="n">in_lf0_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_idx</span> <span class="o">=</span> <span class="n">out_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="n">out_lf0_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">_set_lf0_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Special care for residual F0 prediction models</span>
+        <span class="c1"># NOTE: don&#39;t overwrite out_lf0_idx and in_lf0_idx</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">,</span> <span class="s2">&quot;out_lf0_mean&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">DETERMINISTIC</span>
+
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_lf0_params</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span>
+        <span class="n">is_inference</span> <span class="o">=</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Teacher-forcing</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="n">outs</span>
+
+        <span class="c1"># Predict continuous log-F0 first</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">)</span>
+
+        <span class="c1"># Predict spectral parameters</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">mgc_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">mgc_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mgc_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="p">(</span><span class="n">mgc_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_mgc</span><span class="p">)</span>
+
+        <span class="c1"># Predict aperiodic parameters</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">bap_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">bap_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bap_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="p">(</span><span class="n">bap_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_bap</span><span class="p">)</span>
+
+        <span class="c1"># Predict V/UV</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span><span class="p">:</span>
+                <span class="n">bap_cond</span> <span class="o">=</span> <span class="n">bap</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bap_cond</span> <span class="o">=</span> <span class="n">bap</span>
+            <span class="c1"># full cond: (x, mgc, lf0, bap)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mgc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bap_cond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lf0</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span><span class="p">:</span>
+                <span class="n">y_bap_cond</span> <span class="o">=</span> <span class="n">y_bap</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y_bap_cond</span> <span class="o">=</span> <span class="n">y_bap</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_mgc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_bap_cond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_lf0</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">)</span>
+
+        <span class="c1"># make a concatenated stream</span>
+        <span class="n">has_postnet_output</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bap</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">has_postnet_output</span><span class="p">:</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mgc</span><span class="p">)):</span>
+                <span class="n">mgc_</span> <span class="o">=</span> <span class="n">mgc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">mgc</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">lf0</span>
+                <span class="n">vuv_</span> <span class="o">=</span> <span class="n">vuv</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">vuv</span>
+                <span class="n">bap_</span> <span class="o">=</span> <span class="n">bap</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bap</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">bap</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mgc_</span><span class="p">,</span> <span class="n">lf0_</span><span class="p">,</span> <span class="n">vuv_</span><span class="p">,</span> <span class="n">bap_</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+                <span class="n">outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">outs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+
+        <span class="k">return</span> <span class="n">outs</span><span class="p">,</span> <span class="n">lf0_residual</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pad_inference</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span>
+            <span class="n">reduction_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span><span class="p">,</span>
+            <span class="n">mdn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="NPSSMDNMultistreamParametricModel">
+<a class="viewcode-back" href="../../../modules/acoustic_models.html#nnsvs.acoustic_models.NPSSMDNMultistreamParametricModel">[docs]</a>
+<span class="k">class</span> <span class="nc">NPSSMDNMultistreamParametricModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;NPSS-like cascaded multi-stream parametric model with mixture density networks.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        This class was originally designed to be used with MDNs. However, the internal</span>
+<span class="sd">        design was changed to make it work with non-MDN and diffusion models. For example,</span>
+<span class="sd">        you can use non-MDN models for MGC prediction.</span>
+
+<span class="sd">    NPSS: :cite:t:`blaauw2017neural`</span>
+
+<span class="sd">    acoustic features: [MGC, LF0, VUV, BAP]</span>
+
+<span class="sd">    Conditional dependency:</span>
+<span class="sd">    p(MGC, LF0, VUV, BAP |C) = p(LF0|C) p(MGC|LF0, C) p(BAP|LF0, C) p(VUV|LF0, BAP, C)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): Input dimension.</span>
+<span class="sd">        out_dim (int): Output dimension.</span>
+<span class="sd">        stream_sizes (list): List of stream sizes.</span>
+<span class="sd">        lf0_model (BaseModel): Model for predicting log-F0.</span>
+<span class="sd">        mgc_model (BaseModel): Model for predicting MGC.</span>
+<span class="sd">        bap_model (BaseModel): Model for predicting BAP.</span>
+<span class="sd">        vuv_model (BaseModel): Model for predicting V/UV.</span>
+<span class="sd">        in_rest_idx (int): Index of the rest symbol in the input features.</span>
+<span class="sd">        in_lf0_idx (int): index of lf0 in input features</span>
+<span class="sd">        in_lf0_min (float): minimum value of lf0 in the training data of input features</span>
+<span class="sd">        in_lf0_max (float): maximum value of lf0 in the training data of input features</span>
+<span class="sd">        out_lf0_idx (int): index of lf0 in output features. Typically 180.</span>
+<span class="sd">        out_lf0_mean (float): mean of lf0 in the training data of output features</span>
+<span class="sd">        out_lf0_scale (float): scale of lf0 in the training data of output features</span>
+<span class="sd">        vuv_model_bap_conditioning (bool): If True, use  BAP features for V/UV prediction.</span>
+<span class="sd">        vuv_model_bap0_conditioning (bool): If True, use only 0-th coef. of BAP</span>
+<span class="sd">            for V/UV prediction.</span>
+<span class="sd">        vuv_model_lf0_conditioning (bool): If True, use log-F0 features for V/UV prediction.</span>
+<span class="sd">        vuv_model_mgc_conditioning (bool): If True, use MGC features for V/UV prediction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">lf0_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">mgc_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">bap_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vuv_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="c1"># NOTE: you must carefully set the following parameters</span>
+        <span class="n">in_rest_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">in_lf0_idx</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+        <span class="n">in_lf0_min</span><span class="o">=</span><span class="mf">5.3936276</span><span class="p">,</span>
+        <span class="n">in_lf0_max</span><span class="o">=</span><span class="mf">6.491111</span><span class="p">,</span>
+        <span class="n">out_lf0_idx</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">out_lf0_mean</span><span class="o">=</span><span class="mf">5.953093881972361</span><span class="p">,</span>
+        <span class="n">out_lf0_scale</span><span class="o">=</span><span class="mf">0.23435173188961034</span><span class="p">,</span>
+        <span class="n">vuv_model_bap_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">vuv_model_bap0_conditioning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">vuv_model_lf0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">vuv_model_mgc_conditioning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_bap_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_bap0_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_lf0_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_mgc_conditioning</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span> <span class="o">=</span> <span class="n">lf0_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span> <span class="o">=</span> <span class="n">mgc_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span> <span class="o">=</span> <span class="n">bap_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span> <span class="o">=</span> <span class="n">vuv_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span> <span class="o">=</span> <span class="n">in_rest_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_idx</span> <span class="o">=</span> <span class="n">in_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="n">in_lf0_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="n">in_lf0_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_idx</span> <span class="o">=</span> <span class="n">out_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="n">out_lf0_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">_set_lf0_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Special care for residual F0 prediction models</span>
+        <span class="c1"># NOTE: don&#39;t overwrite out_lf0_idx and in_lf0_idx</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">,</span> <span class="s2">&quot;out_lf0_mean&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">MULTISTREAM_HYBRID</span>
+
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_lf0_params</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span>
+        <span class="n">is_inference</span> <span class="o">=</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Teacher-forcing</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+            <span class="n">y_mgc</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">,</span> <span class="n">y_bap</span> <span class="o">=</span> <span class="n">outs</span>
+
+        <span class="c1"># Predict continuous log-F0 first</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">),</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">lf0_cond</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lf0_cond</span> <span class="o">=</span> <span class="n">lf0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">)</span>
+        <span class="c1"># Predict spectral parameters</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">mgc_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">lf0_cond</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">mgc_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mgc_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mgc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="p">(</span><span class="n">mgc_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_mgc</span><span class="p">)</span>
+
+        <span class="c1"># Predict aperiodic parameters</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">bap_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">lf0_cond</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">bap_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bap_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="p">(</span><span class="n">bap_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_bap</span><span class="p">)</span>
+
+        <span class="c1"># Predict V/UV</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">bap_cond</span> <span class="o">=</span> <span class="n">bap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bap_cond</span> <span class="o">=</span> <span class="n">bap</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">mgc_cond</span> <span class="o">=</span> <span class="n">mgc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mgc_cond</span> <span class="o">=</span> <span class="n">mgc</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span><span class="p">:</span>
+                <span class="n">bap_cond</span> <span class="o">=</span> <span class="n">bap_cond</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># full cond: (x, mgc, lf0, bap)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mgc_cond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lf0_cond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bap_cond</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap0_conditioning</span><span class="p">:</span>
+                <span class="n">y_bap_cond</span> <span class="o">=</span> <span class="n">y_bap</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y_bap_cond</span> <span class="o">=</span> <span class="n">y_bap</span>
+
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mgc_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_mgc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_lf0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_bap_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_bap_cond</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bap_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">bap_</span> <span class="o">=</span> <span class="n">bap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bap_</span> <span class="o">=</span> <span class="n">bap</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mgc_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">mgc_</span> <span class="o">=</span> <span class="n">mgc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mgc_</span> <span class="o">=</span> <span class="n">mgc</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mgc_</span><span class="p">,</span> <span class="n">lf0_</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap_</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+            <span class="c1"># TODO: better design</span>
+            <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">out</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">mgc</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">,</span> <span class="n">bap</span><span class="p">),</span> <span class="n">lf0_residual</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pad_inference</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span>
+            <span class="n">reduction_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span><span class="p">,</span>
+            <span class="n">mdn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MultistreamSeparateF0MelModel">
+<a class="viewcode-back" href="../../../modules/acoustic_models.html#nnsvs.acoustic_models.MultistreamSeparateF0MelModel">[docs]</a>
+<span class="k">class</span> <span class="nc">MultistreamSeparateF0MelModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multi-stream model with a separate F0 prediction model (mel-version)</span>
+
+<span class="sd">    Conditional dependency:</span>
+<span class="sd">    p(MEL, LF0, VUV|C) = p(LF0|C) p(MEL|LF0, C) p(VUV|LF0, C)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): Input dimension.</span>
+<span class="sd">        out_dim (int): Output dimension.</span>
+<span class="sd">        stream_sizes (list): List of stream sizes.</span>
+<span class="sd">        reduction_factor (int): Reduction factor.</span>
+<span class="sd">        encoder (nn.Module): A shared encoder.</span>
+<span class="sd">        mel_model (nn.Module): MEL prediction model.</span>
+<span class="sd">        lf0_model (nn.Module): log-F0 prediction model.</span>
+<span class="sd">        vuv_model (nn.Module): V/UV prediction model.</span>
+<span class="sd">        in_rest_idx (int): Index of the rest symbol in the input features.</span>
+<span class="sd">        in_lf0_idx (int): index of lf0 in input features</span>
+<span class="sd">        in_lf0_min (float): minimum value of lf0 in the training data of input features</span>
+<span class="sd">        in_lf0_max (float): maximum value of lf0 in the training data of input features</span>
+<span class="sd">        out_lf0_idx (int): index of lf0 in output features. Typically 180.</span>
+<span class="sd">        out_lf0_mean (float): mean of lf0 in the training data of output features</span>
+<span class="sd">        out_lf0_scale (float): scale of lf0 in the training data of output features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">encoder</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">mel_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">lf0_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vuv_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="c1"># NOTE: you must carefully set the following parameters</span>
+        <span class="n">in_rest_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_lf0_idx</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+        <span class="n">in_lf0_min</span><span class="o">=</span><span class="mf">5.3936276</span><span class="p">,</span>
+        <span class="n">in_lf0_max</span><span class="o">=</span><span class="mf">6.491111</span><span class="p">,</span>
+        <span class="n">out_lf0_idx</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+        <span class="n">out_lf0_mean</span><span class="o">=</span><span class="mf">5.953093881972361</span><span class="p">,</span>
+        <span class="n">out_lf0_scale</span><span class="o">=</span><span class="mf">0.23435173188961034</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">encoder</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">encoder</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span> <span class="o">=</span> <span class="n">mel_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span> <span class="o">=</span> <span class="n">lf0_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span> <span class="o">=</span> <span class="n">vuv_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span> <span class="o">=</span> <span class="n">in_rest_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_idx</span> <span class="o">=</span> <span class="n">in_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="n">in_lf0_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="n">in_lf0_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_idx</span> <span class="o">=</span> <span class="n">out_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="n">out_lf0_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">_set_lf0_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Special care for residual F0 prediction models</span>
+        <span class="c1"># NOTE: don&#39;t overwrite out_lf0_idx and in_lf0_idx</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">,</span> <span class="s2">&quot;out_lf0_mean&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_lf0_params</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span>
+
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Teacher-forcing</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+            <span class="n">y_mel</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span> <span class="o">=</span> <span class="n">outs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Inference</span>
+            <span class="n">y_mel</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Predict continuous log-F0 first</span>
+        <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoder_outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+            <span class="c1"># Concat log-F0, rest flags and the outputs of the encoder</span>
+            <span class="c1"># This may make the decoder to be aware of the input F0</span>
+            <span class="n">rest_flags</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">rest_flags</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">rest_flags</span><span class="p">,</span> <span class="n">lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">encoder_outs</span> <span class="o">=</span> <span class="n">x</span>
+
+        <span class="c1"># Decoders for each stream</span>
+        <span class="n">mel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="p">(</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_mel</span><span class="p">)</span>
+        <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="p">(</span><span class="n">encoder_outs</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">)</span>
+
+        <span class="c1"># make a concatenated stream</span>
+        <span class="n">has_postnet_output</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">has_postnet_output</span><span class="p">:</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mel</span><span class="p">)):</span>
+                <span class="n">mel_</span> <span class="o">=</span> <span class="n">mel</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">mel</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lf0</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">lf0</span>
+                <span class="n">vuv_</span> <span class="o">=</span> <span class="n">vuv</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vuv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">vuv</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mel_</span><span class="p">,</span> <span class="n">lf0_</span><span class="p">,</span> <span class="n">vuv_</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+                <span class="n">outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">outs</span><span class="p">,</span> <span class="n">lf0_residual</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">mel</span><span class="p">,</span>
+                    <span class="n">lf0</span><span class="p">,</span>
+                    <span class="n">vuv</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+
+        <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">lf0_residual</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pad_inference</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span> <span class="n">reduction_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MDNMultistreamSeparateF0MelModel">
+<a class="viewcode-back" href="../../../modules/acoustic_models.html#nnsvs.acoustic_models.MDNMultistreamSeparateF0MelModel">[docs]</a>
+<span class="k">class</span> <span class="nc">MDNMultistreamSeparateF0MelModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multi-stream model with a separate F0 model (mel-version) and mDN</span>
+
+<span class="sd">    V/UV prediction is performed given a mel-spectrogram.</span>
+
+<span class="sd">    Conditional dependency:</span>
+<span class="sd">    p(MEL, LF0, VUV|C) = p(LF0|C) p(MEL|LF0, C) p(VUV|LF0, MEL, C)</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        This class was originally designed to be used with MDNs. However, the internal</span>
+<span class="sd">        design was changed to make it work with non-MDN and diffusion models. For example,</span>
+<span class="sd">        you can use non-MDN models for mel prediction.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim (int): Input dimension.</span>
+<span class="sd">        out_dim (int): Output dimension.</span>
+<span class="sd">        stream_sizes (list): List of stream sizes.</span>
+<span class="sd">        reduction_factor (int): Reduction factor.</span>
+<span class="sd">        encoder (nn.Module): A shared encoder.</span>
+<span class="sd">        mel_model (nn.Module): MEL prediction model.</span>
+<span class="sd">        lf0_model (nn.Module): log-F0 prediction model.</span>
+<span class="sd">        vuv_model (nn.Module): V/UV prediction model.</span>
+<span class="sd">        in_rest_idx (int): Index of the rest symbol in the input features.</span>
+<span class="sd">        in_lf0_idx (int): index of lf0 in input features</span>
+<span class="sd">        in_lf0_min (float): minimum value of lf0 in the training data of input features</span>
+<span class="sd">        in_lf0_max (float): maximum value of lf0 in the training data of input features</span>
+<span class="sd">        out_lf0_idx (int): index of lf0 in output features. Typically 180.</span>
+<span class="sd">        out_lf0_mean (float): mean of lf0 in the training data of output features</span>
+<span class="sd">        out_lf0_scale (float): scale of lf0 in the training data of output features</span>
+<span class="sd">        vuv_model_lf0_conditioning (bool): If True, use log-F0 features for V/UV prediction.</span>
+<span class="sd">        vuv_model_mel_conditioning (bool): If True, use mel features for V/UV prediction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stream_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">reduction_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">mel_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">lf0_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">vuv_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="c1"># NOTE: you must carefully set the following parameters</span>
+        <span class="n">in_rest_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">in_lf0_idx</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>
+        <span class="n">in_lf0_min</span><span class="o">=</span><span class="mf">5.3936276</span><span class="p">,</span>
+        <span class="n">in_lf0_max</span><span class="o">=</span><span class="mf">6.491111</span><span class="p">,</span>
+        <span class="n">out_lf0_idx</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">out_lf0_mean</span><span class="o">=</span><span class="mf">5.953093881972361</span><span class="p">,</span>
+        <span class="n">out_lf0_scale</span><span class="o">=</span><span class="mf">0.23435173188961034</span><span class="p">,</span>
+        <span class="n">vuv_model_lf0_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">vuv_model_mel_conditioning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span> <span class="o">=</span> <span class="n">out_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span> <span class="o">=</span> <span class="n">stream_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span> <span class="o">=</span> <span class="n">reduction_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_lf0_conditioning</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mel_conditioning</span> <span class="o">=</span> <span class="n">vuv_model_mel_conditioning</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span> <span class="o">=</span> <span class="n">mel_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span> <span class="o">=</span> <span class="n">lf0_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span> <span class="o">=</span> <span class="n">vuv_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_rest_idx</span> <span class="o">=</span> <span class="n">in_rest_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_idx</span> <span class="o">=</span> <span class="n">in_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="n">in_lf0_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="n">in_lf0_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_idx</span> <span class="o">=</span> <span class="n">out_lf0_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="n">out_lf0_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">_set_lf0_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Special care for residual F0 prediction models</span>
+        <span class="c1"># NOTE: don&#39;t overwrite out_lf0_idx and in_lf0_idx</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">,</span> <span class="s2">&quot;out_lf0_mean&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">in_lf0_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_lf0_max</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">out_lf0_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_lf0_scale</span>
+
+    <span class="k">def</span> <span class="nf">prediction_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">MULTISTREAM_HYBRID</span>
+
+    <span class="k">def</span> <span class="nf">is_autoregressive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">is_autoregressive</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_residual_lf0_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_lf0_params</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_dim</span>
+        <span class="n">is_inference</span> <span class="o">=</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Teacher-forcing</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">split_streams</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_sizes</span><span class="p">)</span>
+            <span class="n">y_mel</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span> <span class="o">=</span> <span class="n">outs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Inference</span>
+            <span class="n">y_mel</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">,</span> <span class="n">y_vuv</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Predict continuous log-F0 first</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">),</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">lf0_cond</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lf0_cond</span> <span class="o">=</span> <span class="n">lf0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lf0</span><span class="p">,</span> <span class="n">lf0_residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">)</span>
+
+        <span class="c1"># Predict mel</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="n">mel_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">lf0_cond</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">mel_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mel_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_lf0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="p">(</span><span class="n">mel_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_mel</span><span class="p">)</span>
+
+        <span class="c1"># Predict V/UV</span>
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">mel_cond</span> <span class="o">=</span> <span class="n">mel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mel_cond</span> <span class="o">=</span> <span class="n">mel</span>
+
+            <span class="c1"># full cond: (x, lf0, mel)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lf0_cond</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mel_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mel_cond</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_lf0_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_lf0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model_mel_conditioning</span><span class="p">:</span>
+                <span class="n">vuv_inp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_mel</span><span class="p">)</span>
+            <span class="n">vuv_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vuv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vuv_model</span><span class="p">(</span><span class="n">vuv_inp</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">y_vuv</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_inference</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lf0_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lf0_</span> <span class="o">=</span> <span class="n">lf0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mel_model</span><span class="o">.</span><span class="n">prediction_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PredictionType</span><span class="o">.</span><span class="n">PROBABILISTIC</span><span class="p">:</span>
+                <span class="n">mel_</span> <span class="o">=</span> <span class="n">mel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mel_</span> <span class="o">=</span> <span class="n">mel</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">mel_</span><span class="p">,</span> <span class="n">lf0_</span><span class="p">,</span> <span class="n">vuv</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dim</span>
+            <span class="c1"># TODO: better design</span>
+            <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">out</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="n">lf0</span><span class="p">,</span> <span class="n">vuv</span><span class="p">),</span> <span class="n">lf0_residual</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pad_inference</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span>
+            <span class="n">reduction_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduction_factor</span><span class="p">,</span>
+            <span class="n">mdn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

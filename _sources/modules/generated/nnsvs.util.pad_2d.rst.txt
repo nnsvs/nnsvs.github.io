@@ -1,0 +1,6 @@
+﻿nnsvs.util.pad\_2d
+==================
+
+.. currentmodule:: nnsvs.util
+
+.. autofunction:: pad_2d

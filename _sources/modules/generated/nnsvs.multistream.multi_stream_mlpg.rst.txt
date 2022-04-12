@@ -1,0 +1,6 @@
+﻿nnsvs.multistream.multi\_stream\_mlpg
+=====================================
+
+.. currentmodule:: nnsvs.multistream
+
+.. autofunction:: multi_stream_mlpg

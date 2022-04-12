@@ -1,0 +1,6 @@
+﻿nnsvs.gen.predict\_timing
+=========================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: predict_timing

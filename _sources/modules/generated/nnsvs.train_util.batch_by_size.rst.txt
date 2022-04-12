@@ -1,0 +1,6 @@
+﻿nnsvs.train\_util.batch\_by\_size
+=================================
+
+.. currentmodule:: nnsvs.train_util
+
+.. autofunction:: batch_by_size

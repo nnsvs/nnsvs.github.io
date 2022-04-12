@@ -1,0 +1,6 @@
+﻿nnsvs.gen.postprocess\_duration
+===============================
+
+.. currentmodule:: nnsvs.gen
+
+.. autofunction:: postprocess_duration

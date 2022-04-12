@@ -1,0 +1,6 @@
+﻿nnsvs.pretrained.create\_svs\_engine
+====================================
+
+.. currentmodule:: nnsvs.pretrained
+
+.. autofunction:: create_svs_engine

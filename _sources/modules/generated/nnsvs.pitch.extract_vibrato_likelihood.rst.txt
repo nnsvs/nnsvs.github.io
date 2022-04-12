@@ -1,0 +1,6 @@
+﻿nnsvs.pitch.extract\_vibrato\_likelihood
+========================================
+
+.. currentmodule:: nnsvs.pitch
+
+.. autofunction:: extract_vibrato_likelihood

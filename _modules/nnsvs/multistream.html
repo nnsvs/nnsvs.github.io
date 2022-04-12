@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnsvs.multistream &mdash; nnsvs 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            nnsvs
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Demos.html">NNSVS demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes.html">Getting started with recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_choose_model.html">How to choose model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../custom_models.html">Defining your custom model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../update_guide.html">Update guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../optuna.html">Hyperparameter optimization with Optuna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_vocoders.html">How to train neural vocoders with ParallelWaveGAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../train_usfgan.html">How to train uSFGAN/SiFiGAN vocoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../enunu2nnsvs.html">How to convert ENUNU models to NNSVS’ ones</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview of NNSVS’s SVS</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/base.html">nnsvs.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/model.html">nnsvs.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/acoustic_models.html">nnsvs.acoustic_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/postfilters.html">nnsvs.postfilters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/discriminators.html">nnsvs.discriminators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pretrained.html">nnsvs.pretrained</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/svs.html">nnsvs.svs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/dsp.html">nnsvs.dsp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gen.html">nnsvs.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/io.html">nnsvs.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/mdn.html">nnsvs.mdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pitch.html">nnsvs.pitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/multistream.html">nnsvs.multistream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/util.html">nnsvs.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/train_util.html">nnsvs.train_util</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers.html">Papers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nnsvs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnsvs.multistream</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnsvs.multistream</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Utils for multi-stream features</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">nnmnkwii</span> <span class="kn">import</span> <span class="n">paramgen</span>
+
+
+<div class="viewcode-block" id="get_windows">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.get_windows.html#nnsvs.gen.get_windows">[docs]</a>
+<span class="k">def</span> <span class="nf">get_windows</span><span class="p">(</span><span class="n">num_window</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get windows for MLPG.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_window (int): number of windows</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: list of windows</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">windows</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]))]</span>
+    <span class="k">if</span> <span class="n">num_window</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">windows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])))</span>
+    <span class="k">if</span> <span class="n">num_window</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">windows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])))</span>
+
+    <span class="k">if</span> <span class="n">num_window</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not supported num windows: </span><span class="si">{</span><span class="n">num_window</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">windows</span></div>
+
+
+
+<div class="viewcode-block" id="select_streams">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.select_streams.html#nnsvs.gen.select_streams">[docs]</a>
+<span class="k">def</span> <span class="nf">select_streams</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">,</span>
+    <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">streams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">concat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Select streams from multi-stream features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array like): input 3-d or 2-d array</span>
+<span class="sd">        stream_sizes (list): stream sizes</span>
+<span class="sd">        streams (list): Streams of interests. Returns all streams if streams is None.</span>
+<span class="sd">        concat (bool): Concatenate streams. Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        array like: selected streams</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">enabled</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_indices</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="p">,</span> <span class="n">streams</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">concat</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="split_streams">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.split_streams.html#nnsvs.gen.split_streams">[docs]</a>
+<span class="k">def</span> <span class="nf">split_streams</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split streams from multi-stream features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array like): input 3-d array</span>
+<span class="sd">        stream_sizes (list): sizes for each stream</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: list of stream features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_indices</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+
+<div class="viewcode-block" id="get_static_stream_sizes">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.get_static_stream_sizes.html#nnsvs.gen.get_static_stream_sizes">[docs]</a>
+<span class="k">def</span> <span class="nf">get_static_stream_sizes</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">,</span> <span class="n">has_dynamic_features</span><span class="p">,</span> <span class="n">num_windows</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get stream sizes for static features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array like): input 3-d or 2-d array</span>
+<span class="sd">        num_windows (int): number of windows</span>
+<span class="sd">        stream_sizes (list): stream sizes</span>
+<span class="sd">        has_dynamic_features (list): binary flags that indicates if steams have dynamic features</span>
+<span class="sd">        streams (list, optional): Streams of interests. Returns all streams if streams is None.</span>
+<span class="sd">            Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: stream sizes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">static_stream_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span>
+    <span class="n">static_stream_sizes</span><span class="p">[</span><span class="n">has_dynamic_features</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">static_stream_sizes</span><span class="p">[</span><span class="n">has_dynamic_features</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_windows</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">static_stream_sizes</span></div>
+
+
+
+<div class="viewcode-block" id="get_static_features">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.get_static_features.html#nnsvs.gen.get_static_features">[docs]</a>
+<span class="k">def</span> <span class="nf">get_static_features</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">,</span>
+    <span class="n">num_windows</span><span class="p">,</span>
+    <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">has_dynamic_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">streams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get static features from static+dynamic features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array like): input 3-d or 2-d array</span>
+<span class="sd">        num_windows (int): number of windows</span>
+<span class="sd">        stream_sizes (list): stream sizes</span>
+<span class="sd">        has_dynamic_features (list): binary flags that indicates if steams have dynamic features</span>
+<span class="sd">        streams (list, optional): Streams of interests. Returns all streams if streams is None.</span>
+<span class="sd">            Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: list of static features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_dynamic_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">has_dynamic_features</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">has_dynamic_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span> <span class="n">D</span> <span class="o">//</span> <span class="n">num_windows</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_dynamic_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">inputs</span>
+
+    <span class="c1"># Multi stream case</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">enabled</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">start_indices</span><span class="p">,</span> <span class="n">stream_sizes</span><span class="p">,</span> <span class="n">has_dynamic_features</span><span class="p">,</span> <span class="n">streams</span>
+    <span class="p">):</span>
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_idx</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">static_features</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span> <span class="o">//</span> <span class="n">num_windows</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">static_features</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">static_features</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+
+<div class="viewcode-block" id="multi_stream_mlpg">
+<a class="viewcode-back" href="../../modules/generated/nnsvs.multistream.multi_stream_mlpg.html#nnsvs.gen.multi_stream_mlpg">[docs]</a>
+<span class="k">def</span> <span class="nf">multi_stream_mlpg</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">,</span>
+    <span class="n">variances</span><span class="p">,</span>
+    <span class="n">windows</span><span class="p">,</span>
+    <span class="n">stream_sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">has_dynamic_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">streams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split streams and do apply MLPG if stream has dynamic features</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array like): input 3-d or 2-d array</span>
+<span class="sd">        variances (array like): variances of input features</span>
+<span class="sd">        windows (list): windows for parameter generation</span>
+<span class="sd">        stream_sizes (list): stream sizes</span>
+<span class="sd">        has_dynamic_features (list): binary flags that indicates if steams have dynamic features</span>
+<span class="sd">        streams (list, optional): Streams of interests. Returns all streams if streams is None.</span>
+<span class="sd">            Defaults to None.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: if stream sizes are wrong</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        array like: generated static features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">stream_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stream_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_dynamic_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">has_dynamic_features</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">streams</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span>
+    <span class="n">T</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">D</span> <span class="o">!=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You probably have specified wrong dimension params.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Straem indices for static+delta features</span>
+    <span class="c1"># [0,   180, 183, 184]</span>
+    <span class="n">start_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="c1"># [180, 183, 184, 199]</span>
+    <span class="n">end_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">stream_sizes</span><span class="p">)</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">in_start_idx</span><span class="p">,</span> <span class="n">in_end_idx</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">enabled</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">start_indices</span><span class="p">,</span>
+        <span class="n">end_indices</span><span class="p">,</span>
+        <span class="n">has_dynamic_features</span><span class="p">,</span>
+        <span class="n">streams</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="n">in_start_idx</span><span class="p">:</span><span class="n">in_end_idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">variances</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">var_</span> <span class="o">=</span> <span class="n">variances</span><span class="p">[:,</span> <span class="n">in_start_idx</span><span class="p">:</span><span class="n">in_end_idx</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">variances</span><span class="p">[</span><span class="n">in_start_idx</span><span class="p">:</span><span class="n">in_end_idx</span><span class="p">],</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">paramgen</span><span class="o">.</span><span class="n">mlpg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">var_</span><span class="p">,</span> <span class="n">windows</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="n">x</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Ryuichi Yamamoto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
